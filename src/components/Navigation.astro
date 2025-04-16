@@ -1,0 +1,25 @@
+---
+const navItems = [
+  { name: 'Home', path: '/' },
+  { name: 'Blog', path: '/blog' },
+  { name: 'Projects', path: '/projects' },
+  { name: 'About', path: '/about' }
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="my-4">
+  <ul class="flex gap-6">
+    {navItems.map(item => (
+      <li>
+        <a 
+          href={item.path} 
+          class={`hover:text-cyan-400 transition-colors ${currentPath === item.path ? 'text-cyan-400 border-b border-cyan-400' : ''}`}
+        >
+          {item.name}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
