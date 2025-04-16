@@ -41,18 +41,37 @@ code {
 
 /* --- Terminal Effects --- */
 
-/* Apply a subtle phosphor glow to terminal text */
+/* Container with a fixed height to simulate a terminal emulator area */
+.terminal-emulator {
+  height: 3em;           /* Adjust based on how many lines you want to display */
+  overflow: hidden;      /* Hide any overflow from the animation */
+  margin-bottom: 1rem;   /* Optional spacing */
+}
+
+/* Inner container for prompt and animated text */
+.terminal-container {
+  display: flex;
+  align-items: center;
+  height: 100%;          /* Take full height of the emulator area */
+}
+
+/* Static prompt styling */
+.terminal-prompt {
+  margin-right: 0.5rem;
+}
+
+/* Animated terminal text with phosphor glow */
 .terminal-text {
   position: relative;
   text-shadow: 0 0 4px rgba(0, 255, 0, 0.7);
 }
 
-/* Create a blinking block cursor using a pseudo-element */
+/* Blinking block cursor using a pseudo-element on the animated text */
 .terminal-text::after {
   content: "";
   display: inline-block;
   background-color: #00ff99;
-  width: 10px;  /* Adjust width to match your font size */
+  width: 10px;    /* Adjust width for your desired cursor size */
   height: 1.2em;
   margin-left: 2px;
   vertical-align: bottom;
@@ -63,30 +82,15 @@ code {
   50% { opacity: 0; }
 }
 
-/* Optional: Glitch effect that can be triggered for a brief terminal hiccup */
+/* Optional glitch effect to add a quick terminal hiccup */
 .glitch {
   animation: glitch 300ms linear;
 }
 
 @keyframes glitch {
-  0% {
-    transform: translate(0);
-    opacity: 1;
-  }
-  25% {
-    transform: translate(-2px, 2px);
-    opacity: 0.8;
-  }
-  50% {
-    transform: translate(2px, -2px);
-    opacity: 0.6;
-  }
-  75% {
-    transform: translate(-2px, 2px);
-    opacity: 0.8;
-  }
-  100% {
-    transform: translate(0);
-    opacity: 1;
-  }
+  0% { transform: translate(0); opacity: 1; }
+  25% { transform: translate(-2px, 2px); opacity: 0.8; }
+  50% { transform: translate(2px, -2px); opacity: 0.6; }
+  75% { transform: translate(-2px, 2px); opacity: 0.8; }
+  100% { transform: translate(0); opacity: 1; }
 }
