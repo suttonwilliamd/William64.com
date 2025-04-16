@@ -32,9 +32,11 @@ export default function TerminalHeroClient() {
   }, []);
 
   return (
-    <div className="terminal-container">
-      <span className="terminal-prompt">user@william64:~$ </span>
-      <span ref={el} className="terminal-text" />
+    <div className="terminal-emulator">
+      <div className="terminal-container">
+        <span className="terminal-prompt">user@william64:~$ </span>
+        <span ref={el} className="terminal-text" />
+      </div>
     </div>
   );
 }
