@@ -10,7 +10,6 @@ export default function TerminalHeroClient() {
     const typewriter = new Typewriter(el.current, {
       loop: true,
       delay: 50,
-      // Optionally, configure the cursor character here if the lib supports it.
     });
 
     typewriter
@@ -21,12 +20,10 @@ export default function TerminalHeroClient() {
       .pauseFor(1500)
       .start();
 
-    // Optionally, inject a glitch effect by toggling a CSS class
-    // For example:
-    // setInterval(() => {
-    //   el.current?.classList.add("glitch");
-    //   setTimeout(() => el.current?.classList.remove("glitch"), 100);
-    // }, 5000);
+     setInterval(() => {
+       el.current?.classList.add("glitch");
+       setTimeout(() => el.current?.classList.remove("glitch"), 300);
+     }, 5000);
   }, []);
 
   return <span ref={el} className="terminal-text" />;
