@@ -1,15 +1,12 @@
 import rss from '@astrojs/rss';
-import { getCollection } from 'astro:content';
+import postsData from '../../posts.json'; // Import the JSON file directly
 
 export async function GET(context) {
-  
-  const posts = await fetch(new URL('/posts.json', context.site)).then(res => res.json());
-  
   return rss({
     title: 'William64.com',
     description: 'Articles on software engineering, systems, and retro tech by William Sutton',
     site: context.site,
-    items: posts.map(post => ({
+    items: postsData.map(post => ({
       title: post.title,
       pubDate: new Date(post.date),
       description: post.summary,
