@@ -1,0 +1,75 @@
+---
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import Search from '../components/Search.astro'; // Include search functionality
+
+const pageTitle = "Blog | William64.com";
+const pageDescription = "All blog posts from William Sutton on software engineering, systems, and retro tech.";
+const currentYear = new Date().getFullYear();
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={new URL('/images/social-card.png', Astro.url)} />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={pageTitle} />
+    <meta property="twitter:description" content={pageDescription} />
+    <meta property="twitter:image" content={new URL('/images/social-card.png', Astro.url)} />
+
+    <link rel="preload" href="/styles.css" as="style">
+    <link rel="preload" href="/main.js" as="script">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="bg-black text-green-400 font-mono">
+    <div class="max-w-3xl mx-auto p-4">
+      <header class="border-b border-green-700 pb-4 mb-8">
+        <h1 class="text-4xl font-bold mb-2">
+          <a href="/" class="hover:text-cyan-400">William64.com</a>
+        </h1>
+        <Navigation />
+        <p class="text-sm text-green-600">Thoughts on code, systems, and vintage tech.</p>
+      </header>
+
+      <main>
+        <h2 class="text-3xl font-bold mb-4 border-b border-green-700 pb-2">All Posts</h2>
+
+        <Search />
+
+        <section class="mt-8">
+          <ul id="post-list" class="space-y-8">
+            <li class="text-center text-green-600 pt-4">Loading posts...</li>
+            </ul>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
+
+    <script is:inline src="/main.js"></script>
+  </body>
+</html>
+
+<style>
+  /* Styling for post previews is handled by main.js adding the 'post-preview' class */
+  /* and global styles in styles.css */
+  #post-list .post-preview h3 a:hover {
+      color: #00ffee; /* Ensure link hover matches site style */
+      text-decoration: underline;
+  }
+</style>
