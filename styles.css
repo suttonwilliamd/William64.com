@@ -39,6 +39,48 @@ code {
   color: #00ffaa;
 }
 
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+  
+  h1 {
+    font-size: 1.75rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  .terminal-emulator {
+    padding: 0.75rem;
+  }
+  
+  .terminal-prompt {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+  
+  h2 {
+    font-size: 1.25rem;
+  }
+  
+  .terminal-prompt {
+    font-size: 0.8rem;
+  }
+  
+  .post-preview h3 {
+    font-size: 1.1rem;
+  }
+}
+
+
+
 /* Terminal styling with increased bottom margin */
 .terminal-emulator {
   margin-bottom: 3.5rem; /* Increased from 2rem to 3.5rem for more spacing */
@@ -85,3 +127,5 @@ code {
   75% { transform: translate(-2px, 2px); opacity: 0.8; }
   100% { transform: translate(0); opacity: 1; }
 }
+
+ 
