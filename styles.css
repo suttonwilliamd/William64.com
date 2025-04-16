@@ -39,9 +39,9 @@ code {
   color: #00ffaa;
 }
 
-/* Terminal styling for the sequential message approach */
+/* Terminal styling with increased bottom margin */
 .terminal-emulator {
-  margin-bottom: 2rem;
+  margin-bottom: 3.5rem; /* Increased from 2rem to 3.5rem for more spacing */
   padding: 1rem;
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 4px;
@@ -53,6 +53,7 @@ code {
   flex-direction: column;
   gap: 0.5rem;
 }
+
 
 .terminal-line {
   display: flex;
