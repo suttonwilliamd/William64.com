@@ -19,7 +19,8 @@
     "tailwindcss": "^3.3.5",
     "@astrojs/tailwind": "^5.0.2",
     "shiki": "^1.0.0",
-    "typewriter-effect": "^2.19.0"
+    "typewriter-effect": "^2.19.0",
+    "@auth0/auth0-spa-js"
   },
   "devDependencies": {
     "prettier": "^3.0.0",
