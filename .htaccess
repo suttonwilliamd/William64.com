@@ -1,1 +1,12 @@
 AddType text/yaml .yml
+RewriteEngine On
+# Remove .html extensions
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html [L]
+
+# Cloudflare cache settings
+<IfModule mod_headers.c>
+  Header set Cache-Control "public, max-age=14400"
+  Header unset ETag
+</IfModule>
