@@ -1,0 +1,22 @@
+// src/components/LazyImage.astro
+---
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+}
+
+const { src, alt, width, height, class: className } = Astro.props;
+---
+
+<img 
+  src={src} 
+  alt={alt} 
+  width={width} 
+  height={height} 
+  class={className} 
+  loading="lazy" 
+  decoding="async"
+/>
