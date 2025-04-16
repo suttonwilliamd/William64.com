@@ -20,6 +20,18 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      # Add missing gettext for envsubst
+      - name: Install envsubst
+        run: sudo apt-get install gettext -y
+
+      # Fixed indentation and order
+      - name: Build CMS Config
+        run: |
+          envsubst < public/admin/config.template.yml > public/admin/config.yml
+        env:
+          AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
+          AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID }}
+
       - name: Build site
         run: npm run build
 
