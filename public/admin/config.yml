@@ -1,7 +1,7 @@
 # Backend configuration: Connects to your GitHub repository
 backend:
   name: github
-  repo: your-username/your-repo-name # !!! IMPORTANT: Replace with your repo path (e.g., william64/william64.com) !!!
+  repo: suttonwilliamd/William64.com # !!! IMPORTANT: Replace with your repo path (e.g., william64/william64.com) !!!
   branch: main # Or whichever branch you deploy from (usually 'main' or 'master')
   # Optional: Uncomment and configure if using GitHub Enterprise
   # base_url: https://github.your-company.com
