@@ -1,0 +1,116 @@
+---
+// src/components/Search.astro
+---
+
+<div class="search-container mb-8">
+  <div class="search-input-container">
+    <input 
+      type="text" 
+      id="search-input" 
+      placeholder="Search posts..."
+      class="search-input"
+    />
+    <button id="search-button" class="search-button">Search</button>
+  </div>
+  <div id="search-results" class="search-results mt-4"></div>
+</div>
+
+<style>
+  .search-container {
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .search-input-container {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .search-input {
+    flex: 1;
+    background-color: #111;
+    border: 1px solid #00aa55;
+    padding: 0.5rem;
+    color: #00ff99;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  
+  .search-input:focus {
+    outline: none;
+    border-color: #00ffee;
+    box-shadow: 0 0 0 2px rgba(0, 255, 238, 0.25);
+  }
+  
+  .search-button {
+    background-color: #00aa55;
+    color: #000;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace;
+    transition: background-color 0.2s;
+  }
+  
+  .search-button:hover {
+    background-color: #00ff99;
+  }
+  
+  .search-results {
+    border: 1px solid #00aa55;
+    border-top: none;
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: #111;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('search-input');
+    const searchButton = document.getElementById('search-button');
+    const searchResults = document.getElementById('search-results');
+    let posts = [];
+    
+    // Fetch posts
+    fetch('/posts.json')
+      .then(res => res.json())
+      .then(data => {
+        posts = data;
+      })
+      .catch(err => console.error('Error loading posts for search:', err));
+    
+    // Search function
+    const performSearch = () => {
+      const query = searchInput.value.toLowerCase().trim();
+      if (!query || query.length < 2) {
+        searchResults.innerHTML = '';
+        searchResults.style.display = 'none';
+        return;
+      }
+      
+      const filteredPosts = posts.filter(post => 
+        post.title.toLowerCase().includes(query) || 
+        post.summary.toLowerCase().includes(query)
+      );
+      
+      if (filteredPosts.length === 0) {
+        searchResults.innerHTML = '<div class="p-4">No matching posts found.</div>';
+      } else {
+        searchResults.innerHTML = filteredPosts.map(post => `
+          <div class="p-4 border-b border-green-700 last:border-b-0">
+            <h3 class="font-bold"><a href="${post.url}">${post.title}</a></h3>
+            <p class="text-sm">${post.summary}</p>
+          </div>
+        `).join('');
+      }
+      
+      searchResults.style.display = 'block';
+    };
+    
+    // Event listeners
+    searchButton.addEventListener('click', performSearch);
+    searchInput.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') performSearch();
+    });
+  });
+</script>
