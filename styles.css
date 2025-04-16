@@ -39,50 +39,40 @@ code {
   color: #00ffaa;
 }
 
-/* --- Terminal Effects --- */
-
-/* Container with a fixed height to simulate a terminal emulator area */
+/* Terminal styling for the sequential message approach */
 .terminal-emulator {
-  height: 3em;           /* Adjust based on how many lines you want to display */
-  overflow: hidden;      /* Hide any overflow from the animation */
-  margin-bottom: 1rem;   /* Optional spacing */
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  border: 1px solid #00aa55;
 }
 
-/* Inner container for prompt and animated text */
 .terminal-container {
   display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.terminal-line {
+  display: flex;
   align-items: center;
-  height: 100%;          /* Take full height of the emulator area */
 }
 
-/* Static prompt styling */
 .terminal-prompt {
+  color: #00aa55;
   margin-right: 0.5rem;
+  white-space: nowrap;
 }
 
-/* Animated terminal text with phosphor glow */
 .terminal-text {
   position: relative;
   text-shadow: 0 0 4px rgba(0, 255, 0, 0.7);
 }
 
-/* Blinking block cursor using a pseudo-element on the animated text */
-.terminal-text::after {
-  content: "";
-  display: inline-block;
-  background-color: #00ff99;
-  width: 10px;    /* Adjust width for your desired cursor size */
-  height: 1.2em;
-  margin-left: 2px;
-  vertical-align: bottom;
-  animation: blink 1s step-start infinite;
-}
+/* Blinking block cursor styling handled by Typewriter */
 
-@keyframes blink {
-  50% { opacity: 0; }
-}
-
-/* Optional glitch effect to add a quick terminal hiccup */
+/* Optional glitch effect */
 .glitch {
   animation: glitch 300ms linear;
 }
