@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "astro": "^4.0.0",
+    "@astrojs/rss": "^4.0.1",
     "@astrojs/mdx": "^3.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
