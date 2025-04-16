@@ -3,7 +3,6 @@ import Typewriter from "typewriter-effect/dist/core";
 
 export default function TerminalHeroClient() {
   const el = useRef<HTMLSpanElement>(null);
-  const prompt = "user@william64:~$ ";
 
   useEffect(() => {
     if (!el.current) return;
@@ -15,13 +14,9 @@ export default function TerminalHeroClient() {
     });
 
     typewriter
-      .typeString(prompt)
-      .pauseFor(300)
       .typeString("Welcome to William64.com")
       .pauseFor(1500)
-      // Delete the command text but leave the prompt intact
-      .deleteChars("Welcome to William64.com".length)
-      .pauseFor(500)
+      .deleteAll()
       .typeString("Let's build something cool.")
       .pauseFor(1500)
       .deleteAll()
@@ -33,9 +28,13 @@ export default function TerminalHeroClient() {
       setTimeout(() => el.current?.classList.remove("glitch"), 300);
     }, 5000);
 
-    // Cleanup interval on unmount
     return () => clearInterval(glitchInterval);
   }, []);
 
-  return <span ref={el} className="terminal-text" />;
+  return (
+    <div className="terminal-container">
+      <span className="terminal-prompt">user@william64:~$ </span>
+      <span ref={el} className="terminal-text" />
+    </div>
+  );
 }
