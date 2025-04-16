@@ -1,0 +1,403 @@
+---
+import Navigation from '../components/Navigation.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects | William64.com</title>
+    <meta name="description" content="Explore William Sutton's software engineering projects, from systems programming to web development and reverse engineering." />
+    
+    <!-- Strategic Preloading -->
+    <link rel="preload" href="/styles.css" as="style">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="bg-black text-green-400 font-mono">
+    <div class="max-w-3xl mx-auto p-4">
+      <header class="border-b border-green-700 pb-4 mb-8">
+        <h1 class="text-4xl font-bold mb-2">William64.com</h1>
+        <Navigation />
+      </header>
+      
+      <main>
+        <h1 class="text-3xl font-bold mb-6">Projects</h1>
+        
+        <section class="mb-12">
+          <h2 class="text-2xl border-b border-green-700 pb-2 mb-6">Featured Projects</h2>
+          
+          <div class="project-card mb-10">
+            <div class="project-header">
+              <div class="title-bar">
+                <span class="controls">
+                  <span class="circle"></span>
+                  <span class="circle"></span>
+                  <span class="circle"></span>
+                </span>
+                <span class="title">Reverse-Engineered Calculator</span>
+              </div>
+            </div>
+            <div class="project-body p-4">
+              <pre class="mb-4">
+$ cat README.md
+# Calculator Firmware Reverse Engineering
+
+A deep dive into the firmware of a classic TI calculator,
+including documentation of the ROM structure, CPU operations,
+and custom patches to extend functionality.
+
+## Features
+- Complete memory map documentation
+- Custom math function implementations
+- Hardware I/O protocol analysis
+- Alternative firmware with extended features
+              </pre>
+              
+              <div class="project-meta">
+                <div class="technologies">
+                  <span class="label">Technologies:</span>
+                  <span class="tech-tag">Assembly</span>
+                  <span class="tech-tag">C</span>
+                  <span class="tech-tag">Hardware Hacking</span>
+                </div>
+                <div class="links mt-2">
+                  <a href="#" class="project-link">GitHub &rarr;</a>
+                  <a href="/posts/calculator-hack.html" class="project-link">Read Case Study &rarr;</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="project-card mb-10">
+            <div class="project-header">
+              <div class="title-bar">
+                <span class="controls">
+                  <span class="circle"></span>
+                  <span class="circle"></span>
+                  <span class="circle"></span>
+                </span>
+                <span class="title">TerminalOS</span>
+              </div>
+            </div>
+            <div class="project-body p-4">
+              <pre class="mb-4">
+$ ./demo.sh
+
+Welcome to TerminalOS v0.5.2
+A minimal operating system written in Rust with a 
+custom shell and basic utilities.
+
+Features:
+- Custom memory management
+- Simple file system implementation
+- Basic networking stack
+- Unix-inspired command-line utilities
+- Runs on x86 hardware via custom bootloader
+              </pre>
+              
+              <div class="project-meta">
+                <div class="technologies">
+                  <span class="label">Technologies:</span>
+                  <span class="tech-tag">Rust</span>
+                  <span class="tech-tag">Assembly</span>
+                  <span class="tech-tag">OS Development</span>
+                </div>
+                <div class="links mt-2">
+                  <a href="#" class="project-link">GitHub &rarr;</a>
+                  <a href="#" class="project-link">Documentation &rarr;</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <section class="mb-12">
+          <h2 class="text-2xl border-b border-green-700 pb-2 mb-6">Systems Projects</h2>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="mini-project-card">
+              <h3 class="text-xl mb-2">LightParser</h3>
+              <p class="mb-3">A high-performance, memory-efficient parsing library for structured data formats.</p>
+              <div class="technologies mb-2">
+                <span class="tech-tag">C++</span>
+                <span class="tech-tag">Memory Optimization</span>
+              </div>
+              <a href="#" class="project-link">View Project &rarr;</a>
+            </div>
+            
+            <div class="mini-project-card">
+              <h3 class="text-xl mb-2">RamMonitor</h3>
+              <p class="mb-3">Low-overhead memory profiling tool for detecting leaks and inefficiencies in C/C++ applications.</p>
+              <div class="technologies mb-2">
+                <span class="tech-tag">C</span>
+                <span class="tech-tag">Systems Programming</span>
+              </div>
+              <a href="#" class="project-link">View Project &rarr;</a>
+            </div>
+            
+            <div class="mini-project-card">
+              <h3 class="text-xl mb-2">network-mini</h3>
+              <p class="mb-3">Minimal TCP/IP stack implementation for embedded systems with limited resources.</p>
+              <div class="technologies mb-2">
+                <span class="tech-tag">C</span>
+                <span class="tech-tag">Networking</span>
+                <span class="tech-tag">Embedded</span>
+              </div>
+              <a href="#" class="project-link">View Project &rarr;</a>
+            </div>
+            
+            <div class="mini-project-card">
+              <h3 class="text-xl mb-2">RetroCompiler</h3>
+              <p class="mb-3">A simple compiler for a C-like language targeting 8-bit microprocessors.</p>
+              <div class="technologies mb-2">
+                <span class="tech-tag">Rust</span>
+                <span class="tech-tag">Compiler Design</span>
+              </div>
+              <a href="#" class="project-link">View Project &rarr;</a>
+            </div>
+          </div>
+        </section>
+        
+        <section class="mb-12">
+          <h2 class="text-2xl border-b border-green-700 pb-2 mb-6">Web Projects</h2>
+          
+          <div class="project-card mb-10">
+            <div class="project-header">
+              <div class="title-bar">
+                <span class="controls">
+                  <span class="circle"></span>
+                  <span class="circle"></span>
+                  <span class="circle"></span>
+                </span>
+                <span class="title">Terminal Emulator</span>
+              </div>
+            </div>
+            <div class="project-body p-4">
+              <pre class="mb-4">
+$ help
+
+Available commands:
+- ls             List directory contents
+- cd             Change directory
+- cat            View file contents
+- clear          Clear the terminal screen
+- help           Display this help message
+- about          About this project
+- contact        Contact information
+
+This browser-based terminal emulator is built with
+TypeScript and provides a Unix-like experience with
+custom file system simulation.
+              </pre>
+              
+              <div class="project-meta">
+                <div class="technologies">
+                  <span class="label">Technologies:</span>
+                  <span class="tech-tag">TypeScript</span>
+                  <span class="tech-tag">CSS</span>
+                  <span class="tech-tag">React</span>
+                </div>
+                <div class="links mt-2">
+                  <a href="#" class="project-link">GitHub &rarr;</a>
+                  <a href="/projects/terminal" class="project-link">Live Demo &rarr;</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="mini-project-card">
+              <h3 class="text-xl mb-2">William64.com</h3>
+              <p class="mb-3">This website - built with Astro.js, featuring a terminal-inspired design with static generation.</p>
+              <div class="technologies mb-2">
+                <span class="tech-tag">Astro</span>
+                <span class="tech-tag">TypeScript</span>
+                <span class="tech-tag">React</span>
+              </div>
+              <a href="#" class="project-link">Source Code &rarr;</a>
+            </div>
+            
+            <div class="mini-project-card">
+              <h3 class="text-xl mb-2">RetroVisualizer</h3>
+              <p class="mb-3">Data visualization tool inspired by vintage computer graphics, built with modern web technologies.</p>
+              <div class="technologies mb-2">
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">Canvas API</span>
+                <span class="tech-tag">D3.js</span>
+              </div>
+              <a href="#" class="project-link">View Project &rarr;</a>
+            </div>
+          </div>
+        </section>
+        
+        <section>
+          <h2 class="text-2xl border-b border-green-700 pb-2 mb-6">Open Source Contributions</h2>
+          
+          <div class="terminal-window p-4 bg-black border border-green-700 mb-6">
+            <pre class="text-sm">
+$ git shortlog -s -n
+   42 William Sutton (william64)
+   15 Other Contributor
+    8 Another Developer
+
+$ git log --author="william64" --oneline -n 5
+3f7a2c5 Fix memory leak in network handler
+2a8b1d9 Optimize rendering pipeline for low-end devices
+9c3e4f5 Add support for ARM64 architecture
+5d6f7g8 Implement new compression algorithm
+1a2b3c4 Document low-level API functions
+            </pre>
+          </div>
+          
+          <p class="mb-6">
+            I regularly contribute to various open source projects, focusing primarily on 
+            performance optimizations, memory management improvements, and documentation.
+            Key projects I've contributed to include:
+          </p>
+          
+          <ul class="list-disc list-inside mb-4 pl-4">
+            <li class="mb-2">Core utilities for BSD-based systems</li>
+            <li class="mb-2">Low-level networking libraries</li>
+            <li class="mb-2">Developer documentation for popular frameworks</li>
+            <li class="mb-2">Bug fixes for compiler toolchains</li>
+          </ul>
+        </section>
+      </main>
+      
+      <footer class="mt-16 border-t border-green-700 pt-4 text-sm text-green-600">
+        <p>&copy; 2025 William64. Built with Astro & hand-tuned HTML.</p>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style>
+  .project-card {
+    border: 1px solid #00aa55;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .project-header {
+    background: #111;
+  }
+  
+  .title-bar {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: #222;
+    border-bottom: 1px solid #00aa55;
+  }
+  
+  .controls {
+    display: flex;
+    gap: 6px;
+    margin-right: 12px;
+  }
+  
+  .circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #444;
+  }
+  
+  .circle:first-child {
+    background: #ff6b6b;
+  }
+  
+  .circle:nth-child(2) {
+    background: #ffb347;
+  }
+  
+  .circle:nth-child(3) {
+    background: #66bb6a;
+  }
+  
+  .title {
+    font-weight: bold;
+    color: #00ff99;
+  }
+  
+  .project-body {
+    background: #111;
+  }
+  
+  .project-body pre {
+    line-height: 1.4;
+    overflow-x: auto;
+    padding: 8px;
+    background: #0a0a0a;
+    border-radius: 3px;
+  }
+  
+  .technologies {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .label {
+    color: #00aa55;
+  }
+  
+  .tech-tag {
+    background: #00aa55;
+    color: #000;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+  }
+  
+  .links {
+    display: flex;
+    gap: 16px;
+  }
+  
+  .project-link {
+    color: #00ffee;
+    text-decoration: none;
+  }
+  
+  .project-link:hover {
+    text-decoration: underline;
+  }
+  
+  .mini-project-card {
+    border: 1px solid #00aa55;
+    padding: 16px;
+    border-radius: 4px;
+    background: #111;
+  }
+  
+  .terminal-window {
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .project-card, .mini-project-card {
+      margin-bottom: 1.5rem;
+    }
+    
+    .technologies {
+      gap: 4px;
+    }
+    
+    .tech-tag {
+      font-size: 0.75rem;
+      padding: 1px 6px;
+    }
+    
+    .links {
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+</style>
