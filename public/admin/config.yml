@@ -1,20 +1,35 @@
-# Backend configuration: Connects to your GitHub repository
+# public/admin/config.yml
+
+# Backend configuration: Using Auth0 for authentication & GitHub for storage
 backend:
-  name: github
-  repo: suttonwilliamd/William64.com # !!! IMPORTANT: Replace with your repo path (e.g., william64/william64.com) !!!
-  branch: main # Or whichever branch you deploy from (usually 'main' or 'master')
-  # Optional: Uncomment and configure if using GitHub Enterprise
-  # base_url: https://github.your-company.com
-  # auth_endpoint: api/auth
+  # Specifies using the Auth0 backend for login/authentication
+  name: auth0
+  # Replace with the Domain from your Auth0 Application settings
+  domain: dev-ug4uffzxcvwajmsv.us.auth0.com # !!! IMPORTANT: Replace !!!
+  # Replace with the Client ID from your Auth0 Application settings
+  client_id: Rrtz1jZXRXvT5cxz6kR9DYE2k7H1jQeV # !!! IMPORTANT: Replace !!!
 
-# Local backend useful for testing configuration without pushing to GitHub
-# local_backend: true # Uncomment this for local testing only
+  # Optional: Request specific user info from Auth0 after login.
+  # Useful if you want the CMS to potentially show who made changes,
+  # though Decap primarily uses Git commit author info for that.
+  # auth_scope: "openid profile email"
 
-# Media files configuration (optional, but recommended for images)
+  # --- Git Gateway / Repository Info ---
+  # Even though Auth0 handles login, Decap CMS still needs to know
+  # which Git repository to commit the content changes to.
+  # It uses the authenticated user's credentials (via Auth0 linking to GitHub likely)
+  # or requires separate Git Gateway setup if direct commits aren't possible.
+  # For simplicity, assuming Auth0 user is linked to GitHub and has push access:
+  repo: suttonwilliamd/William64.com # !!! IMPORTANT: Replace with your GitHub repo path (e.g., william64/william64.com) !!!
+  branch: main # The branch to commit changes to (usually 'main' or 'master')
+  # Note: If direct GitHub commits via Auth0-linked user fail, you might need
+  # to explore Decap's Git Gateway option, but try this direct approach first.
+
+# Media files configuration (for images/uploads)
 media_folder: "public/uploads" # Where images uploaded via the CMS are stored (relative to project root)
 public_folder: "/uploads" # The public URL path for accessing media files (relative to site root)
 
-# Content Collections Definition
+# Content Collections Definition (Should be the same as before)
 collections:
   - name: "posts" # Internal identifier for the collection
     label: "Blog Posts" # Display name in the CMS UI
