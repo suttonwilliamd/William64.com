@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "node ./scripts/generate-posts-json.mjs && astro build",
     "preview": "astro preview",
     "format": "prettier --write ."
   },
@@ -25,6 +25,7 @@
     "prettier": "^3.0.0",
     "prettier-plugin-astro": "^0.12.0",
     "eslint": "^8.42.0",
-    "eslint-plugin-astro": "^0.29.0"
+    "eslint-plugin-astro": "^0.29.0",
+    "gray-matter": "^4.0.3" 
   }
 }
