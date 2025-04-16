@@ -1,8 +1,6 @@
 ---
 import TerminalHero from '../components/TerminalHero.astro';
 ---
-    
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,31 +15,28 @@ import TerminalHero from '../components/TerminalHero.astro';
       <header class="border-b border-green-700 pb-2 mb-6">
         <h1 class="text-4xl font-bold">William64.com</h1>
         <p class="text-sm text-green-600">Minimalist. Professional. Retro Hacker.</p>
-      </header><main>
-      <TerminalHero />
-    <section class="mb-8">
-      <h2 class="text-2xl border-b border-green-700 pb-1 mb-2">Latest Posts</h2>
-      <ul id="post-list" class="space-y-4">
-        <!-- Posts will be injected here by client-side JS -->
-      </ul>
-    </section>
-
-    <section>
-      <h2 class="text-2xl border-b border-green-700 pb-1 mb-2">About</h2>
-      <p>
-        I'm a software engineer with a passion for clean systems, deep logic,
-        and building elegant solutions to gnarly problems. This is my digital
-        workshop—welcome.
-      </p>
-    </section>
-  </main>
-
-  <footer class="mt-12 border-t border-green-700 pt-2 text-sm text-green-600">
-    <p>&copy; 2025 William64. Built with Astro & hand-tuned HTML.</p>
-  </footer>
-</div>
-
-<script is:inline src="/main.js"></script>
-
+      </header>
+      <main>
+        <TerminalHero />
+        <section class="mb-8">
+          <h2 class="text-2xl border-b border-green-700 pb-1 mb-2">Latest Posts</h2>
+          <ul id="post-list" class="space-y-4">
+            <!-- Posts will be injected here by client-side JS -->
+          </ul>
+        </section>
+        <section>
+          <h2 class="text-2xl border-b border-green-700 pb-1 mb-2">About</h2>
+          <p>
+            I'm a software engineer with a passion for clean systems, deep logic,
+            and building elegant solutions to gnarly problems. This is my digital
+            workshop—welcome.
+          </p>
+        </section>
+      </main>
+      <footer class="mt-12 border-t border-green-700 pt-2 text-sm text-green-600">
+        <p>&copy; 2025 William64. Built with Astro & hand-tuned HTML.</p>
+      </footer>
+    </div>
+    <script is:inline src="/main.js"></script>
   </body>
 </html>
