@@ -22,10 +22,10 @@ export default function TerminalHeroClient() {
     line1.appendChild(text1);
     containerRef.current.appendChild(line1);
     
-    // Create second terminal line with prompt
+    // Create second terminal line with prompt (hidden initially)
     const line2 = document.createElement('div');
     line2.className = "terminal-line";
-    line2.style.display = "none"; // Hide initially
+    line2.style.display = "none";
     
     const prompt2 = document.createElement('span');
     prompt2.className = "terminal-prompt";
@@ -44,18 +44,29 @@ export default function TerminalHeroClient() {
       cursor: "▋"
     });
     
-    // Set up second typewriter
-    const typewriter2 = new Typewriter(text2, {
-      delay: 50,
-      cursor: "▋"
-    });
+    // Set up second typewriter - will be initialized later
+    let typewriter2: Typewriter;
     
     // Type first message, then show second line and type second message
     typewriter1
       .typeString("Welcome to William64.com")
       .callFunction(() => {
         setTimeout(() => {
-          line2.style.display = "block"; // Show second line
+          // Remove cursor from first line
+          const cursor = text1.querySelector('.Typewriter__cursor');
+          if (cursor) {
+            cursor.remove();
+          }
+          
+          // Show second line
+          line2.style.display = "block";
+          
+          // Initialize and start second typewriter
+          typewriter2 = new Typewriter(text2, {
+            delay: 50,
+            cursor: "▋"
+          });
+          
           typewriter2
             .typeString("Let's build something cool.")
             .start();
