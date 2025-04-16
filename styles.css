@@ -38,3 +38,55 @@ code {
   border-radius: 3px;
   color: #00ffaa;
 }
+
+/* --- Terminal Effects --- */
+
+/* Apply a subtle phosphor glow to terminal text */
+.terminal-text {
+  position: relative;
+  text-shadow: 0 0 4px rgba(0, 255, 0, 0.7);
+}
+
+/* Create a blinking block cursor using a pseudo-element */
+.terminal-text::after {
+  content: "";
+  display: inline-block;
+  background-color: #00ff99;
+  width: 10px;  /* Adjust width to match your font size */
+  height: 1.2em;
+  margin-left: 2px;
+  vertical-align: bottom;
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* Optional: Glitch effect that can be triggered for a brief terminal hiccup */
+.glitch {
+  animation: glitch 300ms linear;
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+    opacity: 1;
+  }
+  25% {
+    transform: translate(-2px, 2px);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(2px, -2px);
+    opacity: 0.6;
+  }
+  75% {
+    transform: translate(-2px, 2px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(0);
+    opacity: 1;
+  }
+}
