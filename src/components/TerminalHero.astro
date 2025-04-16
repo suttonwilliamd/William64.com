@@ -1,62 +1,8 @@
 ---
-import { useEffect, useState } from 'react';
+// TerminalHero.astro
+import TerminalHeroClient from './TerminalHeroClient.tsx';
 ---
 
-<style>
-  .terminal {
-    background-color: #1e1e1e;
-    color: #00ff00;
-    font-family: 'Courier New', Courier, monospace;
-    padding: 2rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
-    width: fit-content;
-    max-width: 100%;
-    margin: auto;
-    white-space: pre;
-  }
-
-  .cursor {
-    display: inline-block;
-    width: 0.65ch;
-    background-color: #00ff00;
-    animation: blink 1s step-start infinite;
-  }
-
-  @keyframes blink {
-    50% {
-      background-color: transparent;
-    }
-  }
-</style>
-
-<div class="terminal" client:load>
-  <Typewriter />
+<div class="terminal-hero">
+  <TerminalHeroClient client:load />
 </div>
-
-<script type="module">
-  import { h } from 'preact';
-  import { useState, useEffect } from 'preact/hooks';
-
-  const message = "Welcome to William64.com";
-
-  export default function Typewriter() {
-    const [displayed, setDisplayed] = useState('');
-
-    useEffect(() => {
-      let index = 0;
-      const interval = setInterval(() => {
-        if (index < message.length) {
-          setDisplayed((prev) => prev + message[index]);
-          index++;
-        } else {
-          clearInterval(interval);
-        }
-      }, 100);
-
-      return () => clearInterval(interval);
-    }, []);
-
-    return h('div', null, h('span', null, displayed), h('span', { className: 'cursor' }, ' '));
-  }
-</script>
