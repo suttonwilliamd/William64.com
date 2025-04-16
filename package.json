@@ -1,5 +1,18 @@
-"scripts": {
-  "dev": "astro dev",
-  "build": "astro build",
-  "preview": "astro preview"
+{
+  "name": "william64",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^4.0.0",
+    "@astrojs/mdx": "^3.0.0",
+    "shiki": "^1.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.0"
+  }
 }
