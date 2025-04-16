@@ -8,6 +8,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>404 - Page Not Found | William64.com</title>
+    <meta name="description" content="Page not found - William64.com" />
+    
+    <!-- Strategic Preloading -->
+    <link rel="preload" href="/styles.css" as="style">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body class="bg-black text-green-400 font-mono">
@@ -32,6 +38,10 @@
           </div>
         </div>
       </main>
+      
+      <footer class="mt-16 border-t border-green-700 pt-4 text-sm text-green-600">
+        <p>&copy; 2025 William64. Built with Astro & hand-tuned HTML.</p>
+      </footer>
     </div>
   </body>
 </html>
@@ -63,5 +73,25 @@
   
   @keyframes blink {
     50% { opacity: 0; }
+  }
+  
+  @media (max-width: 768px) {
+    .error-code {
+      font-size: 2.5rem;
+    }
+    
+    .terminal-error {
+      padding: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .error-code {
+      font-size: 2rem;
+    }
+    
+    .terminal-error {
+      padding: 1rem;
+    }
   }
 </style>
