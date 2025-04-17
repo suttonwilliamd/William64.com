@@ -4,7 +4,7 @@ backend:
   name: github
   repo: suttonwilliamd/William64.com # Make sure this is exactly your repo path
   branch: main                       # Make sure this is your default branch
-  auth_type: implicit              # Implicit flow often works, but 'pkce' is more modern if implicit fails
+  auth_type: pkce            # Implicit flow often works, but 'pkce' is more modern if implicit fails
   app_id: Ov23licororpp5wCIsNN # <-- PASTE THE CLIENT ID HERE
 
 media_folder: "public/uploads" # Ensure this folder exists or can be created by the server/build
