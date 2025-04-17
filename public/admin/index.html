@@ -7,40 +7,6 @@
   <style>
     html, body { background: #f4f4f4; }
   </style>
-
-  <script>
-    window.CMS_CONFIG = {
-      backend: {
-        name: "github",
-        repo: "suttonwilliamd/William64.com", // Double check this repo path
-        branch: "main",
-        auth_type: "pkce", // Crucial: Ensure this is pkce
-        app_id: "YOUR_GITHUB_OAUTH_APP_CLIENT_ID", // Paste your actual Client ID here again
-        // base_url: "https://william64.com", // Leave this out for now
-        // auth_endpoint: "/api/auth", // Leave this out
-      },
-      media_folder: "public/uploads",
-      public_folder: "/uploads",
-      collections: [
-        {
-          name: "posts",
-          label: "Blog Posts",
-          folder: "src/pages/posts",
-          create: true,
-          slug: "{{slug}}",
-          extension: "mdx",
-          format: "frontmatter",
-          fields: [
-            { label: "Layout", name: "layout", widget: "hidden", default: "../../layouts/PostLayout.astro" },
-            { label: "Title", name: "title", widget: "string" },
-            { label: "Publish Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false },
-            { label: "Summary", name: "summary", widget: "text" },
-            { label: "Body", name: "body", widget: "markdown" }
-          ]
-        }
-      ]
-    };
-  </script>
   </head>
 <body>
   Loading Content Manager...
