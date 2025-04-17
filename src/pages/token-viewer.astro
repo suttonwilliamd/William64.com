@@ -3,14 +3,18 @@ import TokenViewer from "../components/TokenViewer.jsx";
 import Footer from '../components/Footer.astro';
 ---
 <html lang="en">
+<div>
+<header>
   <head>
     <meta charset="UTF-8" />
     <title>Token Viewer | William64.com</title>
     <meta name="description" content="Interactive token explorer for GPT-2 vocabulary." />
   </head>
+</header>
   <body>
     <TokenViewer client:load />
   </body>
 
 <Footer />
+</div>
 </html>
