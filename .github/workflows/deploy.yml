@@ -18,7 +18,7 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install @nem035/gpt-3-encoder
+        run: npm install
 
 
       - name: Build site
