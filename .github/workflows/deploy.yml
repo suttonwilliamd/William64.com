@@ -18,7 +18,7 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install astro@latest @astrojs/react@latest @astrojs/tailwind@latest @astrojs/mdx@latest @astrojs/rss@latest @astrojs/sitemap@latest astro-decap-cms-oauth@latest
+        run: npm install astro@latest @astrojs/react@latest @astrojs/tailwind@latest @astrojs/mdx@latest @astrojs/rss@latest @astrojs/sitemap@latest
 
 
       - name: Build site
