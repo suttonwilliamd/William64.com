@@ -1,11 +1,11 @@
-# public/admin/config.yml
-
 backend:
   name: github
-  repo: suttonwilliamd/William64.com # Make sure this is exactly your repo path
-  branch: main                       # Make sure this is your default branch
-  auth_type: pkce            # Implicit flow often works, but 'pkce' is more modern if implicit fails
-  app_id: Ov23licororpp5wCIsNN # <-- PASTE THE CLIENT ID HERE
+  branch: main
+  repo: suttonwilliamd/William64.com # Make sure this is exactly your repo path             # Make sure this is your default branch
+  site_domain: william64.com
+  base_url: https://william64.com
+  auth_endpoint: oauth # <-- PASTE THE CLIENT ID HERE
+
   
 media_folder: "public/uploads" # Ensure this folder exists or can be created by the server/build
 public_folder: "/uploads"      # Path relative to the site root where media is served
