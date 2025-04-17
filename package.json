@@ -9,7 +9,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "astro": "^4.6.0",
+    "astro": "@latest",
     "astro-decap-cms-oauth": "*",
     "@astrojs/rss": "^4.0.1",
     "@astrojs/mdx": "^3.0.1",
