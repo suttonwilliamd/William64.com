@@ -24,8 +24,8 @@
   },
   "devDependencies": {
     "eslint": "^8.57.0",
-    "@eslint/config-array": "^3.0.0",
-    "@eslint/object-schema": "^3.0.0",
+    "@eslint/config-array": "^2.1.0",
+    "@eslint/object-schema": "^2.1.0",
     "eslint-plugin-astro": "^0.29.3",
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.13.0",
