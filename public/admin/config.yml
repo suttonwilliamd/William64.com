@@ -2,24 +2,25 @@
 
 backend:
   name: github
-  repo: suttonwilliamd/William64.com
-  branch: main
-  auth_type: implicit
-  app_id: Ov23licororpp5wCIsNN
+  repo: suttonwilliamd/William64.com # Make sure this is exactly your repo path
+  branch: main                       # Make sure this is your default branch
+  auth_type: implicit              # Implicit flow often works, but 'pkce' is more modern if implicit fails
+  app_id: Ov23licororpp5wCIsNN # <-- PASTE THE CLIENT ID HERE
 
-media_folder: "public/uploads"
-public_folder: "/uploads"
+media_folder: "public/uploads" # Ensure this folder exists or can be created by the server/build
+public_folder: "/uploads"      # Path relative to the site root where media is served
 
 collections:
   - name: "posts"
     label: "Blog Posts"
-    folder: "src/pages/posts"
+    folder: "src/pages/posts"    # Correct: Where your MDX files live
     create: true
-    slug: "{{slug}}"
-    extension: "mdx"
-    format: "frontmatter"
+    slug: "{{slug}}"             # Uses the title to generate filename (e.g., 'my-new-post')
+    extension: "mdx"             # Correct: File extension
+    format: "frontmatter"        # Correct: Using YAML frontmatter
     fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "../../layouts/PostLayout.astro" } # Add this hidden field
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Publish Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
-      - { label: "Summary", name: "summary", widget: "text" }
+      - { label: "Publish Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false } # Correct format
+      - { label: "Summary", name: "summary", widget: "text" } # 'text' is for multi-line text
       - { label: "Body", name: "body", widget: "markdown" }
