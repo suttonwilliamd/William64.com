@@ -23,8 +23,8 @@
     "typewriter-effect": "^2.19.0"
   },
   "devDependencies": {
-    "eslint": "^8.57.0",
-    "eslint-plugin-astro": "^0.29.3",
+    "eslint": "*",
+    "eslint-plugin-astro": "*",
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.13.0",
     "gray-matter": "^4.0.3"
