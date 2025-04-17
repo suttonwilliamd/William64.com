@@ -9,8 +9,8 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "astro": "@latest",
-    "astro-decap-cms-oauth": "*",
+    "astro": "latest",
+    "astro-decap-cms-oauth": "latest",
     "@astrojs/rss": "^4.0.1",
     "@astrojs/mdx": "^3.0.1",
     "@astrojs/react": "^3.3.1",
