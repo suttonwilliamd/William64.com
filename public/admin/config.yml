@@ -1,45 +1,25 @@
 # public/admin/config.yml
 
-# Backend configuration: Using Auth0 for authentication & GitHub for storage
 backend:
-  # Specifies using the Auth0 backend for login/authentication
   name: github
-  # Replace with the Domain from your Auth0 Application settings
-  domain: dev-ug4uffzxcvwajmsv.us.auth0.com # !!! IMPORTANT: Replace !!!
-  # Replace with the Client ID from your Auth0 Application settings
-  client_id: Rrtz1jZXRXvT5cxz6kR9DYE2k7H1jQeV # !!! IMPORTANT: Replace !!!
+  repo: suttonwilliamd/William64.com
+  branch: main
+  auth_type: implicit
+  app_id: Ov23licororpp5wCIsNN
 
-  # Optional: Request specific user info from Auth0 after login.
-  # Useful if you want the CMS to potentially show who made changes,
-  # though Decap primarily uses Git commit author info for that.
-  # auth_scope: "openid profile email"
+media_folder: "public/uploads"
+public_folder: "/uploads"
 
-  # --- Git Gateway / Repository Info ---
-  # Even though Auth0 handles login, Decap CMS still needs to know
-  # which Git repository to commit the content changes to.
-  # It uses the authenticated user's credentials (via Auth0 linking to GitHub likely)
-  # or requires separate Git Gateway setup if direct commits aren't possible.
-  # For simplicity, assuming Auth0 user is linked to GitHub and has push access:
-  repo: suttonwilliamd/William64.com # !!! IMPORTANT: Replace with your GitHub repo path (e.g., william64/william64.com) !!!
-  branch: main # The branch to commit changes to (usually 'main' or 'master')
-  # Note: If direct GitHub commits via Auth0-linked user fail, you might need
-  # to explore Decap's Git Gateway option, but try this direct approach first.
-
-# Media files configuration (for images/uploads)
-media_folder: "public/uploads" # Where images uploaded via the CMS are stored (relative to project root)
-public_folder: "/uploads" # The public URL path for accessing media files (relative to site root)
-
-# Content Collections Definition (Should be the same as before)
 collections:
-  - name: "posts" # Internal identifier for the collection
-    label: "Blog Posts" # Display name in the CMS UI
-    folder: "src/pages/posts" # Path to the folder containing blog post files (relative to project root)
-    create: true # Allow creating new posts via the CMS
-    slug: "{{slug}}" # Generates filename from the 'Title' field (e.g., my-awesome-post)
-    extension: "mdx" # File extension for new posts
-    format: "frontmatter" # Specifies files have frontmatter + body
-    fields: # Defines the form fields in the CMS UI for each post
-      - { label: "Title", name: "title", widget: "string" } # Maps to frontmatter 'title'
-      - { label: "Publish Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false } # Maps to 'date', ensures YYYY-MM-DD format
-      - { label: "Summary", name: "summary", widget: "text" } # Maps to 'summary'
-      - { label: "Body", name: "body", widget: "markdown" } # Maps to the main content below frontmatter
+  - name: "posts"
+    label: "Blog Posts"
+    folder: "src/pages/posts"
+    create: true
+    slug: "{{slug}}"
+    extension: "mdx"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Summary", name: "summary", widget: "text" }
+      - { label: "Body", name: "body", widget: "markdown" }
