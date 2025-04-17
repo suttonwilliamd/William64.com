@@ -3,7 +3,7 @@
 # Backend configuration: Using Auth0 for authentication & GitHub for storage
 backend:
   # Specifies using the Auth0 backend for login/authentication
-  name: auth0
+  name: github
   # Replace with the Domain from your Auth0 Application settings
   domain: dev-ug4uffzxcvwajmsv.us.auth0.com # !!! IMPORTANT: Replace !!!
   # Replace with the Client ID from your Auth0 Application settings
