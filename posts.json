@@ -3,18 +3,6 @@
     "title": "Welcome to William64.com",
     "summary": "An intro to the site, what it's about, and why it exists.",
     "date": "2025-04-15",
-    "url": "/posts/welcome.html"
-  },
-  {
-    "title": "Reverse Engineering My Favorite Calculator",
-    "summary": "A deep dive into an old-school TI calculator’s firmware and how I hacked it.",
-    "date": "2025-04-10",
-    "url": "/posts/calculator-hack.html"
-  },
-  {
-    "title": "How I Built This Site with Astro and FTP",
-    "summary": "No backend? No problem. Here's how I pulled off a full-featured site with static tech.",
-    "date": "2025-04-08",
-    "url": "/posts/static-tech.html"
+    "url": "<span class=\"math-inline\">{SITE_POSTS_BASE_URL}</span>{slug}.html"
   }
 ]

@@ -5,6 +5,45 @@ body {
   font-family: 'Courier New', Courier, monospace;
   line-height: 1.6;
   padding: 2rem;
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #00aa55;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .navbar-links {
+    gap: 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.5rem;
+  }
+  
+  .navbar-links {
+    gap: 1rem;
+    font-size: 0.85rem;
+  }
+}
 }
 
 a {
@@ -68,6 +107,11 @@ code {
   
   h2 {
     font-size: 1.25rem;
+  }
+  
+  .navbar-links a.active {
+    color: #00ffee;
+    border-bottom: 2px solid #00aa55;
   }
   
   .terminal-prompt {
