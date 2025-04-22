@@ -3,15 +3,14 @@ const navItems = [
   { name: 'Home', path: '/' },
   { name: 'Blog', path: '/blog' },
   { name: 'Projects', path: '/projects' },
-  { name: 'About', path: '/about' },
-  { name: 'Token Viewer', path: '/token-viewer' } // Add this line
+  { name: 'About', path: '/about' }
 ];
 
 const currentPath = Astro.url.pathname;
 ---
 
-<nav>
-  <ul class="navbar-links">
+<nav class="my-4">
+  <ul class="flex gap-6">
     {navItems.map(item => (
       <li>
         <a 
