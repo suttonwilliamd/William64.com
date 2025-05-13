@@ -8,7 +8,7 @@ import Navigation from '../components/Navigation.astro';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About William | William64.com</title>
-    <meta name="description" content="Learn more about William Sutton - software engineer, systems thinker, and retro computing enthusiast." />
+    <meta name="description" content="Learn more about William Sutton - software engineer, systems thinker, and retro gaming enthusiast." />
     
     <!-- Strategic Preloading -->
     <link rel="preload" href="/styles.css" as="style">
@@ -31,70 +31,92 @@ import Navigation from '../components/Navigation.astro';
             <pre class="text-sm mb-2">$ whoami</pre>
             <pre class="terminal-output">William Sutton</pre>
             <pre class="text-sm mb-2">$ cat /etc/profile</pre>
-            <pre class="terminal-output">Self-taught software engineer with a passion for 
-understanding systems from first principles.</pre>
+            <pre class="terminal-output">Self-taught developer with a passion for 
+gaming and software engineering.</pre>
           </div>
           
           <p class="mb-4">
-            I'm William, a software engineer whose journey began with an early fascination with how software works under the hood. 
-            My passion for programming was ignited when my brother introduced me to a Visual Basic decompiler—seeing code that I 
+            I'm William, a software engineer whose journey began with an early fascination with video games and how they work. 
+            My path into programming started when my brother introduced me to a Visual Basic decompiler—seeing code that I 
             couldn't understand drove me to learn how to write it properly myself.
           </p>
           
           <p class="mb-4">
-            I believe in approaching technology with curiosity and a determination to understand the fundamentals. This philosophy has 
-            guided my self-directed learning path from Visual Basic to C++ and beyond.
+            I believe in diving deep to understand the fundamentals of technology, whether it's game mechanics or programming languages.
           </p>
         </section>
         
         <section class="mb-10">
-          <h2 class="text-xl sm:text-2xl border-b border-green-700 pb-2 mb-4">Technical Journey</h2>
+          <h2 class="text-xl sm:text-2xl border-b border-green-700 pb-2 mb-4">Technical Skills</h2>
           
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             <div class="terminal-window p-3 sm:p-4 bg-black border border-green-700">
               <pre class="text-sm mb-2">$ ls ~/skills/languages</pre>
-              <pre class="terminal-output">Visual Basic
+              <pre class="terminal-output overflow-x-auto">Visual Basic
 HTML/CSS
 C++
-OpenGL
-Various web technologies</pre>
+Python
+Lua/Love2D
+OpenGL</pre>
             </div>
             
             <div class="terminal-window p-3 sm:p-4 bg-black border border-green-700">
-              <pre class="text-sm mb-2">$ ls ~/skills/learning_path</pre>
-              <pre class="terminal-output">Self-taught programming
-Online resources
-3DBuzz tutorials
-Open source contributions
-Documentation improvements</pre>
+              <pre class="text-sm mb-2">$ ls ~/skills/domains</pre>
+              <pre class="terminal-output overflow-x-auto">Game Development
+Web Development
+Open Source
+Documentation
+Self-directed Learning</pre>
             </div>
           </div>
         </section>
         
         <section class="mb-10">
-          <h2 class="text-xl sm:text-2xl border-b border-green-700 pb-2 mb-4">My Journey</h2>
+          <h2 class="text-xl sm:text-2xl border-b border-green-700 pb-2 mb-4">Gaming Heritage</h2>
           
           <div class="terminal-window p-3 sm:p-4 bg-black border border-green-700 mb-6">
-            <pre class="text-sm mb-2">$ git log --reverse --format="%an: %s"</pre>
-            <pre class="terminal-output">William: Started with Visual Basic after seeing decompiled code
-William: Learned HTML building websites on Angelfire and Geocities
-William: Developed web forum for online gaming community
-William: Mastered C++, OpenGL and 3D modeling via 3DBuzz tutorials
-William: Contributed to otserv (Tibia server emulator)
-William: Created documentation fixes for various open source projects
-William: Launched William64.com as a project showcase</pre>
+            <pre class="text-sm mb-2">$ cat ~/gaming_history.txt</pre>
+            <pre class="terminal-output overflow-x-auto whitespace-pre-wrap">Started with arcade games at the local pool
+NES → Atari 2600 → SNES → First PC & N64
+From player to creator: Python and Lua game projects
+Love2D enthusiast with numerous game prototypes</pre>
           </div>
           
           <p class="mb-4">
-            My programming education has been entirely self-directed. A pivotal moment was investing in a 3DBuzz DVD 
-            course that taught me C++, OpenGL, and 3D modeling—the best $80 I've spent on my technical education. 
-            This hands-on approach to learning has shaped how I tackle problems and build solutions.
+            My love for video games has been a constant thread throughout my life. From arcade cabinets at the local pool hall to classic 
+            consoles at home (NES, Atari 2600, SNES), gaming has shaped both my recreational interests and professional development.
+          </p>
+          
+          <p class="mb-4">
+            Getting my first PC alongside an N64 was a pivotal moment—it opened the door to not just playing games but creating them. 
+            This passion eventually led to numerous game prototypes developed in Python and Lua with the Love2D framework.
+          </p>
+        </section>
+        
+        <section class="mb-10">
+          <h2 class="text-xl sm:text-2xl border-b border-green-700 pb-2 mb-4">Development Journey</h2>
+          
+          <div class="terminal-window p-3 sm:p-4 bg-black border border-green-700 mb-6">
+            <pre class="text-sm mb-2">$ git log --reverse --format="%an: %s" --short</pre>
+            <pre class="terminal-output overflow-x-auto whitespace-pre-wrap">William: Started with VB after seeing decompiled code
+William: Learned HTML for web projects
+William: Developed forum for gaming community
+William: Mastered C++/OpenGL via 3DBuzz tutorials
+William: Created Python & Lua game prototypes
+William: Contributed to otserv emulator
+William: Launched William64.com as project showcase</pre>
+          </div>
+          
+          <p class="mb-4">
+            My programming education has been entirely self-directed. The $80 I invested in 3DBuzz DVD courses teaching C++, OpenGL, 
+            and 3D modeling remains one of my best educational investments. This hands-on approach shaped how I tackle problems and 
+            build solutions.
           </p>
           
           <p class="mb-4">
             I've contributed to the open-source community through code contributions to otserv (an open-source Tibia server emulator) 
-            and by improving documentation across various projects. I believe strongly in the value of clear documentation and 
-            take pride in making software more accessible to others.
+            and by improving documentation across various projects. My GitHub once housed dozens of game prototypes built with Love2D—evidence 
+            of my enthusiasm for game development and creative exploration.
           </p>
         </section>
         
@@ -102,8 +124,8 @@ William: Launched William64.com as a project showcase</pre>
           <h2 class="text-xl sm:text-2xl border-b border-green-700 pb-2 mb-4">Current Focus</h2>
           
           <p class="mb-4">
-            William64.com represents my latest project—a platform to showcase my work and ongoing projects. 
-            I'm constantly exploring new technologies and looking for interesting problems to solve.
+            William64.com represents my latest project—a platform to showcase my work and ongoing projects. The name itself is a nod to 
+            my gaming background and the N64 that accompanied my first programming experiences.
           </p>
           
           <p class="mb-4">
@@ -111,10 +133,10 @@ William: Launched William64.com as a project showcase</pre>
           </p>
           
           <ul class="list-disc list-inside mb-4 pl-4">
-            <li class="mb-2">Exploring new programming languages and frameworks</li>
+            <li class="mb-2">Playing both classic and modern video games</li>
+            <li class="mb-2">Prototyping new game ideas</li>
             <li class="mb-2">Contributing to open source projects</li>
-            <li class="mb-2">Optimizing and improving existing systems</li>
-            <li class="mb-2">Researching best practices in software development</li>
+            <li class="mb-2">Optimizing existing systems</li>
           </ul>
         </section>
         
@@ -123,14 +145,13 @@ William: Launched William64.com as a project showcase</pre>
           
           <div class="terminal-window p-3 sm:p-4 bg-black border border-green-700 mb-6">
             <pre class="text-sm mb-2">$ finger william</pre>
-            <pre class="terminal-output">Email: suttonwilliamd@gmail.com
-GitHub: github.com/suttonwilliamd
-</pre>
+            <pre class="terminal-output overflow-x-auto">Email: suttonwilliamd@gmail.com
+GitHub: github.com/suttonwilliamd</pre>
           </div>
           
           <p class="mb-4">
-            I'm always interested in discussing technical challenges, collaboration opportunities, 
-            or just connecting with fellow developers. Feel free to reach out through any of the channels above.
+            Whether you want to discuss game development, technical challenges, or potential collaborations, 
+            feel free to reach out through any of the channels above.
           </p>
         </section>
       </main>
@@ -152,6 +173,15 @@ GitHub: github.com/suttonwilliamd
     color: #00ff99;
     margin-bottom: 1rem;
     line-height: 1.4;
+  }
+  
+  /* Fix for mobile terminal content */
+  .overflow-x-auto {
+    overflow-x: auto;
+  }
+  
+  .whitespace-pre-wrap {
+    white-space: pre-wrap;
   }
   
   @media (max-width: 640px) {
