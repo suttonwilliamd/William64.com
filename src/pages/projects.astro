@@ -47,6 +47,184 @@ import Footer from '../components/Footer.astro';
               </div>
             </div>
             <div class="project-body p-4">
+              <pre class="mb-4 whitespace-pre-wrap break-words overflow-x-auto">
+$ tpc-server --help
+
+A Python MCP server for structured thought/plan/changelog management
+with SQLite database backend. Provides tools for tracking technical
+decision making and project evolution over time.
+
+Features:
+- Thought/Plan/Change record keeping
+- MCP protocol implementation
+- SQLite data persistence
+- Web interface for visualization
+              </pre>
+              <div class="project-meta">
+                <div class="technologies flex flex-wrap gap-2">
+                  <span class="label">Technologies:</span>
+                  <span class="tech-tag">Python</span>
+                  <span class="tech-tag">MCP</span>
+                  <span class="tech-tag">SQLite</span>
+                  <span class="tech-tag">FastAPI</span>
+                </div>
+                <div class="links mt-2 flex flex-wrap gap-4">
+                  <a
+                    href="https://github.com/suttonwilliamd/tpc-server"
+                    class="project-link">GitHub &rarr;</a
+                  >
+                  <a href="/tpc-server" class="project-link"
+                    >Live Demo &rarr;</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card mb-10">
+            <div class="project-header">
+              <div class="title-bar">
+                <span class="controls">
+                  <span class="circle"></span>
+                  <span class="circle"></span>
+                  <span class="circle"></span>
+                </span>
+                <span class="title">Token Viewer</span>
+              </div>
+            </div>
+            <div class="project-body p-4">
+              <pre class="mb-4 whitespace-pre-wrap break-words overflow-x-auto">
+$ token-viewer --help
+           
+An interactive tool for exploring GPT-2 tokens, allowing users to visualize
+the relationship between token IDs and their decoded string representations.
+Built with Astro for static site generation and React for client-side interactivity,
+this tool demonstrates efficient browser-based decoding using the
+@nem035/gpt-3-encoder package.
+              </pre>
+              <div class="project-meta">
+                <div class="technologies flex flex-wrap gap-2">
+                  <span class="label">Technologies:</span>
+                  <span class="tech-tag">Astro</span>
+                  <span class="tech-tag">React</span>
+                  <span class="tech-tag">JavaScript</span>
+                </div>
+                <div class="links mt-2 flex flex-wrap gap-4">
+                  <a
+                    href="https://github.com/suttonwilliamd/token-viewer"
+                    class="project-link">GitHub &rarr;</a
+                  >
+                  <a href="/token-viewer" class="project-link"
+                    >Live Demo &rarr;</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mb-12">
+          <h2 class="text-2xl border-b border-green-700 pb-2 mb-6">
+            Web Projects
+          </h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="mini-project-card">
+              <h3 class="text-xl mb-2">William64.com</h3>
+              <p class="mb-3">
+                This website - built with Astro.js, featuring a
+                terminal-inspired design with static generation.
+              </p>
+              <div class="technologies flex flex-wrap gap-2 mb-2">
+                <span class="tech-tag">Astro</span>
+                <span class="tech-tag">TypeScript</span>
+                <span class="tech-tag">React</span>
+              </div>
+              <a href="#" class="project-link">Source Code &rarr;</a>
+            </div>
+
+            <div class="mini-project-card">
+              <h3 class="text-xl mb-2">RetroVisualizer</h3>
+              <p class="mb-3">
+                Data visualization tool inspired by vintage computer graphics,
+                built with modern web technologies.
+              </p>
+              <div class="technologies flex flex-wrap gap-2 mb-2">
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">Canvas API</span>
+                <span class="tech-tag">D3.js</span>
+              </div>
+              <a href="#" class="project-link">View Project &rarr;</a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
+  </body>
+</html>
+```
+
+Key responsiveness improvements:
+
+1. Added `whitespace-pre-wrap` and `break-words` to the `<pre>` elements to prevent horizontal overflow and allow text wrapping
+
+2. Added `overflow-x-auto` to the pre elements as a fallback in case there are any unbreakable strings
+
+3. Added `flex flex-wrap gap-2` to the technologies sections to ensure tags wrap properly on small screens
+
+4. Added `flex flex-wrap gap-4` to the links sections to ensure links stack properly on narrow screens
+
+These changes will ensure the page is fully responsive and doesn't create horizontal scrollbars, maintaining consistency with your about page styling.
+import Navigation from "../components/Navigation.astro";
+import Footer from '../components/Footer.astro';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects | William64.com</title>
+    <meta
+      name="description"
+      content="Explore William Sutton's software engineering projects, from systems programming to web development and reverse engineering."
+    />
+
+    <!-- Strategic Preloading -->
+    <link rel="preload" href="/styles.css" as="style" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="bg-black text-green-400 font-mono">
+    <div class="max-w-3xl mx-auto p-4">
+      <header class="border-b border-green-700 pb-4 mb-8">
+        <h1 class="text-4xl font-bold mb-2">William64.com</h1>
+        <Navigation />
+      </header>
+
+      <main>
+        <h1 class="text-3xl font-bold mb-6">Projects</h1>
+
+        <section class="mb-12">
+          <h2 class="text-2xl border-b border-green-700 pb-2 mb-6">
+            Featured Projects
+          </h2>
+
+          <div class="project-card mb-10">
+            <div class="project-header">
+              <div class="title-bar">
+                <span class="controls">
+                  <span class="circle"></span>
+                  <span class="circle"></span>
+                  <span class="circle"></span>
+                </span>
+                <span class="title">tpc-server</span>
+              </div>
+            </div>
+            <div class="project-body p-4">
               <pre class="mb-4">
 $ tpc-server --help
 
