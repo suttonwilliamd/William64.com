@@ -25,16 +25,9 @@ import Footer from '../components/Footer.astro';
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body class="bg-black text-green-400 font-mono">
-    <div class="max-w-3xl mx-auto p-4">
-      <div class="navbar">
-        <header>
-        <h1 class="text-4xl font-bold mb-2">William64.com</h1>
-        <Navigation />
-        <p class="text-sm text-green-600">Minimalist. Professional. Retro Hacker.</p>
-      </header>
-      
-      <!-- Demo Scene Banner -->
-      <div class="demo-scene-banner my-8">
+    <div class="max-w-3xl mx-auto">
+      <!-- Demo Scene Banner - Now at the very top -->
+      <div class="demo-scene-banner mb-6">
         <canvas id="bannerCanvas"></canvas>
         <div class="banner-audio">
           <audio id="chiptune" loop>
@@ -44,45 +37,54 @@ import Footer from '../components/Footer.astro';
         </div>
       </div>
       
-      <main>
-        <TerminalHero />
-        
-        <section class="mb-12">
-          <h2 class="text-2xl border-b border-green-700 pb-2 mb-4">Latest Posts</h2>
-          <ul id="post-list" class="space-y-6">
-            <!-- Posts will be injected here by client-side JS -->
-          </ul>
-        </section>
-        
-        <section class="mb-12">
-          <h2 class="text-2xl border-b border-green-700 pb-2 mb-4">Projects</h2>
-          <div class="space-y-6">
-            <div>
-              <h3 class="text-xl font-bold">tpc-server</h3>
-              <p class="text-green-300">
-                A Python MCP server for managing thoughts, plans, and changelogs with a structured database.
-                Provides tools for recording insights, planning approaches, and tracking changes.
-              </p>
-            </div>
-          </div>
-        </section>
+      <div class="p-4">
+        <div class="navbar">
+          <header>
+            <!-- Removed the text "William64.com" since it's now in the banner -->
+            <Navigation />
+            <p class="text-sm text-green-600">Minimalist. Professional. Retro Hacker.</p>
+          </header>
+          
+          <main>
+            <TerminalHero />
+            
+            <section class="mb-12">
+              <h2 class="text-2xl border-b border-green-700 pb-2 mb-4">Latest Posts</h2>
+              <ul id="post-list" class="space-y-6">
+                <!-- Posts will be injected here by client-side JS -->
+              </ul>
+            </section>
+            
+            <section class="mb-12">
+              <h2 class="text-2xl border-b border-green-700 pb-2 mb-4">Projects</h2>
+              <div class="space-y-6">
+                <div>
+                  <h3 class="text-xl font-bold">tpc-server</h3>
+                  <p class="text-green-300">
+                    A Python MCP server for managing thoughts, plans, and changelogs with a structured database.
+                    Provides tools for recording insights, planning approaches, and tracking changes.
+                  </p>
+                </div>
+              </div>
+            </section>
 
-        <section>
-          <h2 class="text-2xl border-b border-green-700 pb-2 mb-4">About Me</h2>
-          <p class="mb-4">
-            I'm a software engineer with a passion for clean systems, deep logic,
-            and building elegant solutions to gnarly problems. This is my digital
-            workshop—welcome.
-          </p>
-        </section>
-      </main>
-        <Footer />
+            <section>
+              <h2 class="text-2xl border-b border-green-700 pb-2 mb-4">About Me</h2>
+              <p class="mb-4">
+                I'm a software engineer with a passion for clean systems, deep logic,
+                and building elegant solutions to gnarly problems. This is my digital
+                workshop—welcome.
+              </p>
+            </section>
+          </main>
+          <Footer />
+        </div>
       </div>
     </div>
     
     <script is:inline src="/main.js"></script>
     
-    <!-- Demo Scene Banner Script -->
+    <!-- Demo Scene Banner Script with enhanced effects and longer sequences -->
     <script is:inline>
       document.addEventListener('DOMContentLoaded', () => {
         const canvas = document.getElementById('bannerCanvas');
@@ -107,47 +109,102 @@ import Footer from '../components/Footer.astro';
         
         // Scene state
         let state = {
-          phase: 'loading', // loading, logo, main, greetz
+          phase: 'loading', // loading, intro, logo, effects, paragraph, greetz, outro
           time: 0,
-          stars: Array(100).fill().map(() => ({
+          stars: Array(150).fill().map(() => ({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
-            speed: 0.5 + Math.random() * 2
+            speed: 0.5 + Math.random() * 4,
+            size: Math.random() > 0.9 ? 2 : 1
           })),
           loadingProgress: 0,
           greetsList: [
             "FairLight", "mobman", "Vv_Xx_xX_vV", 
             "Vitalik Buterin", "Paul Frazee", 
-            "Daniel Shiffman", "3dBuzz"
+            "Daniel Shiffman", "3dBuzz",
+            "xCopyz", "LekTrix", "TLB", "UNiX",
+            "DEFCON", "BlackHat", "CCC", "HOPE"
           ],
-          greetzIndex: 0
+          greetzIndex: 0,
+          introLines: [],
+          sinOffset: 0,
+          glitchTime: 0,
+          plasma: createPlasmaTexture(),
+          cube: { rotation: 0, vertices: createCube() },
+          paragraphText: [
+            "WE BRING YOU THIS EXCLUSIVE",
+            "DIGITAL EXPERIENCE TO SHOWCASE",
+            "THE POWER OF PURE CODE AND MATHEMATICS.",
+            "REMEMBER WHEN PROGRAMMING WAS AN ART?",
+            "WHEN OPTIMIZATION MEANT SOMETHING?",
+            "WHEN DIGITAL REBELS CREATED BEAUTY",
+            "FROM LIMITED RESOURCES?",
+            "WILLIAM64 LIVES BY THESE PRINCIPLES.",
+            "CODE IS POETRY. BITS ARE FREEDOM.",
+            "WELCOME TO THE RESISTANCE."
+          ],
+          paragraphIndex: 0,
+          paragraphChar: 0
         };
+        
+        // Generate intro lines effect (matrix-like)
+        for (let i = 0; i < 20; i++) {
+          state.introLines.push({
+            x: Math.random() * canvas.width,
+            speed: 1 + Math.random() * 5,
+            chars: generateRandomChars(10 + Math.floor(Math.random() * 20))
+          });
+        }
         
         // Animation loop
         function animate() {
           ctx.fillStyle = 'black';
           ctx.fillRect(0, 0, canvas.width, canvas.height);
           
-          // Draw starfield
-          drawStars();
-          
-          // Draw scanlines
-          drawScanlines();
+          // Draw starfield in all phases
+          if (state.phase !== 'effects' && state.phase !== 'plasma') {
+            drawStars();
+          }
           
           // Draw phase-specific content
           switch(state.phase) {
             case 'loading':
               drawLoading();
               break;
+            case 'intro':
+              drawIntro();
+              break;
             case 'logo':
               drawLogo();
               break;
-            case 'main':
-              drawMain();
+            case 'effects':
+              drawEffects();
+              break;
+            case 'plasma':
+              drawPlasma();
+              break;
+            case 'paragraph':
+              drawParagraph();
               break;
             case 'greetz':
               drawGreetz();
               break;
+            case 'outro':
+              drawOutro();
+              break;
+          }
+          
+          // Draw scanlines in all phases
+          drawScanlines();
+          
+          // Occasional glitch effect
+          if (Math.random() > 0.995) {
+            state.glitchTime = 0.1;
+          }
+          
+          if (state.glitchTime > 0) {
+            applyGlitchEffect();
+            state.glitchTime -= 0.016;
           }
           
           // Update state
@@ -160,7 +217,7 @@ import Footer from '../components/Footer.astro';
         function drawStars() {
           ctx.fillStyle = 'white';
           state.stars.forEach(star => {
-            ctx.fillRect(star.x, star.y, 1, 1);
+            ctx.fillRect(star.x, star.y, star.size, star.size);
             star.x -= star.speed;
             if (star.x < 0) {
               star.x = canvas.width;
@@ -170,9 +227,31 @@ import Footer from '../components/Footer.astro';
         }
         
         function drawScanlines() {
-          ctx.fillStyle = 'rgba(255,255,255,0.1)';
+          ctx.fillStyle = 'rgba(255,255,255,0.07)';
           for (let y = 0; y < canvas.height; y += 4) {
             ctx.fillRect(0, y, canvas.width, 1);
+          }
+        }
+        
+        function applyGlitchEffect() {
+          // Randomly offset parts of the canvas
+          const sliceHeight = Math.floor(Math.random() * 20) + 5;
+          const numSlices = Math.floor(canvas.height / sliceHeight);
+          
+          for (let i = 0; i < numSlices; i++) {
+            if (Math.random() > 0.7) {
+              const y = i * sliceHeight;
+              const xOffset = (Math.random() * 20) - 10;
+              
+              // Get slice data
+              const imageData = ctx.getImageData(0, y, canvas.width, sliceHeight);
+              
+              // Clear slice area
+              ctx.clearRect(0, y, canvas.width, sliceHeight);
+              
+              // Put slice back with offset
+              ctx.putImageData(imageData, xOffset, y);
+            }
           }
         }
         
@@ -193,90 +272,489 @@ import Footer from '../components/Footer.astro';
           
           // Text
           ctx.fillStyle = 'white';
-          ctx.font = '16px monospace';
+          ctx.font = '16px "Press Start 2P", monospace';
           ctx.textAlign = 'center';
-          ctx.fillText('LOADING...', canvas.width / 2, y + height + 30);
+          ctx.fillText('LOADING SCENE...', canvas.width / 2, y + height + 30);
+          
+          // Version info
+          ctx.font = '10px monospace';
+          ctx.fillText('WILLIAM64 PRESENTS - MAY 2025', canvas.width / 2, canvas.height - 20);
+        }
+        
+        function drawIntro() {
+          // Matrix-like falling character lines
+          ctx.font = '12px monospace';
+          state.introLines.forEach(line => {
+            for (let i = 0; i < line.chars.length; i++) {
+              const y = ((state.time * line.speed * 50) + (i * 15)) % canvas.height;
+              const alpha = y / canvas.height;
+              ctx.fillStyle = `rgba(0, 255, 0, ${1 - alpha})`;
+              ctx.fillText(line.chars[i], line.x, y);
+            }
+          });
+          
+          // Fade in text
+          const opacity = Math.min(1, state.time / 2);
+          ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+          ctx.font = '20px "Press Start 2P", monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText('SYSTEM INITIALIZED', canvas.width / 2, canvas.height / 2);
         }
         
         function drawLogo() {
-          // William64 logo with pixel drawing effect
+          // William64 logo with elaborate effects
+          const baseSize = 48;
+          const logoSize = baseSize + Math.sin(state.time * 2) * 2;
+          
+          // Glow effect
+          const gradient = ctx.createRadialGradient(
+            canvas.width / 2, canvas.height / 2, 0,
+            canvas.width / 2, canvas.height / 2, 150
+          );
+          gradient.addColorStop(0, 'rgba(255, 0, 255, 0.5)');
+          gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+          ctx.fillStyle = gradient;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          
+          // Main text with sine-wave offset
           ctx.fillStyle = '#ff00ff';
-          ctx.font = 'bold 48px "Press Start 2P", monospace';
+          ctx.font = `bold ${logoSize}px "Press Start 2P", monospace`;
+          ctx.textAlign = 'center';
+          
+          // Apply sine wave to each letter
+          const text = 'WILLIAM64';
+          const letterSpacing = 35;
+          const startX = canvas.width / 2 - (text.length * letterSpacing) / 2;
+          
+          for (let i = 0; i < text.length; i++) {
+            const x = startX + i * letterSpacing;
+            const y = canvas.height / 2 + Math.sin(state.time * 3 + i * 0.5) * 10;
+            ctx.fillText(text[i], x, y);
+          }
+          
+          // Shadow copy with offset
+          if (Math.random() > 0.8) {
+            ctx.fillStyle = '#00ffff';
+            for (let i = 0; i < text.length; i++) {
+              const x = startX + i * letterSpacing + (Math.random() * 4 - 2);
+              const y = canvas.height / 2 + Math.sin(state.time * 3 + i * 0.5) * 10 + (Math.random() * 4 - 2);
+              ctx.fillText(text[i], x, y);
+            }
+          }
+          
+          // Subtitle text
+          ctx.font = '12px "Press Start 2P", monospace';
+          ctx.fillStyle = '#ffffff';
+          ctx.fillText('- DIGITAL RESISTANCE -', canvas.width / 2, canvas.height / 2 + 50);
+        }
+        
+        function drawEffects() {
+          // 3D cube rotation effect
+          const size = 80;
+          const centerX = canvas.width / 2;
+          const centerY = canvas.height / 2;
+          
+          // Update rotation
+          state.cube.rotation += 0.02;
+          const rotatedVertices = rotateVertices(state.cube.vertices, state.cube.rotation);
+          
+          // Draw edges
+          ctx.strokeStyle = '#00ffff';
+          ctx.lineWidth = 2;
+          
+          const edges = [
+            [0, 1], [1, 2], [2, 3], [3, 0], // front face
+            [4, 5], [5, 6], [6, 7], [7, 4], // back face
+            [0, 4], [1, 5], [2, 6], [3, 7]  // connecting edges
+          ];
+          
+          edges.forEach(edge => {
+            const v1 = rotatedVertices[edge[0]];
+            const v2 = rotatedVertices[edge[1]];
+            
+            // Project 3D to 2D
+            const x1 = centerX + v1.x * size;
+            const y1 = centerY + v1.y * size;
+            const x2 = centerX + v2.x * size;
+            const y2 = centerY + v2.y * size;
+            
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+          });
+          
+          // Draw vertices
+          rotatedVertices.forEach(v => {
+            const x = centerX + v.x * size;
+            const y = centerY + v.y * size;
+            
+            // Calculate point size based on z-coordinate for perspective
+            const pointSize = Math.max(1, (v.z + 1) * 3);
+            
+            ctx.fillStyle = '#ff00ff';
+            ctx.beginPath();
+            ctx.arc(x, y, pointSize, 0, Math.PI * 2);
+            ctx.fill();
+          });
+          
+          // Draw text overlay
+          ctx.font = '16px "Press Start 2P", monospace';
+          ctx.fillStyle = '#ffffff';
+          ctx.textAlign = 'center';
+          ctx.fillText('PROCESSING...', canvas.width / 2, canvas.height - 50);
+        }
+        
+        function drawPlasma() {
+          // Draw plasma effect
+          const imageData = ctx.createImageData(canvas.width, canvas.height);
+          
+          for (let y = 0; y < canvas.height; y++) {
+            for (let x = 0; x < canvas.width; x++) {
+              // Calculate plasma value
+              const value = 
+                Math.sin(x / 16.0 + state.time) +
+                Math.sin(y / 8.0 + state.time) +
+                Math.sin((x + y) / 16.0 + state.time) +
+                Math.sin(Math.sqrt(x * x + y * y) / 8.0 + state.time);
+              
+              // Map to 0-255 range
+              const colorValue = Math.floor((value + 4) * 32) % 256;
+              
+              // Get color from palette
+              const r = colorValue;
+              const g = (colorValue + 85) % 256;
+              const b = (colorValue + 170) % 256;
+              
+              // Set pixel color
+              const index = (y * canvas.width + x) * 4;
+              imageData.data[index] = r;
+              imageData.data[index + 1] = g;
+              imageData.data[index + 2] = b;
+              imageData.data[index + 3] = 255;
+            }
+          }
+          
+          ctx.putImageData(imageData, 0, 0);
+          
+          // Draw overlay text
+          ctx.font = '20px "Press Start 2P", monospace';
+          ctx.fillStyle = '#ffffff';
           ctx.textAlign = 'center';
           ctx.fillText('WILLIAM64', canvas.width / 2, canvas.height / 2);
+        }
+        
+        function drawParagraph() {
+          // Impressive text scroller with typewriter effect
+          ctx.fillStyle = '#000000';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
           
-          // Glitch effect occasionally
-          if (Math.random() > 0.95) {
-            ctx.fillStyle = '#00ffff';
-            ctx.fillText('WILLIAM64', canvas.width / 2 + Math.random() * 4 - 2, canvas.height / 2);
+          // Fancy background
+          for (let i = 0; i < 20; i++) {
+            ctx.strokeStyle = `rgba(0, 255, 0, ${0.1 - i * 0.005})`;
+            ctx.beginPath();
+            ctx.arc(
+              canvas.width / 2, 
+              canvas.height / 2, 
+              100 + i * 10 + Math.sin(state.time + i * 0.1) * 5, 
+              0, 
+              Math.PI * 2
+            );
+            ctx.stroke();
+          }
+          
+          // Display paragraph text with typewriter effect
+          ctx.font = '16px "Press Start 2P", monospace';
+          ctx.textAlign = 'center';
+          
+          const lineHeight = 24;
+          const startY = canvas.height / 2 - (state.paragraphText.length * lineHeight) / 2;
+          
+          for (let i = 0; i <= state.paragraphIndex; i++) {
+            const line = state.paragraphText[i];
+            
+            // For current line, show only typed characters
+            let displayText = line;
+            if (i === state.paragraphIndex) {
+              displayText = line.substring(0, state.paragraphChar);
+            }
+            
+            // Rainbow color effect for text
+            const hue = (state.time * 20 + i * 30) % 360;
+            ctx.fillStyle = `hsl(${hue}, 100%, 60%)`;
+            ctx.fillText(displayText, canvas.width / 2, startY + i * lineHeight);
           }
         }
         
-        function drawMain() {
-          // Main banner content
-          drawLogo();
+        function drawGreetz() {
+          // GREETZ section with elaborate effects
+          const centerY = canvas.height / 2;
           
-          // Scrolling text at bottom
-          ctx.fillStyle = '#ffff00';
-          ctx.font = '16px monospace';
+          // Background effect (starfield continues from base animation)
+          state.sinOffset += 0.1;
+          
+          // Header with wave effect
+          ctx.fillStyle = '#00ffff';
+          ctx.font = 'bold 36px "Press Start 2P", monospace';
           ctx.textAlign = 'center';
           
-          const message = "WELCOME TO THE DIGITAL REALM OF WILLIAM64 - EST. 2025 - PUSHING PIXELS SINCE THE DAWN OF TIME";
-          const scrollPos = (state.time * 2) % (message.length * 10 + canvas.width);
+          // Wave effect for GREETZ
+          const text = 'GREETZ:';
+          const letterSpacing = 25;
+          const startX = canvas.width / 2 - (text.length * letterSpacing) / 2;
           
-          ctx.fillText(message, canvas.width - scrollPos, canvas.height - 20);
+          for (let i = 0; i < text.length; i++) {
+            const x = startX + i * letterSpacing;
+            const y = centerY - 80 + Math.sin(state.time * 2 + i * 0.5) * 5;
+            ctx.fillText(text[i], x, y);
+          }
+          
+          // Current greetz name with color cycling effect
+          const greetName = state.greetsList[state.greetzIndex];
+          
+          // Name appears with letter by letter animation
+          const letterRevealTime = 0.05;
+          const revealProgress = Math.min(state.time / letterRevealTime, greetName.length);
+          
+          const revealedName = greetName.substring(0, Math.floor(revealProgress));
+          
+          // Rainbow color cycling
+          const hue = (state.time * 50) % 360;
+          ctx.fillStyle = `hsl(${hue}, 100%, 50%)`;
+          ctx.font = 'bold 28px "Press Start 2P", monospace';
+          ctx.fillText(revealedName, canvas.width / 2, centerY);
+          
+          // Draw decorative elements around the current name
+          drawStarBurst(canvas.width / 2, centerY);
+          
+          // Show 2 previous and 2 next names with lower opacity
+          ctx.font = '16px "Press Start 2P", monospace';
+          for (let i = 1; i <= 2; i++) {
+            const prevIndex = (state.greetzIndex - i + state.greetsList.length) % state.greetsList.length;
+            const nextIndex = (state.greetzIndex + i) % state.greetsList.length;
+            
+            ctx.fillStyle = `rgba(255, 255, 255, ${0.7 - i * 0.3})`;
+            ctx.fillText(state.greetsList[prevIndex], canvas.width / 2, centerY - i * 40);
+            ctx.fillText(state.greetsList[nextIndex], canvas.width / 2, centerY + i * 40);
+          }
+          
+          // Counter
+          ctx.fillStyle = '#ffffff';
+          ctx.font = '12px monospace';
+          ctx.fillText(`${state.greetzIndex + 1}/${state.greetsList.length}`, canvas.width / 2, canvas.height - 20);
         }
         
-        function drawGreetz() {
-          // GREETZ header
-          ctx.fillStyle = '#00ffff';
-          ctx.font = 'bold 32px "Press Start 2P", monospace';
-          ctx.textAlign = 'center';
-          ctx.fillText('GREETZ:', canvas.width / 2, canvas.height / 3);
+        function drawOutro() {
+          // Final screen
+          ctx.fillStyle = '#000000';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
           
-          // Current greetz name with color cycling
-          const hue = (state.time * 10) % 360;
-          ctx.fillStyle = `hsl(${hue}, 100%, 50%)`;
-          ctx.font = 'bold 24px "Press Start 2P", monospace';
-          ctx.fillText(state.greetsList[state.greetzIndex], canvas.width / 2, canvas.height / 2);
+          // Draw radial gradient background
+          const gradient = ctx.createRadialGradient(
+            canvas.width / 2, canvas.height / 2, 0,
+            canvas.width / 2, canvas.height / 2, canvas.width / 2
+          );
+          gradient.addColorStop(0, 'rgba(100, 0, 100, 1)');
+          gradient.addColorStop(1, 'rgba(0, 0, 0, 1)');
+          ctx.fillStyle = gradient;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          
+          // Main text
+          const fadeIn = Math.min(1, state.time);
+          ctx.fillStyle = `rgba(255, 255, 255, ${fadeIn})`;
+          ctx.font = '24px "Press Start 2P", monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText('WILLIAM64.COM', canvas.width / 2, canvas.height / 2 - 15);
+          
+          // Subtitle
+          ctx.font = '12px "Press Start 2P", monospace';
+          ctx.fillText('- WELCOME TO THE RESISTANCE -', canvas.width / 2, canvas.height / 2 + 20);
+          
+          // Credits
+          ctx.font = '10px monospace';
+          ctx.fillText('DEMO CODED IN 2025 - ALL RIGHTS RESERVED', canvas.width / 2, canvas.height - 20);
+        }
+        
+        function drawStarBurst(x, y) {
+          // Draw animated starburst around greetz name
+          const numRays = 16;
+          const innerRadius = 70 + Math.sin(state.time * 5) * 5;
+          const outerRadius = 90 + Math.sin(state.time * 3) * 10;
+          
+          ctx.beginPath();
+          for (let i = 0; i < numRays; i++) {
+            const angle = (i / numRays) * Math.PI * 2;
+            const nextAngle = ((i + 0.5) / numRays) * Math.PI * 2;
+            
+            const innerX = x + Math.cos(angle + state.time) * innerRadius;
+            const innerY = y + Math.sin(angle + state.time) * innerRadius;
+            const outerX = x + Math.cos(nextAngle + state.time) * outerRadius;
+            const outerY = y + Math.sin(nextAngle + state.time) * outerRadius;
+            
+            if (i === 0) {
+              ctx.moveTo(innerX, innerY);
+            } else {
+              ctx.lineTo(innerX, innerY);
+            }
+            ctx.lineTo(outerX, outerY);
+          }
+          ctx.closePath();
+          
+          // Rainbow gradient fill
+          const gradient = ctx.createRadialGradient(x, y, innerRadius, x, y, outerRadius);
+          gradient.addColorStop(0, `hsla(${(state.time * 100) % 360}, 100%, 50%, 0.1)`);
+          gradient.addColorStop(1, `hsla(${(state.time * 100 + 180) % 360}, 100%, 50%, 0)`);
+          ctx.fillStyle = gradient;
+          ctx.fill();
+          
+          // Stroking the starburst
+          ctx.strokeStyle = `hsla(${(state.time * 100) % 360}, 100%, 70%, 0.3)`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
         }
         
         function updateState() {
           state.time += 0.016; // Approx 60fps
           
-          // Phase transitions
+          // Phase transitions with much longer durations
           switch(state.phase) {
             case 'loading':
-              state.loadingProgress += 0.005;
+              state.loadingProgress += 0.003; // Slower loading
               if (state.loadingProgress >= 1) {
+                state.phase = 'intro';
+                state.time = 0;
+              }
+              break;
+            case 'intro':
+              if (state.time > 5) { // 5 seconds of intro
                 state.phase = 'logo';
                 state.time = 0;
               }
               break;
             case 'logo':
-              if (state.time > 3) {
-                state.phase = 'main';
+              if (state.time > 8) { // 8 seconds of logo animation
+                state.phase = 'effects';
                 state.time = 0;
               }
               break;
-            case 'main':
-              if (state.time > 10) {
-                state.phase = 'greetz';
+            case 'effects':
+              if (state.time > 7) { // 7 seconds of 3D effects
+                state.phase = 'plasma';
                 state.time = 0;
               }
               break;
-            case 'greetz':
-              if (state.time > 1.5) {
-                state.greetzIndex = (state.greetzIndex + 1) % state.greetsList.length;
+            case 'plasma':
+              if (state.time > 6) { // 6 seconds of plasma effect
+                state.phase = 'paragraph';
                 state.time = 0;
-                
-                // After showing all greetz, go back to main
-                if (state.greetzIndex === 0) {
-                  state.phase = 'main';
+                state.paragraphIndex = 0;
+                state.paragraphChar = 0;
+              }
+              break;
+            case 'paragraph':
+              // Typewriter effect
+              if (state.paragraphChar < state.paragraphText[state.paragraphIndex].length) {
+                state.paragraphChar += 0.2; // Speed of typing
+              } else {
+                // If finished typing current line
+                if (state.time > 1.5) { // Pause before next line
+                  if (state.paragraphIndex < state.paragraphText.length - 1) {
+                    state.paragraphIndex++;
+                    state.paragraphChar = 0;
+                    state.time = 0;
+                  } else {
+                    // If all lines are done, move to greetz
+                    if (state.time > 3) { // Pause at end of paragraph
+                      state.phase = 'greetz';
+                      state.time = 0;
+                    }
+                  }
                 }
               }
               break;
+            case 'greetz':
+              // Much longer display time per name
+              if (state.time > 3) { // 3 seconds per name
+                state.greetzIndex = (state.greetzIndex + 1) % state.greetsList.length;
+                state.time = 0;
+                
+                // After showing all greetz, go to outro
+                if (state.greetzIndex === 0) {
+                  state.phase = 'outro';
+                  state.time = 0;
+                }
+              }
+              break;
+            case 'outro':
+              if (state.time > 6) { // 6 seconds of outro before repeating
+                state.phase = 'logo'; // Loop back to logo instead of full restart
+                state.time = 0;
+              }
+              break;
           }
+        }
+        
+        // Helper functions
+        function generateRandomChars(length) {
+          const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()";
+          let result = "";
+          for (let i = 0; i < length; i++) {
+            result += charset.charAt(Math.floor(Math.random() * charset.length));
+          }
+          return result;
+        }
+        
+        function createCube() {
+          // Create vertices for a cube
+          return [
+            { x: -1, y: -1, z: -1 }, // 0: back bottom left
+            { x: 1, y: -1, z: -1 },  // 1: back bottom right
+            { x: 1, y: 1, z: -1 },   // 2: back top right
+            { x: -1, y: 1, z: -1 },  // 3: back top left
+            { x: -1, y: -1, z: 1 },  // 4: front bottom left
+            { x: 1, y: -1, z: 1 },   // 5: front bottom right
+            { x: 1, y: 1, z: 1 },    // 6: front top right
+            { x: -1, y: 1, z: 1 }    // 7: front top left
+          ];
+        }
+        
+        function rotateVertices(vertices, angle) {
+          return vertices.map(v => {
+            // 3D rotation matrices applied sequentially
+            // Rotate around Y axis
+            let x1 = v.x * Math.cos(angle) - v.z * Math.sin(angle);
+            let z1 = v.x * Math.sin(angle) + v.z * Math.cos(angle);
+            
+            // Rotate around X axis
+            let y2 = v.y * Math.cos(angle * 0.7) - z1 * Math.sin(angle * 0.7);
+            let z2 = v.y * Math.sin(angle * 0.7) + z1 * Math.cos(angle * 0.7);
+            
+            // Rotate around Z axis
+            let x3 = x1 * Math.cos(angle * 0.5) - y2 * Math.sin(angle * 0.5);
+            let y3 = x1 * Math.sin(angle * 0.5) + y2 * Math.cos(angle * 0.5);
+            
+            return { x: x3, y: y3, z: z2 };
+          });
+        }
+        
+        function createPlasmaTexture() {
+          // Create plasma texture
+          const size = 64;
+          const texture = new Array(size * size);
+          
+          for (let y = 0; y < size; y++) {
+            for (let x = 0; x < size; x++) {
+              const value = 
+                Math.sin(x / 8.0) +
+                Math.sin(y / 8.0) +
+                Math.sin((x + y) / 8.0) +
+                Math.sin(Math.sqrt(x * x + y * y) / 8.0);
+              
+              texture[y * size + x] = (value + 4) / 8;
+            }
+          }
+          
+          return texture;
         }
         
         // Handle window resize
@@ -293,12 +771,13 @@ import Footer from '../components/Footer.astro';
     <style>
       .demo-scene-banner {
         width: 100%;
-        height: 250px;
+        height: 300px;
         position: relative;
         overflow: hidden;
         background-color: black;
-        border: 2px solid #ff00ff;
-        border-radius: 4px;
+        border: 3px solid #ff00ff;
+        border-radius: 0;
+        box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
       }
       
       #bannerCanvas {
@@ -314,11 +793,20 @@ import Footer from '../components/Footer.astro';
       }
       
       #audioToggle {
-        background: rgba(0,0,0,0.5);
+        background: rgba(0,0,0,0.7);
         color: #00ff00;
         border: 1px solid #00ff00;
+        border-radius: 4px;
         padding: 5px 10px;
         cursor: pointer;
+        font-family: monospace;
+        box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+      }
+      
+      /* Enhance the whole page to match the retro aesthetic */
+      body {
+        background-color: black;
+        color: #00ff00;
         font-family: monospace;
       }
     </style>
