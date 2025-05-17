@@ -1120,42 +1120,42 @@ import Footer from "../components/Footer.astro";
         }
 
         function drawParagraph() {
-          // Background with pattern
+          // Enhanced background with multiple effects
           ctx.fillStyle = "#000000";
           ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-          // Draw grid background
-          ctx.strokeStyle = "rgba(0, 255, 0, 0.1)";
+          // Dynamic grid that pulses with time
+          ctx.strokeStyle = `rgba(0, 255, 0, ${0.1 + Math.sin(state.time) * 0.05})`;
           ctx.lineWidth = 1;
 
-          // Horizontal lines
+          // Horizontal lines with wave effect
           for (let y = 0; y < canvas.height; y += 20) {
             ctx.beginPath();
-            ctx.moveTo(0, y);
-            ctx.lineTo(canvas.width, y);
+            ctx.moveTo(0, y + Math.sin(state.time + y * 0.01) * 3);
+            ctx.lineTo(canvas.width, y + Math.sin(state.time + y * 0.01) * 3);
             ctx.stroke();
           }
 
-          // Vertical lines
+          // Vertical lines with wave effect
           for (let x = 0; x < canvas.width; x += 20) {
             ctx.beginPath();
-            ctx.moveTo(x, 0);
-            ctx.lineTo(x, canvas.height);
+            ctx.moveTo(x + Math.cos(state.time + x * 0.01) * 3, 0);
+            ctx.lineTo(x + Math.cos(state.time + x * 0.01) * 3, canvas.height);
             ctx.stroke();
           }
 
-          // Fancy background effects
-          for (let i = 0; i < 15; i++) {
-            ctx.strokeStyle = `rgba(0, ${155 + i * 6}, ${155 - i * 10}, ${0.1 - i * 0.005})`;
-            ctx.beginPath();
-            ctx.arc(
-              canvas.width / 2,
-              canvas.height / 2,
-              50 + i * 15 + Math.sin(state.time + i * 0.1) * 5,
-              0,
-              Math.PI * 2
-            );
-            ctx.stroke();
+          // Particle system that reacts to text
+          if (state.paragraphChar > 0) {
+            for (let i = 0; i < 5; i++) {
+              const x = canvas.width / 2 + (Math.random() - 0.5) * 100;
+              const y = 100 + (Math.random() - 0.5) * 50;
+              const size = Math.random() * 3 + 1;
+              const hue = (state.time * 50 + i * 30) % 360;
+              ctx.fillStyle = `hsla(${hue}, 100%, 60%, 0.7)`;
+              ctx.beginPath();
+              ctx.arc(x, y, size, 0, Math.PI * 2);
+              ctx.fill();
+            }
           }
 
           // VU meter-like visuals on sides
@@ -1169,7 +1169,7 @@ import Footer from "../components/Footer.astro";
             state.paragraphText.length
           );
 
-          // Display paragraph text with typewriter effect
+          // Display paragraph text with multiple effects
           ctx.font = '14px "Press Start 2P", monospace';
           ctx.textAlign = "center";
 
@@ -1185,30 +1185,78 @@ import Footer from "../components/Footer.astro";
               continue;
             }
 
-            // For current line, show only typed characters
+            // Choose random effect for each line
+            const effectType = Math.floor(state.time + i) % 3;
             let displayText = line;
+
             if (i === state.paragraphIndex) {
-              displayText = line.substring(0, Math.floor(state.paragraphChar));
+              // Current line effects
+              const charsToShow = Math.floor(state.paragraphChar);
+              
+              switch(effectType) {
+                case 0: // Typewriter with glitch
+                  displayText = line.substring(0, charsToShow);
+                  if (Math.random() > 0.9) {
+                    // Add random glitch characters
+                    displayText += String.fromCharCode(65 + Math.floor(Math.random() * 26));
+                  }
+                  break;
+                  
+                case 1: // Scrolling from right
+                  const scrollPos = Math.floor(charsToShow / line.length * canvas.width);
+                  ctx.save();
+                  ctx.beginPath();
+                  ctx.rect(scrollPos, startY + lineIndex * lineHeight - 15,
+                          canvas.width - scrollPos, lineHeight);
+                  ctx.clip();
+                  displayText = line;
+                  break;
+                  
+                case 2: // Wavy text
+                  ctx.save();
+                  const yOffset = Math.sin(state.time * 3 + i) * 5;
+                  break;
+              }
+
+              // Rainbow color effect for text
+              const hue = (state.time * 20 + i * 30) % 360;
+              ctx.fillStyle = `hsl(${hue}, 100%, 60%)`;
             } else if (i > state.paragraphIndex) {
               displayText = "";
             }
 
-            // Rainbow color effect for text
-            const hue = (state.time * 20 + i * 30) % 360;
-            ctx.fillStyle = `hsl(${hue}, 100%, 60%)`;
-            ctx.fillText(
-              displayText,
-              canvas.width / 2,
-              startY + lineIndex * lineHeight
-            );
+            // Draw text with optional transform
+            if (effectType === 2) {
+              // Wavy text drawing
+              ctx.save();
+              for (let c = 0; c < displayText.length; c++) {
+                const charY = startY + lineIndex * lineHeight +
+                             Math.sin(state.time + c * 0.3) * 5;
+                ctx.fillText(
+                  displayText[c],
+                  canvas.width / 2 - (displayText.length * 7) / 2 + c * 14,
+                  charY
+                );
+              }
+              ctx.restore();
+            } else {
+              // Normal text drawing
+              ctx.fillText(
+                displayText,
+                canvas.width / 2,
+                startY + lineIndex * lineHeight
+              );
+              
+              if (effectType === 1) {
+                ctx.restore(); // For scrolling effect
+              }
+            }
           }
 
-          // Draw page number
-          const totalPages = Math.ceil(
-            state.paragraphText.length / linesPerPage
-          );
+          // Draw page number with pulse effect
+          const totalPages = Math.ceil(state.paragraphText.length / linesPerPage);
           ctx.font = '10px "Press Start 2P", monospace';
-          ctx.fillStyle = "#00ff00";
+          ctx.fillStyle = `rgba(0, 255, 0, ${0.7 + Math.sin(state.time * 3) * 0.3})`;
           ctx.fillText(
             `PAGE ${state.paragraphPage + 1}/${totalPages}`,
             canvas.width / 2,
