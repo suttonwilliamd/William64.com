@@ -34,7 +34,7 @@ import Footer from "../components/Footer.astro";
     <div class="w-full px-4 md:px-8">
       <!-- Demo Scene Banner - Now at the very top with enhanced visuals -->
       <div class="demo-scene-banner mb-6">
-        <canvas id="bannerCanvas"></canvas>
+        <canvas id="bannerCanvas" class="w-full h-auto"></canvas>
         <div class="banner-audio">
           <audio id="chiptune" loop>
             <source src="/assets/chiptune.mp3" type="audio/mp3" />
@@ -2396,11 +2396,17 @@ import Footer from "../components/Footer.astro";
         // Initialize animation
         animate();
 
-        // Window resize handler
-        window.addEventListener("resize", () => {
-          canvas.width = canvas.offsetWidth;
-          canvas.height = canvas.offsetHeight;
-        });
+    function resizeCanvas() {
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+}
+
+window.addEventListener("resize", () => {
+  resizeCanvas();
+});
+
+// Call once initially
+resizeCanvas();
       }); // <-- Close DOMContentLoaded event handler
     </script></body>
 </html>
