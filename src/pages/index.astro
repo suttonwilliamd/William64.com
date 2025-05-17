@@ -1,4 +1,5 @@
 ---
+// @ts-nocheck
 import TerminalHero from "../components/TerminalHero.astro";
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
@@ -169,24 +170,6 @@ import Footer from "../components/Footer.astro";
           sinOffset: 0,
           glitchTime: 0,
           plasma: createPlasmaTexture(),
-          rasterBars: Array(20).fill().map((_, i) => ({
-            width: 20 + Math.random() * 60,
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height * 0.5,
-            speed: 0.5 + Math.random(),
-            height: 10 + Math.random() * 30,
-            color: `hsl(${Math.random() * 360}, 100%, 50%)`,
-            wave: {
-              amplitude: 5 + Math.random() * 15,
-              frequency: 0.01 + Math.random() * 0.05
-            }
-          })),
-          tunnel: {
-            angle: 0,
-            radius: 100,
-            segments: 64,
-            colors: Array(64).fill().map(() => `hsl(${Math.random() * 360}, 100%, 50%)`)
-          },
           fire: createFireTexture(),
           cube: { rotation: 0, vertices: createCube() },
           voxel: { position: { x: 0, y: 0 }, data: createVoxelWorld() },
@@ -246,8 +229,6 @@ import Footer from "../components/Footer.astro";
             state.phase !== "voxel"
           ) {
             drawStars();
-            drawRasterBars();
-            drawTunnel();
           }
 
           // Draw phase-specific content
@@ -520,42 +501,6 @@ import Footer from "../components/Footer.astro";
             const x = Math.random() * canvas.width;
             const y = (state.time * 100 + i * 10) % canvas.height;
             ctx.fillText(Math.random() > 0.5 ? "0" : "1", x, y);
-          }
-        }
-
-        function drawRasterBars() {
-          state.rasterBars.forEach(bar => {
-            ctx.fillStyle = bar.color;
-            const x = bar.x + Math.sin(state.time * bar.wave.frequency) * bar.wave.amplitude;
-            ctx.fillRect(x, bar.y, bar.width, bar.height);
-            
-            // Move bars downward
-            bar.y += bar.speed;
-            if (bar.y > canvas.height) {
-              bar.y = -bar.height;
-              bar.x = Math.random() * canvas.width;
-            }
-          });
-        }
-
-        function drawTunnel() {
-          state.tunnel.angle += 0.01;
-          const centerX = canvas.width / 2;
-          const centerY = canvas.height / 2;
-          
-          for (let i = 0; i < state.tunnel.segments; i++) {
-            const angle = state.tunnel.angle + (i * Math.PI * 2 / state.tunnel.segments);
-            const x1 = centerX + Math.cos(angle) * state.tunnel.radius;
-            const y1 = centerY + Math.sin(angle) * state.tunnel.radius;
-            const x2 = centerX + Math.cos(angle) * (state.tunnel.radius + 50);
-            const y2 = centerY + Math.sin(angle) * (state.tunnel.radius + 50);
-            
-            ctx.strokeStyle = state.tunnel.colors[i];
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(x1, y1);
-            ctx.lineTo(x2, y2);
-            ctx.stroke();
           }
         }
 
