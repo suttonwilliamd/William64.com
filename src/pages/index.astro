@@ -101,11 +101,36 @@ import Footer from "../components/Footer.astro";
 
     <script is:inline src="/main.js"></script>
 
-    <!-- Demo Scene Banner Script with enhanced effects and longer sequences -->
+    <!-- Demo Scene Banner Script -->
     <script is:inline>
-      document.addEventListener("DOMContentLoaded", () => {
+    // @ts-nocheck
+    ;(function() {
+      // Canvas setup
+      const canvas = document.getElementById('bannerCanvas')
+      if (!canvas) return
+      const ctx = canvas.getContext('2d')
+      if (!ctx) return
+
+      // Set canvas size
+      const height = Math.min(canvas.offsetHeight, window.innerHeight * 0.6)
+      const width = canvas.offsetWidth
+      canvas.width = width
+      canvas.height = height
+      ctx.scale(width / 800, height / 400)
+
+      // Animation state and functions would go here
+      // (Existing implementation remains unchanged)
         const canvas = document.getElementById("bannerCanvas");
+        if (!canvas) {
+          console.error("Canvas element not found");
+          return;
+        }
         const ctx = canvas.getContext("2d");
+        if (!ctx) {
+          console.error("Could not get 2D context");
+          return;
+        }
+        console.log("Canvas initialized", canvas.width, canvas.height);
         const audio = document.getElementById("chiptune");
         const audioToggle = document.getElementById("audioToggle");
 
@@ -218,7 +243,8 @@ import Footer from "../components/Footer.astro";
 
         // Animation loop
         function animate() {
-          ctx.fillStyle = "black";
+          console.log("Animation frame");
+          ctx.fillStyle = "rgba(0,0,0,0.1)"; // Semi-transparent for motion trails
           ctx.fillRect(0, 0, canvas.width, canvas.height);
 
           // Draw starfield in most phases
@@ -290,8 +316,29 @@ import Footer from "../components/Footer.astro";
           requestAnimationFrame(animate);
         }
         
-        // Start the animation loop
-        animate();
+        // Initialize state
+        state.time = 0;
+        state.loadingProgress = 0;
+        state.phase = "loading";
+        
+        // Set initial canvas size
+        const demoHeight = Math.min(demoCanvas.offsetHeight, window.innerHeight * 0.6);
+        const demoWidth = demoCanvas.offsetWidth;
+        demoCanvas.width = demoWidth;
+        demoCanvas.height = demoHeight;
+        demoCtx.scale(demoWidth / 800, demoHeight / 400);
+        
+        // Start animation
+        requestAnimationFrame(animate);
+        
+        // Simulate loading progress
+        const loadInterval = setInterval(() => {
+          state.loadingProgress += 0.01;
+          if (state.loadingProgress >= 1) {
+            clearInterval(loadInterval);
+            state.phase = "intro";
+          }
+        }, 50);
 
         function drawStars() {
           state.stars.forEach((star) => {
@@ -308,6 +355,27 @@ import Footer from "../components/Footer.astro";
                     ? "#ff00ff"
                     : "#00ffff";
             }
+          }
+    
+          // Wait for DOM and fonts to load before starting
+      // Start animation
+      animate()
+
+      // Initialize on load
+      window.addEventListener('DOMContentLoaded', function() {
+        document.fonts.ready.then(function() {
+          // Re-initialize canvas in case of resize
+          const height = Math.min(canvas.offsetHeight, window.innerHeight * 0.6)
+          const width = canvas.offsetWidth
+          canvas.width = width
+          canvas.height = height
+          ctx.scale(width / 800, height / 400)
+        })
+            // Check if fonts are loaded
+            document.fonts.ready.then(() => {
+              initDemoScene();
+        })
+      })()
           });
         }
 
