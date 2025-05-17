@@ -289,6 +289,9 @@ import Footer from "../components/Footer.astro";
           // Continue animation
           requestAnimationFrame(animate);
         }
+        
+        // Start the animation loop
+        animate();
 
         function drawStars() {
           state.stars.forEach((star) => {
