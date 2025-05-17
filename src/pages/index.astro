@@ -1240,12 +1240,22 @@ import Footer from "../components/Footer.astro";
               }
               ctx.restore();
             } else {
-              // Normal text drawing
-              ctx.fillText(
-                displayText,
-                canvas.width / 2,
-                startY + lineIndex * lineHeight
-              );
+              // Arc trajectory for characters
+              const centerX = canvas.width / 2;
+              const centerY = startY + lineIndex * lineHeight;
+              const radius = 80;
+              
+              for (let c = 0; c < displayText.length; c++) {
+                // Calculate position on arc
+                const angle = Math.PI + (c / (displayText.length - 1)) * Math.PI;
+                const charX = centerX - (displayText.length * 7) + c * 14;
+                const charY = centerY - Math.sin(angle) * radius;
+                
+                // Draw character with rainbow color
+                const hue = (state.time * 20 + c * 30) % 360;
+                ctx.fillStyle = `hsl(${hue}, 100%, 60%)`;
+                ctx.fillText(displayText[c], charX, charY);
+              }
               
               if (effectType === 1) {
                 ctx.restore(); // For scrolling effect
@@ -1715,8 +1725,8 @@ import Footer from "../components/Footer.astro";
               }
               break;
             case "paragraph":
-              // Type characters with a certain speed
-              state.paragraphChar += 0.5;
+              // Type characters with a certain speed (slowed down)
+              state.paragraphChar += 0.2;
 
               // When current line is finished, move to next line
               if (
