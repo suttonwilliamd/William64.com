@@ -104,32 +104,30 @@ import Footer from "../components/Footer.astro";
     <!-- Demo Scene Banner Script -->
     <script is:inline>
     // @ts-nocheck
-    ;(function() {
+    (function() {
       // Canvas setup
-      const canvas = document.getElementById('bannerCanvas')
-      if (!canvas) return
-      const ctx = canvas.getContext('2d')
-      if (!ctx) return
+      const canvas = document.getElementById('bannerCanvas');
+      if (!canvas) {
+        console.error("Canvas element not found");
+        return;
+      }
+      
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        console.error("Could not get 2D context");
+        return;
+      }
 
-      // Set canvas size
-      const height = Math.min(canvas.offsetHeight, window.innerHeight * 0.6)
-      const width = canvas.offsetWidth
-      canvas.width = width
-      canvas.height = height
-      ctx.scale(width / 800, height / 400)
-
-      // Animation state and functions would go here
-      // (Existing implementation remains unchanged)
-        const canvas = document.getElementById("bannerCanvas");
-        if (!canvas) {
-          console.error("Canvas element not found");
-          return;
-        }
-        const ctx = canvas.getContext("2d");
-        if (!ctx) {
-          console.error("Could not get 2D context");
-          return;
-        }
+      // Set initial canvas size
+      const initCanvasSize = () => {
+        const height = Math.min(canvas.offsetHeight, window.innerHeight * 0.6);
+        const width = canvas.offsetWidth;
+        canvas.width = width;
+        canvas.height = height;
+        ctx.scale(width / 800, height / 400);
+      };
+      
+      initCanvasSize();
         console.log("Canvas initialized", canvas.width, canvas.height);
         const audio = document.getElementById("chiptune");
         const audioToggle = document.getElementById("audioToggle");
@@ -355,29 +353,46 @@ import Footer from "../components/Footer.astro";
                     ? "#ff00ff"
                     : "#00ffff";
             }
-          }
-    
-          // Wait for DOM and fonts to load before starting
-      // Start animation
-      animate()
-
-      // Initialize on load
-      window.addEventListener('DOMContentLoaded', function() {
-        document.fonts.ready.then(function() {
-          // Re-initialize canvas in case of resize
-          const height = Math.min(canvas.offsetHeight, window.innerHeight * 0.6)
-          const width = canvas.offsetWidth
-          canvas.width = width
-          canvas.height = height
-          ctx.scale(width / 800, height / 400)
-        })
-            // Check if fonts are loaded
-            document.fonts.ready.then(() => {
-              initDemoScene();
-        })
-      })()
           });
         }
+      
+  
+          // Start animation
+          animate();
+    
+          // Initialize on load and handle resize
+          window.addEventListener('DOMContentLoaded', () => {
+            document.fonts.ready.then(() => {
+              initCanvasSize();
+              
+              window.addEventListener('resize', () => {
+                initCanvasSize();
+              });
+            });
+          });
+    
+          // Initialize on load and handle resize
+          window.addEventListener('DOMContentLoaded', () => {
+            document.fonts.ready.then(() => {
+              initCanvasSize();
+              
+              window.addEventListener('resize', () => {
+                initCanvasSize();
+              });
+            });
+          });
+    
+          // Initialize on load and handle resize
+          window.addEventListener('DOMContentLoaded', () => {
+            document.fonts.ready.then(() => {
+              initCanvasSize();
+              
+              window.addEventListener('resize', () => {
+                initCanvasSize();
+              });
+            });
+          });
+        });
 
         function drawScanlines() {
           ctx.fillStyle = "rgba(255,255,255,0.07)";
@@ -580,7 +595,6 @@ import Footer from "../components/Footer.astro";
             const y = ((state.time * 2 + i) % 1) * canvas.height;
             ctx.fillText(Math.random() > 0.5 ? "1" : "0", x, y);
           }
-        },
 
         function drawLogo() {
           // William64 logo with elaborate effects
@@ -694,7 +708,7 @@ import Footer from "../components/Footer.astro";
 
           // Rotating binary ring
           drawBinaryRing(canvas.width / 2, canvas.height / 2, 170, state.time);
-        },
+        }
 
         function drawBinaryRing(x, y, radius, time) {
           ctx.save();
@@ -719,7 +733,7 @@ import Footer from "../components/Footer.astro";
           }
 
           ctx.restore();
-        },
+        }
 
         function drawEffects() {
           // 3D cube rotation effect with enhanced visuals
@@ -866,7 +880,7 @@ import Footer from "../components/Footer.astro";
             }
           }
           ctx.stroke();
-        },
+        }
 
         function drawPlasma() {
           // Draw plasma effect with enhanced colors
@@ -946,7 +960,7 @@ import Footer from "../components/Footer.astro";
               (Math.random() > 0.95 ? Math.random() * 4 - 2 : 0);
             ctx.fillText(text[i], x, y);
           }
-        },
+        }
 
         function drawGeometricOverlay(time) {
           // Draw geometric patterns for visual enhancement
@@ -976,7 +990,7 @@ import Footer from "../components/Footer.astro";
             );
             ctx.stroke();
           }
-        },
+        }
 
         function drawFire() {
           // Draw fire effect
@@ -1064,7 +1078,7 @@ import Footer from "../components/Footer.astro";
           ctx.textAlign = "center";
           ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
           ctx.fillText("CODE IS FIRE", canvas.width / 2, canvas.height / 2);
-        },
+        }
 
         function drawVoxel() {
           // Simple voxel terrain rendering
@@ -1181,21 +1195,21 @@ import Footer from "../components/Footer.astro";
           ctx.fillStyle = "#ffffff";
           ctx.textAlign = "center";
           ctx.fillText("DIGITAL LANDSCAPES", centerX, 40);
-        },
+        }
 
         function sampleVoxelHeight(x, y, z) {
           // Sample height using noise function
           const factor = 0.05;
           const value = noise(x * factor, y * factor, z * factor);
           return Math.floor(value * 12);
-        },
+        }
 
         function noise(x, y, z) {
           // Simple pseudo-noise function
           const val =
             Math.sin(x) * Math.cos(y) + Math.sin(y + z) * Math.cos(z + x);
           return (val + 2) / 4;
-        },
+        }
 
         function drawParagraph() {
           // Enhanced background with multiple effects
@@ -1350,7 +1364,7 @@ import Footer from "../components/Footer.astro";
             canvas.width / 2,
             canvas.height - 20
           );
-        },
+        }
 
         function drawVuMeters() {
           // Draw animated VU meters on sides
@@ -1435,7 +1449,7 @@ import Footer from "../components/Footer.astro";
             canvas.width - meterX + 8,
             meterY + meterHeight
           );
-        },
+        }
 
         function drawGreetz() {
           // GREETZ section with elaborate effects
@@ -1535,7 +1549,7 @@ import Footer from "../components/Footer.astro";
               ctx.fillText(edisonText[i], x, y);
             }
           }
-        },
+        }
 
         function drawCircuitPattern() {
           // Draw circuit board pattern in background
@@ -1609,12 +1623,12 @@ import Footer from "../components/Footer.astro";
             ctx.arc(x, y, 4, 0, Math.PI * 2);
             ctx.fill();
           }
-        },
+        }
 
         function pseudoRandom(seed) {
           // Simple deterministic pseudo-random function
           return ((seed * 9301 + 49297) % 233280) / 233280;
-        },
+        }
 
         function drawStarBurst(x, y) {
           // Draw animated starburst around greetz name
@@ -1665,7 +1679,7 @@ import Footer from "../components/Footer.astro";
           ctx.strokeStyle = `hsla(${(state.time * 100) % 360}, 100%, 70%, 0.3)`;
           ctx.lineWidth = 1;
           ctx.stroke();
-        },
+        }
 
         function drawOutro() {
           // Final screen with enhanced visuals
@@ -1749,7 +1763,7 @@ import Footer from "../components/Footer.astro";
             const y = (state.time * 100 + i * 30) % canvas.height;
             ctx.fillText(Math.random() > 0.5 ? "1" : "0", x, y);
           }
-        },
+        }
 
         function updateState() {
           state.time += 0.016; // Approx 60fps
@@ -1873,7 +1887,7 @@ import Footer from "../components/Footer.astro";
               }
               break;
           }
-        },
+        }
 
         // Utility functions
         function hexToRgb(hex) {
@@ -1882,7 +1896,7 @@ import Footer from "../components/Footer.astro";
           const g = parseInt(hex.slice(3, 5), 16);
           const b = parseInt(hex.slice(5, 7), 16);
           return `${r}, ${g}, ${b}`;
-        },
+        }
 
         function generateRandomChars(length) {
           // Generate random ASCII chars
@@ -1892,7 +1906,7 @@ import Footer from "../components/Footer.astro";
             chars.push(String.fromCharCode(charCode));
           }
           return chars;
-        },
+        }
 
         function createPlasmaTexture() {
           // Initialize texture for plasma effect
@@ -1900,12 +1914,12 @@ import Footer from "../components/Footer.astro";
           const height = Math.ceil(canvas.height / 2);
           const texture = new Array(width * height).fill(0);
           return texture;
-        },
+        }
 
         function createFireTexture() {
           // Initialize texture for fire effect
           return new Array(canvas.width * canvas.height).fill(0);
-        },
+        }
 
         function createCube() {
           // Create 3D cube vertices
@@ -1919,7 +1933,7 @@ import Footer from "../components/Footer.astro";
             { x: 1, y: 1, z: 1 }, // 6: back top right
             { x: -1, y: 1, z: 1 }, // 7: back top left
           ];
-        },
+        }
 
         function rotateVertices(vertices, angle) {
           // Apply 3D rotation to vertices
@@ -1941,7 +1955,7 @@ import Footer from "../components/Footer.astro";
 
             return { x: x3, y: y3, z: z2 };
           });
-        },
+        }
 
         function createVoxelWorld() {
           // Create simple heightmap data for voxel world
@@ -1957,7 +1971,7 @@ import Footer from "../components/Footer.astro";
           }
 
           return world;
-        },
+        }
 
         function createLensFlares() {
           // Create lens flare objects
@@ -1996,7 +2010,7 @@ import Footer from "../components/Footer.astro";
               speedY: 0.3,
             },
           ];
-        },
+        }
 
         // Enhance paragraphText with more visually diverse content
         state.paragraphText = [
@@ -2066,7 +2080,7 @@ import Footer from "../components/Footer.astro";
           "TESLA GAVE BRILLIANCE.",
           "BE LIKE TESLA.",
           "FUCK THOMAS EDISON.",
-        ]);
+        ];
 
         // Expand greetz list to ensure all mentioned people are included
         state.greetsList = [
