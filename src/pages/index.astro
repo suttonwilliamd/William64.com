@@ -35,11 +35,9 @@ import Footer from "../components/Footer.astro";
       <div class="demo-scene-banner mb-6 h-[32rem] min-h-[400px]">
         <canvas id="bannerCanvas" class="w-full h-auto" aria-hidden="true"></canvas>
         <div class="banner-audio" role="region" aria-label="Audio controls">
-          <audio id="chiptune" loop>
           <audio id="chiptune" loop preload="none" data-poster-frame="true">
             <source src="/assets/chiptune.mp3" type="audio/mp3" />
           </audio>
-          <button id="audioToggle">♫</button>
           <button id="audioToggle" aria-label="Toggle audio" title="Toggle audio">♫</button>
         </div>
       </div>
@@ -102,58 +100,58 @@ import Footer from "../components/Footer.astro";
     <script is:inline>
     // @ts-nocheck
     (function() {
-      // Combined script for both main.js and banner functionality
+    // Combined script for both main.js and banner functionality
+      
+    // Error handler to catch and report all errors
+    window.addEventListener('error', function(event) {
+      console.error('Global error:', event.error);
+      alert('Error in demo animation: ' + event.message);
+    });
 
-      // Main.js functionality
-      document.addEventListener('DOMContentLoaded', () => {
-        // Your main.js code here
-      });
-
+    try {
       // Banner functionality
       // Canvas setup
+      console.log("Starting canvas setup");
       const canvas = document.getElementById('bannerCanvas');
       if (!canvas) {
         console.error("Canvas element not found");
+        alert("Canvas element not found");
         return;
       }
-      
+        
       const ctx = canvas.getContext('2d');
       if (!ctx) {
         console.error("Could not get 2D context");
+        alert("Could not get 2D context");
         return;
       }
+      console.log("Canvas setup successful");
 
       // Set initial canvas size
       const initCanvasSize = () => {
-        const height = Math.min(canvas.offsetHeight, window.innerHeight * 0.6);
-        const width = canvas.offsetWidth;
-        canvas.width = width;
-        canvas.height = height;
-        ctx.scale(width / 800, height / 400);  // Base size 800x400
-        const container = canvas.parentElement;
-        const height = Math.min(container.offsetHeight, window.innerHeight * 0.6);
-        const width = container.offsetWidth;
-            
-        // Check if size has actually changed to avoid unnecessary work
-        if (canvas._lastWidth === width && canvas._lastHeight === height) {
-          return;
+        try {
+          console.log("Initializing canvas size");
+          const container = canvas.parentElement;
+          console.log("Container dimensions:", container.offsetWidth, "x", container.offsetHeight);
+          
+          const height = Math.min(container.offsetHeight, window.innerHeight * 0.6);
+          const width = container.offsetWidth;
+          
+          console.log("Calculated dimensions:", width, "x", height);
+                
+          // Set canvas dimensions directly without transformation complications
+          canvas.width = width;
+          canvas.height = height;
+                
+          // Set CSS dimensions explicitly
+          canvas.style.width = `${width}px`;
+          canvas.style.height = `${height}px`;
+          
+          console.log("Canvas size set to:", canvas.width, "x", canvas.height);
+        } catch (error) {
+          console.error("Error in initCanvasSize:", error);
+          alert("Canvas sizing error: " + error.message);
         }
-            
-        canvas._lastWidth = width;
-        canvas._lastHeight = height;
-            
-        // Set canvas dimensions with device pixel ratio for sharper rendering
-        const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap DPR at 2 for performance
-        canvas.width = width * dpr;
-        canvas.height = height * dpr;
-            
-        // Clear all transformations and reapply the scale
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.scale(dpr * width / 800, dpr * height / 400);  // Base size 800x400
-            
-        // Set CSS dimensions
-        canvas.style.width = `${width}px`;
-        canvas.style.height = `${height}px`;
       };
       
       initCanvasSize();
@@ -193,15 +191,8 @@ import Footer from "../components/Footer.astro";
         }
       }
 
-        // Audio toggle
         // Audio toggle with error handling
         audioToggle.addEventListener("click", () => {
-          if (audio.paused) {
-            audio.play();
-            audioToggle.textContent = "🔊";
-          } else {
-            audio.pause();
-            audioToggle.textContent = "♫";
           try {
             if (audio.paused) {
               const playPromise = audio.play();
@@ -334,91 +325,54 @@ import Footer from "../components/Footer.astro";
         
         // Animation loop
         function animate() {
-          console.log("Animation frame");
-          ctx.fillStyle = "rgba(0,0,0,0.1)"; // Semi-transparent for motion trails
-          // Clear with semi-transparent black for motion trails
-          ctx.fillStyle = "rgba(0,0,0,0.1)";
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-          // Draw starfield in most phases
-          if (
-            state.phase !== "effects" &&
-            state.phase !== "plasma" &&
-            state.phase !== "fire" &&
-            state.phase !== "voxel"
-          ) {
-            drawStars();
-          }
-
-          // Draw phase-specific content
-          switch (state.phase) {
-            case "loading":
-              drawLoading();
-              break;
-            case "intro":
-              drawIntro();
-              break;
-            case "logo":
-              drawLogo();
-              break;
-            case "effects":
-              drawEffects();
-              break;
-            case "plasma":
-              drawPlasma();
-              break;
-            case "fire":
-              drawFire();
-              break;
-            case "voxel":
-              drawVoxel();
-              break;
-            case "paragraph":
-              drawParagraph();
-              break;
-            case "greetz":
-              drawGreetz();
-              break;
-            case "outro":
-              drawOutro();
-              break;
-          }
-
-          // Draw lens flares in all phases except loading
-          if (state.phase !== "loading") {
-            drawLensFlares();
-          }
-
-          // Draw scanlines in all phases
-          drawScanlines();
-
-          // Occasional glitch effect
-          if (Math.random() > 0.99) {
-          // Occasional glitch effect (less frequent for better performance)
-          if (Math.random() > 0.995) {
-            state.glitchTime = 0.15;
-          }
-
-          if (state.glitchTime > 0) {
-            applyGlitchEffect();
-            state.glitchTime -= 0.016;
-          }
-
-          // Update state
-          updateState();
-
-          // Continue animation
-          requestAnimationFrame(animate);
-          // Continue animation with proper timing
-          if (!state.animationStopped && state.isVisible && (!audio.paused || !audio.hasAttribute('data-poster-frame'))) {
-            requestAnimationFrame(animate);
-          } else {
-            state.animationStopped = true;
-            
-            // If we have a poster frame and audio is paused, show the poster
-            if (audio.paused && audio.hasAttribute('data-poster-frame')) {
-              drawPosterFrame();
+          try {
+            // Confirm canvas is still valid
+            if (!canvas || !ctx) {
+              console.error("Canvas or context is null in animation loop");
+              return;
             }
+            
+            // Draw a simple test pattern to confirm rendering works
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw a green rectangle
+            ctx.fillStyle = "#00ff00";
+            ctx.fillRect(50, 50, canvas.width - 100, canvas.height - 100);
+            
+            // Draw some text
+            ctx.fillStyle = "white";
+            ctx.font = "20px monospace";
+            ctx.textAlign = "center";
+            ctx.fillText("DEMO ANIMATION TEST", canvas.width/2, canvas.height/2);
+            ctx.fillText("PHASE: " + state.phase, canvas.width/2, canvas.height/2 + 30);
+            
+            // Draw scanlines
+            drawSimpleScanlines();
+            
+            // Continue animation
+            console.log("Animation frame rendered, phase:", state.phase);
+            
+            // Update state
+            updateState();
+            
+            // Always continue animation for testing
+            requestAnimationFrame(animate);
+          } catch (error) {
+            console.error("Error in animation loop:", error);
+            alert("Animation error: " + error.message);
+          }
+        }
+        
+        // Simple scanlines without any complex patterns
+        function drawSimpleScanlines() {
+          try {
+            ctx.fillStyle = "rgba(255,255,255,0.1)";
+            for (let y = 0; y < canvas.height; y += 4) {
+              ctx.fillRect(0, y, canvas.width, 1);
+            }
+          } catch (error) {
+            console.error("Error drawing scanlines:", error);
           }
         }
         
@@ -466,7 +420,6 @@ import Footer from "../components/Footer.astro";
             document.fonts.ready.then(() => {
               initCanvasSize();
               
-              window.addEventListener('resize', initCanvasSize);
               // Debounced resize handler to improve performance
               let resizeTimeout;
               window.addEventListener('resize', () => {
@@ -480,26 +433,11 @@ import Footer from "../components/Footer.astro";
         });
 
         function drawScanlines() {
+          // Simple scanlines for better compatibility
           ctx.fillStyle = "rgba(255,255,255,0.07)";
           for (let y = 0; y < canvas.height; y += 4) {
             ctx.fillRect(0, y, canvas.width, 1);
-          // Optimize scanline rendering using a pattern or pre-rendered offscreen canvas
-          if (!window._scanlinePattern) {
-            const patternCanvas = document.createElement('canvas');
-            const patternSize = 16;
-            patternCanvas.width = 1;
-            patternCanvas.height = patternSize;
-            const patternCtx = patternCanvas.getContext('2d');
-            patternCtx.fillStyle = "rgba(0,0,0,0)";
-            patternCtx.fillRect(0, 0, 1, patternSize);
-            patternCtx.fillStyle = "rgba(255,255,255,0.07)";
-            patternCtx.fillRect(0, 0, 1, 1);
-            patternCtx.fillRect(0, 8, 1, 1);
-            window._scanlinePattern = ctx.createPattern(patternCanvas, 'repeat');
           }
-          
-          ctx.fillStyle = window._scanlinePattern;
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
 
         function drawLensFlares() {
@@ -549,14 +487,11 @@ import Footer from "../components/Footer.astro";
         }
 
         function applyGlitchEffect() {
-          // Randomly offset parts of the canvas
           // Randomly offset parts of the canvas - optimized for performance
           const sliceHeight = Math.floor(Math.random() * 20) + 5;
           const numSlices = Math.floor(canvas.height / sliceHeight);
           const maxSlices = Math.min(numSlices, 10); // Limit number of slices for performance
 
-          for (let i = 0; i < numSlices; i++) {
-            if (Math.random() > 0.7) {
           for (let i = 0; i < maxSlices; i++) {
             if (Math.random() > 0.8) { // Reduce frequency of glitch slices
               const y = i * sliceHeight;
@@ -578,8 +513,6 @@ import Footer from "../components/Footer.astro";
             }
           }
 
-          // Add color shift effect occasionally
-          if (Math.random() > 0.7) {
           // Add color shift effect occasionally - less frequent for better performance
           if (Math.random() > 0.85) {
             const imageData = ctx.getImageData(
@@ -590,7 +523,6 @@ import Footer from "../components/Footer.astro";
             );
             const data = imageData.data;
 
-            for (let i = 0; i < data.length; i += 4) {
             // Process only a portion of the pixels for better performance
             for (let i = 0; i < data.length; i += 16) {
               // Shift RGB channels
@@ -700,10 +632,6 @@ import Footer from "../components/Footer.astro";
         }
 
         function hexToRgb(hex) {
-              (Math.sin(state.time + i * 0.3) * 0.5 + 0.5) * canvas.width;
-            const y = ((state.time * 2 + i) % 1) * canvas.height;
-            ctx.fillText(Math.random() > 0.5 ? "1" : "0", x, y);
-          }
           // Remove # if present
           hex = hex.replace(/^#/, '');
           
@@ -1886,7 +1814,6 @@ import Footer from "../components/Footer.astro";
         }
 
         function updateState() {
-          state.time += 0.016; // Approx 60fps
           const delta = Math.min(0.033, 1 / 60); // Limit delta time to avoid large jumps
           state.time += delta;
 
