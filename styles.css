@@ -4,7 +4,8 @@ body {
   color: #00ff99;
   font-family: 'Courier New', Courier, monospace;
   line-height: 1.6;
-  padding: 2rem;
+  padding: 1rem;
+}
 
 .navbar {
   display: flex;
@@ -44,7 +45,6 @@ body {
     font-size: 0.85rem;
   }
 }
-}
 
 a {
   color: #00ffee;
@@ -58,10 +58,13 @@ a:hover {
 h1, h2 {
   font-family: 'Courier New', Courier, monospace;
   margin-bottom: 0.5rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 main {
-  max-width: 700px;
+  max-width: 100%;
   margin: auto;
 }
 
@@ -87,132 +90,6 @@ code {
     font-size: 1.75rem;
   }
   
- /* Project Card Styles */
- .project-card {
-   border: 1px solid #00aa55;
-   border-radius: 4px;
-   overflow: hidden;
-   margin-bottom: 2rem;
- }
- 
- .project-header {
-   background: #111;
- }
- 
- .title-bar {
-   display: flex;
-   align-items: center;
-   padding: 8px 12px;
-   background: #222;
-   border-bottom: 1px solid #00aa55;
- }
- 
- .controls {
-   display: flex;
-   gap: 6px;
-   margin-right: 12px;
- }
- 
- .circle {
-   width: 10px;
-   height: 10px;
-   border-radius: 50%;
-   background: #444;
- }
- 
- .circle:first-child {
-   background: #ff6b6b;
- }
- 
- .circle:nth-child(2) {
-   background: #ffb347;
- }
- 
- .circle:nth-child(3) {
-   background: #66bb6a;
- }
- 
- .title {
-   font-weight: bold;
-   color: #00ff99;
- }
- 
- .project-body {
-   background: #111;
-   padding: 1rem;
- }
- 
- .project-body pre {
-   line-height: 1.4;
-   overflow-x: auto;
-   padding: 8px;
-   background: #0a0a0a;
-   border-radius: 3px;
-   margin-bottom: 1rem;
- }
- 
- .technologies {
-   display: flex;
-   flex-wrap: wrap;
-   align-items: center;
-   gap: 8px;
-   margin-bottom: 0.5rem;
- }
- 
- .label {
-   color: #00aa55;
- }
- 
- .tech-tag {
-   background: #00aa55;
-   color: #000;
-   padding: 2px 8px;
-   border-radius: 3px;
-   font-size: 0.8rem;
- }
- 
- .links {
-   display: flex;
-   gap: 16px;
- }
- 
- .project-link {
-   color: #00ffee;
-   text-decoration: none;
- }
- 
- .project-link:hover {
-   text-decoration: underline;
- }
- 
- .mini-project-card {
-   border: 1px solid #00aa55;
-   padding: 1rem;
-   border-radius: 4px;
-   background: #111;
- }
- 
- /* Responsive adjustments for project cards */
- @media (max-width: 768px) {
-   .project-card,
-   .mini-project-card {
-     margin-bottom: 1.5rem;
-   }
- 
-   .technologies {
-     gap: 4px;
-   }
- 
-   .tech-tag {
-     font-size: 0.75rem;
-     padding: 1px 6px;
-   }
- 
-   .links {
-     flex-direction: column;
-     gap: 8px;
-   }
- }
   h2 {
     font-size: 1.5rem;
   }
@@ -249,11 +126,142 @@ code {
   }
 }
 
+/* Project Card Styles */
+.project-card {
+  border: 1px solid #00aa55;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
+.project-header {
+  background: #111;
+}
+
+.title-bar {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  background: #222;
+  border-bottom: 1px solid #00aa55;
+}
+
+.controls {
+  display: flex;
+  gap: 6px;
+  margin-right: 12px;
+}
+
+.circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #444;
+}
+
+.circle:first-child {
+  background: #ff6b6b;
+}
+
+.circle:nth-child(2) {
+  background: #ffb347;
+}
+
+.circle:nth-child(3) {
+  background: #66bb6a;
+}
+
+.title {
+  font-weight: bold;
+  color: #00ff99;
+}
+
+.project-body {
+  background: #111;
+  padding: 1rem;
+}
+
+.project-body pre {
+  line-height: 1.4;
+  overflow-x: auto;
+  padding: 8px;
+  background: #0a0a0a;
+  border-radius: 3px;
+  margin-bottom: 1rem;
+}
+
+.technologies {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.label {
+  color: #00aa55;
+}
+
+.tech-tag {
+  background: #00aa55;
+  color: #000;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 0.8rem;
+}
+
+.links {
+  display: flex;
+  gap: 16px;
+}
+
+.project-link {
+  color: #00ffee;
+  text-decoration: none;
+}
+
+.project-link:hover {
+  text-decoration: underline;
+}
+
+.mini-project-card {
+  border: 1px solid #00aa55;
+  padding: 1rem;
+  border-radius: 4px;
+  background: #111;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Responsive adjustments for project cards */
+@media (max-width: 768px) {
+  .project-card,
+  .mini-project-card {
+    margin-bottom: 1.5rem;
+  }
+
+  .technologies {
+    gap: 4px;
+  }
+
+  .tech-tag {
+    font-size: 0.75rem;
+    padding: 1px 6px;
+  }
+
+  .links {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
 
 /* Terminal styling with increased bottom margin */
 .terminal-emulator {
-  margin-bottom: 3.5rem; /* Increased from 2rem to 3.5rem for more spacing */
+  margin-bottom: 3.5rem;
   padding: 1rem;
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 4px;
@@ -265,7 +273,6 @@ code {
   flex-direction: column;
   gap: 0.5rem;
 }
-
 
 .terminal-line {
   display: flex;
@@ -298,4 +305,84 @@ code {
   100% { transform: translate(0); opacity: 1; }
 }
 
- 
+/* Demo Scene Banner Styles */
+.demo-scene-banner {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #00aa55;
+  border-radius: 4px;
+  background-color: #000;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+}
+
+.demo-scene-banner canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.banner-audio {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 10;
+}
+
+.banner-audio button {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid #00aa55;
+  color: #00ff99;
+  font-size: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 5px rgba(0, 255, 153, 0.3);
+}
+
+.banner-audio button:hover {
+  transform: scale(1.1);
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
+}
+
+.banner-audio button:active {
+  transform: scale(0.95);
+}
+
+.banner-audio button.playing {
+  background: rgba(0, 170, 85, 0.3);
+  box-shadow: 0 0 15px rgba(0, 255, 153, 0.7);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 5px rgba(0, 255, 153, 0.7); }
+  50% { box-shadow: 0 0 15px rgba(0, 255, 153, 0.9); }
+  100% { box-shadow: 0 0 5px rgba(0, 255, 153, 0.7); }
+}
+
+@media (max-width: 768px) {
+  .demo-scene-banner {
+    height: 24rem;
+    min-height: 320px;
+  }
+  
+  .banner-audio button {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .demo-scene-banner {
+    height: 18rem;
+    min-height: 240px;
+  }
+}
