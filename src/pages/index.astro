@@ -16,14 +16,12 @@ import Footer from "../components/Footer.astro";
       content="A minimalist, terminal-inspired personal site of William Sutton, software engineer and retro-tech enthusiast."
     />
 
-    <!-- Strategic Preloading -->
+    <!-- Performance optimizations -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preload" href="/styles.css" as="style" />
     <link rel="preload" href="/main.js" as="script" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="modulepreload" href="/_astro/TerminalHeroClient.L1wAk-Fv.js" />
-
-    <!-- Add Press Start 2P font for the retro banner -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
@@ -35,12 +33,14 @@ import Footer from "../components/Footer.astro";
     <div class="w-full px-4 md:px-8">
       <!-- Demo Scene Banner - Now at the very top with enhanced visuals -->
       <div class="demo-scene-banner mb-6 h-[32rem] min-h-[400px]">
-        <canvas id="bannerCanvas" class="w-full h-auto"></canvas>
-        <div class="banner-audio">
+        <canvas id="bannerCanvas" class="w-full h-auto" aria-hidden="true"></canvas>
+        <div class="banner-audio" role="region" aria-label="Audio controls">
           <audio id="chiptune" loop>
+          <audio id="chiptune" loop preload="none" data-poster-frame="true">
             <source src="/assets/chiptune.mp3" type="audio/mp3" />
           </audio>
           <button id="audioToggle">♫</button>
+          <button id="audioToggle" aria-label="Toggle audio" title="Toggle audio">♫</button>
         </div>
       </div>
 
@@ -99,12 +99,17 @@ import Footer from "../components/Footer.astro";
       </div>
     </div>
 
-    <script is:inline src="/main.js"></script>
-
-    <!-- Demo Scene Banner Script -->
     <script is:inline>
     // @ts-nocheck
     (function() {
+      // Combined script for both main.js and banner functionality
+
+      // Main.js functionality
+      document.addEventListener('DOMContentLoaded', () => {
+        // Your main.js code here
+      });
+
+      // Banner functionality
       // Canvas setup
       const canvas = document.getElementById('bannerCanvas');
       if (!canvas) {
@@ -124,25 +129,72 @@ import Footer from "../components/Footer.astro";
         const width = canvas.offsetWidth;
         canvas.width = width;
         canvas.height = height;
-        ctx.scale(width / 800, height / 400);
+        ctx.scale(width / 800, height / 400);  // Base size 800x400
+        const container = canvas.parentElement;
+        const height = Math.min(container.offsetHeight, window.innerHeight * 0.6);
+        const width = container.offsetWidth;
+            
+        // Check if size has actually changed to avoid unnecessary work
+        if (canvas._lastWidth === width && canvas._lastHeight === height) {
+          return;
+        }
+            
+        canvas._lastWidth = width;
+        canvas._lastHeight = height;
+            
+        // Set canvas dimensions with device pixel ratio for sharper rendering
+        const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap DPR at 2 for performance
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+            
+        // Clear all transformations and reapply the scale
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.scale(dpr * width / 800, dpr * height / 400);  // Base size 800x400
+            
+        // Set CSS dimensions
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
       };
       
       initCanvasSize();
-        console.log("Canvas initialized", canvas.width, canvas.height);
-        const audio = document.getElementById("chiptune");
-        const audioToggle = document.getElementById("audioToggle");
-
-        // Set canvas dimensions
-        // Set canvas to fill container while maintaining aspect ratio
-        const targetHeight = Math.min(canvas.offsetHeight, window.innerHeight * 0.6);
-        const targetWidth = canvas.offsetWidth;
-        canvas.width = targetWidth;
-        canvas.height = targetHeight;
+      
+      // Audio elements
+      const audio = document.getElementById("chiptune");
+      const audioToggle = document.getElementById("audioToggle");
+      
+      // Show poster frame initially
+      if (canvas && audio.hasAttribute('data-poster-frame')) {
+        drawPosterFrame();
+      }
+      
+      // Function to draw a static poster frame when audio is not playing
+      function drawPosterFrame() {
+        const ctx = canvas.getContext('2d');
+        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        gradient.addColorStop(0, '#000000');
+        gradient.addColorStop(0.5, '#001100');
+        gradient.addColorStop(1, '#000000');
         
-        // Scale drawing operations to match canvas size
-        ctx.scale(targetWidth / 800, targetHeight / 400);  // Base size 800x400
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.font = '24px "Press Start 2P", monospace';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#00ff00';
+        ctx.fillText('WILLIAM64 DEMO', canvas.width/2, canvas.height/2 - 40);
+        
+        ctx.font = '14px monospace';
+        ctx.fillText('Click ♫ to start the experience', canvas.width/2, canvas.height/2 + 20);
+        
+        // Draw some scanlines
+        ctx.fillStyle = "rgba(255,255,255,0.07)";
+        for (let y = 0; y < canvas.height; y += 4) {
+          ctx.fillRect(0, y, canvas.width, 1);
+        }
+      }
 
         // Audio toggle
+        // Audio toggle with error handling
         audioToggle.addEventListener("click", () => {
           if (audio.paused) {
             audio.play();
@@ -150,6 +202,28 @@ import Footer from "../components/Footer.astro";
           } else {
             audio.pause();
             audioToggle.textContent = "♫";
+          try {
+            if (audio.paused) {
+              const playPromise = audio.play();
+              if (playPromise !== undefined) {
+                playPromise
+                  .then(() => {
+                    audioToggle.textContent = "🔊";
+                    audioToggle.classList.add("playing");
+                  })
+                  .catch(error => {
+                    console.error("Audio playback failed:", error);
+                    audioToggle.textContent = "⚠️";
+                    setTimeout(() => { audioToggle.textContent = "♫"; }, 2000);
+                  });
+              }
+            } else {
+              audio.pause();
+              audioToggle.textContent = "♫";
+              audioToggle.classList.remove("playing");
+            }
+          } catch (error) {
+            console.error("Audio toggle error:", error);
           }
         });
 
@@ -239,10 +313,31 @@ import Footer from "../components/Footer.astro";
           });
         }
 
+        // Initialize animation state control
+        state.animationStopped = false;
+        state.isVisible = true;
+        
+        // Set up visibility detection to pause animation when not visible
+        if ('IntersectionObserver' in window) {
+          const observer = new IntersectionObserver((entries) => {
+            state.isVisible = entries[0].isIntersecting;
+            
+            // Restart animation if it became visible again
+            if (state.isVisible && state.animationStopped) {
+              state.animationStopped = false;
+              requestAnimationFrame(animate);
+            }
+          }, { threshold: 0.1 });
+          
+          observer.observe(canvas);
+        }
+        
         // Animation loop
         function animate() {
           console.log("Animation frame");
           ctx.fillStyle = "rgba(0,0,0,0.1)"; // Semi-transparent for motion trails
+          // Clear with semi-transparent black for motion trails
+          ctx.fillStyle = "rgba(0,0,0,0.1)";
           ctx.fillRect(0, 0, canvas.width, canvas.height);
 
           // Draw starfield in most phases
@@ -299,6 +394,8 @@ import Footer from "../components/Footer.astro";
 
           // Occasional glitch effect
           if (Math.random() > 0.99) {
+          // Occasional glitch effect (less frequent for better performance)
+          if (Math.random() > 0.995) {
             state.glitchTime = 0.15;
           }
 
@@ -312,6 +409,17 @@ import Footer from "../components/Footer.astro";
 
           // Continue animation
           requestAnimationFrame(animate);
+          // Continue animation with proper timing
+          if (!state.animationStopped && state.isVisible && (!audio.paused || !audio.hasAttribute('data-poster-frame'))) {
+            requestAnimationFrame(animate);
+          } else {
+            state.animationStopped = true;
+            
+            // If we have a poster frame and audio is paused, show the poster
+            if (audio.paused && audio.hasAttribute('data-poster-frame')) {
+              drawPosterFrame();
+            }
+          }
         }
         
         // Initialize state
@@ -359,6 +467,14 @@ import Footer from "../components/Footer.astro";
               initCanvasSize();
               
               window.addEventListener('resize', initCanvasSize);
+              // Debounced resize handler to improve performance
+              let resizeTimeout;
+              window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                  initCanvasSize();
+                }, 250);
+              });
             });
           });
         });
@@ -367,7 +483,23 @@ import Footer from "../components/Footer.astro";
           ctx.fillStyle = "rgba(255,255,255,0.07)";
           for (let y = 0; y < canvas.height; y += 4) {
             ctx.fillRect(0, y, canvas.width, 1);
+          // Optimize scanline rendering using a pattern or pre-rendered offscreen canvas
+          if (!window._scanlinePattern) {
+            const patternCanvas = document.createElement('canvas');
+            const patternSize = 16;
+            patternCanvas.width = 1;
+            patternCanvas.height = patternSize;
+            const patternCtx = patternCanvas.getContext('2d');
+            patternCtx.fillStyle = "rgba(0,0,0,0)";
+            patternCtx.fillRect(0, 0, 1, patternSize);
+            patternCtx.fillStyle = "rgba(255,255,255,0.07)";
+            patternCtx.fillRect(0, 0, 1, 1);
+            patternCtx.fillRect(0, 8, 1, 1);
+            window._scanlinePattern = ctx.createPattern(patternCanvas, 'repeat');
           }
+          
+          ctx.fillStyle = window._scanlinePattern;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
 
         function drawLensFlares() {
@@ -418,11 +550,15 @@ import Footer from "../components/Footer.astro";
 
         function applyGlitchEffect() {
           // Randomly offset parts of the canvas
+          // Randomly offset parts of the canvas - optimized for performance
           const sliceHeight = Math.floor(Math.random() * 20) + 5;
           const numSlices = Math.floor(canvas.height / sliceHeight);
+          const maxSlices = Math.min(numSlices, 10); // Limit number of slices for performance
 
           for (let i = 0; i < numSlices; i++) {
             if (Math.random() > 0.7) {
+          for (let i = 0; i < maxSlices; i++) {
+            if (Math.random() > 0.8) { // Reduce frequency of glitch slices
               const y = i * sliceHeight;
               const xOffset = Math.random() * 20 - 10;
 
@@ -444,6 +580,8 @@ import Footer from "../components/Footer.astro";
 
           // Add color shift effect occasionally
           if (Math.random() > 0.7) {
+          // Add color shift effect occasionally - less frequent for better performance
+          if (Math.random() > 0.85) {
             const imageData = ctx.getImageData(
               0,
               0,
@@ -453,6 +591,8 @@ import Footer from "../components/Footer.astro";
             const data = imageData.data;
 
             for (let i = 0; i < data.length; i += 4) {
+            // Process only a portion of the pixels for better performance
+            for (let i = 0; i < data.length; i += 16) {
               // Shift RGB channels
               const temp = data[i];
               data[i] = data[i + 1];
@@ -564,6 +704,17 @@ import Footer from "../components/Footer.astro";
             const y = ((state.time * 2 + i) % 1) * canvas.height;
             ctx.fillText(Math.random() > 0.5 ? "1" : "0", x, y);
           }
+          // Remove # if present
+          hex = hex.replace(/^#/, '');
+          
+          // Parse r, g, b values
+          const bigint = parseInt(hex, 16);
+          const r = (bigint >> 16) & 255;
+          const g = (bigint >> 8) & 255;
+          const b = bigint & 255;
+          
+          return `${r}, ${g}, ${b}`;
+        }
 
         function drawLogo() {
           // William64 logo with elaborate effects
@@ -1736,6 +1887,8 @@ import Footer from "../components/Footer.astro";
 
         function updateState() {
           state.time += 0.016; // Approx 60fps
+          const delta = Math.min(0.033, 1 / 60); // Limit delta time to avoid large jumps
+          state.time += delta;
 
           // Phase transitions with much longer durations
           switch (state.phase) {
