@@ -319,13 +319,6 @@ import Footer from "../components/Footer.astro";
         state.loadingProgress = 0;
         state.phase = "loading";
         
-        // Set initial canvas size
-        const demoHeight = Math.min(demoCanvas.offsetHeight, window.innerHeight * 0.6);
-        const demoWidth = demoCanvas.offsetWidth;
-        demoCanvas.width = demoWidth;
-        demoCanvas.height = demoHeight;
-        demoCtx.scale(demoWidth / 800, demoHeight / 400);
-        
         // Start animation
         requestAnimationFrame(animate);
         
@@ -365,31 +358,7 @@ import Footer from "../components/Footer.astro";
             document.fonts.ready.then(() => {
               initCanvasSize();
               
-              window.addEventListener('resize', () => {
-                initCanvasSize();
-              });
-            });
-          });
-    
-          // Initialize on load and handle resize
-          window.addEventListener('DOMContentLoaded', () => {
-            document.fonts.ready.then(() => {
-              initCanvasSize();
-              
-              window.addEventListener('resize', () => {
-                initCanvasSize();
-              });
-            });
-          });
-    
-          // Initialize on load and handle resize
-          window.addEventListener('DOMContentLoaded', () => {
-            document.fonts.ready.then(() => {
-              initCanvasSize();
-              
-              window.addEventListener('resize', () => {
-                initCanvasSize();
-              });
+              window.addEventListener('resize', initCanvasSize);
             });
           });
         });
