@@ -1,0 +1,41 @@
+---
+// Simple, modern hero for homepage
+const title = 'William Sutton';
+const subtitle = 'Software engineer focused on clean systems and practical products.';
+---
+
+<section class="py-10 md:py-16">
+  <div class="max-w-3xl mx-auto px-4">
+    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-green-400 mb-3">
+      {title}
+    </h1>
+    <p class="text-green-300 text-base sm:text-lg md:text-xl mb-6">
+      {subtitle}
+    </p>
+    <div class="flex flex-wrap gap-3">
+      <a href="/projects" class="inline-block bg-green-500/20 hover:bg-green-500/30 text-green-200 border border-green-600 px-4 py-2 rounded transition-colors">
+        View projects
+      </a>
+      <a href="/blog" class="inline-block hover:text-cyan-400 text-green-300 underline-offset-4 hover:underline">
+        Read the blog
+      </a>
+    </div>
+  </div>
+  
+  <div class="max-w-3xl mx-auto px-4 mt-8">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-green-300">
+      <div class="border border-green-700 p-3 bg-black/40 rounded">
+        <div class="text-green-500 mb-1">Focus</div>
+        Systems, APIs, tooling
+      </div>
+      <div class="border border-green-700 p-3 bg-black/40 rounded">
+        <div class="text-green-500 mb-1">Stack</div>
+        TypeScript, Python, Astro/React
+      </div>
+      <div class="border border-green-700 p-3 bg-black/40 rounded">
+        <div class="text-green-500 mb-1">Now</div>
+        Building useful, fast, simple software
+      </div>
+    </div>
+  </div>
+</section>
