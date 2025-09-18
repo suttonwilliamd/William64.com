@@ -3,6 +3,8 @@ import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 export default defineConfig({
   site: 'https://william64.com',
@@ -16,6 +18,6 @@ export default defineConfig({
     sitemap()
   ],
   markdown: {
-    rehypePlugins: ['rehype-slug', 'rehype-autolink-headings']
+    rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings]
   }
 });
