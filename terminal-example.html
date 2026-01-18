@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>William Sutton - Terminal Interface</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "JetBrains Mono", monospace;
+        background: #0a0a0f;
+        color: #00ff41;
+        overflow: hidden;
+        height: 100vh;
+      }
+
+      /* CRT Effect */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          rgba(0, 255, 65, 0.03) 50%,
+          transparent 50%
+        );
+        background-size: 100% 4px;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .terminal-container {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        z-index: 2;
+      }
+
+      .terminal-header {
+        background: #1a1a2e;
+        border-bottom: 2px solid #00ff41;
+        padding: 10px;
+        font-weight: 600;
+        box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+      }
+
+      .terminal-body {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+        background: rgba(10, 10, 15, 0.8);
+      }
+
+      .terminal-line {
+        margin-bottom: 8px;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+
+      .prompt {
+        color: #00ff41;
+        font-weight: 600;
+        text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+      }
+
+      .command {
+        color: #00ff41;
+      }
+
+      .output {
+        color: #b0b0b0;
+        white-space: pre-wrap;
+        margin-bottom: 16px;
+      }
+
+      .typing-effect {
+        display: inline-block;
+        overflow: hidden;
+        white-space: nowrap;
+        animation: typing 2s steps(30) infinite;
+      }
+
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+
+      .cursor {
+        display: inline-block;
+        width: 10px;
+        height: 20px;
+        background: #00ff41;
+        animation: blink 1s infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        50% {
+          opacity: 1;
+        }
+        51%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      .ascii-art {
+        color: #00ff41;
+        text-align: center;
+        margin: 20px 0;
+        font-size: 10px;
+        line-height: 1.2;
+      }
+
+      .menu-option {
+        color: #00ff41;
+        cursor: pointer;
+        padding: 4px 0;
+        transition: all 0.2s;
+      }
+
+      .menu-option:hover {
+        color: #ffffff;
+        text-shadow: 0 0 15px rgba(0, 255, 65, 0.8);
+        transform: translateX(10px);
+      }
+
+      .error {
+        color: #ff4466;
+      }
+
+      .success {
+        color: #00ff41;
+      }
+
+      .highlight {
+        color: #00ccff;
+        text-shadow: 0 0 8px rgba(0, 204, 255, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="terminal-container">
+      <div class="terminal-header">
+        William Sutton Cyber Terminal v2.0.1 | Type 'help' for commands
+      </div>
+      <div class="terminal-body" id="terminal">
+        <div class="ascii-art">
+          ████████ ███████ ██████ ██ ██ ███████ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██
+          ██ ██ ██████ ███████ ██████ █████ ██ ██████ ██ ██ ██ ██ ██ ██ ██ ██ ██
+          ██ ██ ██ ███████ ███████ ██████ ██ ██ ███████ ██ ██
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt">william64@cyberspace:~$</span>
+          <span class="command">whoami</span>
+        </div>
+        <div class="output">
+          <div class="highlight">William Sutton</div>
+          Senior Software Engineer & Digital Craftsman Specializing in cyberpunk
+          web experiences & terminal interfaces Location: Digital Realm Status:
+          <span class="success">ONLINE</span>
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt">william64@cyberspace:~$</span>
+          <span class="command">ls -la</span>
+        </div>
+        <div class="output">
+          drwxr-xr-x 4 william64 users 4096 Jan 18 2025
+          <span class="menu-option">projects/</span> drwxr-xr-x 3 william64
+          users 4096 Jan 18 2025
+          <span class="menu-option">blog/</span> drwxr-xr-x 2 william64 users
+          4096 Jan 18 2025 <span class="menu-option">skills/</span> drwxr-xr-x 2
+          william64 users 4096 Jan 18 2025
+          <span class="menu-option">contact/</span> -rw-r--r-- 1 william64 users
+          1337 Jan 18 2025 <span class="menu-option">readme.txt</span>
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt">william64@cyberspace:~$</span>
+          <span class="command">cat readme.txt</span>
+        </div>
+        <div class="output">
+          ╔════════════════════════════════════════════════════════════╗ ║
+          WELCOME TO CYBER TERMINAL ║ ║ ║ ║ Navigate through my digital world
+          using Unix-style commands ║ ║ ║ ║ Available commands: ║ ║ •
+          <span class="highlight">cd projects</span> - View portfolio projects ║
+          • <span class="highlight">cd blog</span> - Read technical articles ║ •
+          <span class="highlight">cat skills</span> - List technical skills ║ •
+          <span class="highlight">cd contact</span> - Get in touch ║ •
+          <span class="highlight">clear</span> - Clear terminal ║ •
+          <span class="highlight">help</span> - Show all commands ║ ║
+          ╚════════════════════════════════════════════════════════════╝
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt">william64@cyberspace:~$</span>
+          <span class="cursor"></span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const terminal = document.getElementById("terminal");
+      let currentPath = "~";
+      const commands = {
+        help: () => {
+          return `╔════════════════════════════════════════════════════════════╗
+║                    AVAILABLE COMMANDS                           ║
+║                                                              ║
+║  <span class="highlight">cd projects</span>     - Explore portfolio projects              
+║  <span class="highlight">cd blog</span>         - Read blog articles                   
+║  <span class="highlight">cat skills</span>      - Display technical skills                 
+║  <span class="highlight">cd contact</span>      - Contact information                   
+║  <span class="highlight">whoami</span>         - About William Sutton                 
+║  <span class="highlight">ls -la</span>         - List directory contents               
+║  <span class="highlight">clear</span>           - Clear terminal screen                 
+║  <span class="highlight">exit</span>            - Leave terminal                      
+║                                                              ║
+╚════════════════════════════════════════════════════════════╝`;
+        },
+        clear: () => {
+          terminal.innerHTML = "";
+          return "";
+        },
+        whoami: () => {
+          return `<div class="highlight">William Sutton</div>
+Senior Software Engineer & Digital Craftsman
+Specializing in cyberpunk web experiences & terminal interfaces
+Location: Digital Realm
+Status: <span class="success">ONLINE</span>`;
+        },
+        ls: () => {
+          return `drwxr-xr-x  4 william64 users    4096 Jan 18 2025 <span class="menu-option">projects/</span>
+drwxr-xr-x  3 william64 users    4096 Jan 18 2025 <span class="menu-option">blog/</span>
+drwxr-xr-x  2 william64 users    4096 Jan 18 2025 <span class="menu-option">skills/</span>
+drwxr-xr-x  2 william64 users    4096 Jan 18 2025 <span class="menu-option">contact/</span>
+-rw-r--r--  1 william64 users    1337 Jan 18 2025 <span class="menu-option">readme.txt</span>`;
+        },
+        "cd projects": () => {
+          currentPath = "~/projects";
+          return `Entering project directory...
+                
+<span class="highlight">PROJECTS:</span>
+📁 <span class="menu-option">william64.com</span> - This portfolio website
+📁 <span class="menu-option">pebble-rock</span> - Retro gaming platform  
+📁 <span class="menu-option">terminal-hero</span> - Interactive terminal component
+📁 <span class="menu-option">cyber-blog</span> - Technical blog platform
+
+Type 'cat [project-name]' for details or 'cd ..' to go back`;
+        },
+        "cd blog": () => {
+          currentPath = "~/blog";
+          return `Loading blog articles...
+
+<span class="highlight">RECENT POSTS:</span>
+📝 <span class="menu-option">cyberpunk-web-design.md</span> - Creating retro web experiences
+📝 <span class="menu-option">terminal-interfaces.mdx</span> - Building command-line UIs
+📝 <span class="menu-option">retro-gaming-dev.js</span> - Browser-based game development
+📝 <span class="menu-option">clean-architecture.txt</span> - Software design principles
+
+Type 'cat [post-name]' to read or 'cd ..' to go back`;
+        },
+        "cat skills": () => {
+          return `<span class="highlight">TECHNICAL SKILLSET:</span>
+
+🔧 Frontend: React, Vue, Astro, TypeScript, WebGL
+⚙️ Backend: Node.js, Python, PostgreSQL, Docker  
+🎮 Gaming: Canvas, WebAudio, Phaser, Three.js
+🎨 Design: CSS animations, pixel art, terminal UI
+📊 Data: Performance optimization, system architecture
+
+<span class="success">SKILL LEVEL: EXPERT</span> <span class="success">[████████████████████]</span>`;
+        },
+        "cd contact": () => {
+          return `<span class="highlight">CONTACT INFORMATION:</span>
+
+📧 Email: william@william64.com
+🐙 GitHub: github.com/williamsutton
+🌐 Web: william64.com
+💼 LinkedIn: linkedin.com/in/williamsutton
+
+Type 'mailto' to open email client or 'cd ..' to go back`;
+        },
+      };
+
+      function addCommand(input) {
+        const line = document.createElement("div");
+        line.className = "terminal-line";
+        line.innerHTML = `<span class="prompt">william64@cyberspace:${currentPath}$</span> <span class="command">${input}</span>`;
+        terminal.appendChild(line);
+      }
+
+      function addOutput(output) {
+        const outputDiv = document.createElement("div");
+        outputDiv.className = "output";
+        outputDiv.innerHTML = output;
+        terminal.appendChild(outputDiv);
+
+        // Add new prompt line
+        const newLine = document.createElement("div");
+        newLine.className = "terminal-line";
+        newLine.innerHTML = `<span class="prompt">william64@cyberspace:${currentPath}$</span> <span class="cursor"></span>`;
+        terminal.appendChild(newLine);
+
+        // Scroll to bottom
+        terminal.scrollTop = terminal.scrollHeight;
+      }
+
+      function processCommand(input) {
+        const trimmedInput = input.trim().toLowerCase();
+
+        // Handle cd ..
+        if (trimmedInput === "cd ..") {
+          currentPath = "~";
+          addOutput("Returning to home directory...");
+          return;
+        }
+
+        // Handle mailto
+        if (trimmedInput === "mailto") {
+          window.location.href = "mailto:william@william64.com";
+          return;
+        }
+
+        // Check for exact command matches
+        if (commands[trimmedInput]) {
+          addOutput(commands[trimmedInput]());
+          return;
+        }
+
+        // Handle cd commands
+        if (trimmedInput.startsWith("cd ")) {
+          const dir = trimmedInput.substring(3);
+          if (["projects", "blog", "contact"].includes(dir)) {
+            addOutput(commands[`cd ${dir}`]());
+          } else {
+            addOutput(
+              `<span class="error">bash: cd: ${dir}: No such directory</span>`,
+            );
+          }
+          return;
+        }
+
+        // Handle cat commands
+        if (trimmedInput.startsWith("cat ")) {
+          const file = trimmedInput.substring(4);
+          if (file === "readme.txt") {
+            addOutput(commands["help"]());
+          } else if (
+            [
+              "william64.com",
+              "pebble-rock",
+              "terminal-hero",
+              "cyber-blog",
+            ].includes(file)
+          ) {
+            addOutput(`Loading ${file} project details...
+
+<span class="highlight">PROJECT: ${file}</span>
+Status: <span class="success">COMPLETED</span>
+Tech Stack: Modern web technologies
+Live: ✓ Available
+Source: ✓ Open source
+
+Type 'cd projects' to see all projects or 'cd ..' to go back`);
+          } else {
+            addOutput(
+              `<span class="error">bash: cat: ${file}: No such file</span>`,
+            );
+          }
+          return;
+        }
+
+        // Unknown command
+        addOutput(`<span class="error">bash: ${trimmedInput}: command not found</span>
+Type 'help' for available commands`);
+      }
+
+      // Terminal input handler
+      document.addEventListener("keydown", (e) => {
+        const cursorLine = terminal.querySelector(".cursor")?.parentElement;
+        if (!cursorLine) return;
+
+        if (e.key === "Enter") {
+          e.preventDefault();
+          const commandText = cursorLine.textContent
+            .replace("william64@cyberspace:" + currentPath + "$", "")
+            .trim();
+          cursorLine.innerHTML = `<span class="prompt">william64@cyberspace:${currentPath}$</span> <span class="command">${commandText}</span>`;
+          processCommand(commandText);
+        } else if (e.key === "Backspace") {
+          e.preventDefault();
+          const text = cursorLine.textContent;
+          if (text.length > `william64@cyberspace:${currentPath}$ `.length) {
+            cursorLine.textContent = text.slice(0, -1);
+          }
+        } else if (e.key.length === 1) {
+          e.preventDefault();
+          cursorLine.textContent += e.key;
+        }
+      });
+
+      // Auto-scroll to bottom
+      terminal.scrollTop = terminal.scrollHeight;
+    </script>
+  </body>
+</html>
