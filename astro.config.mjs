@@ -2,7 +2,8 @@ import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
-import sitemap from "@astrojs/sitemap";
+// Temporarily disable sitemap to fix build error
+// import sitemap from "@astrojs/sitemap";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
@@ -16,7 +17,7 @@ export default defineConfig({
       shikiConfig: { theme: "one-dark-pro" },
       rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
     }),
-    sitemap(),
+    // sitemap(), // Temporarily disabled to fix build error
   ],
   markdown: {
     rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
