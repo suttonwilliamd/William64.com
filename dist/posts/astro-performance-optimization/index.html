@@ -1,7 +1,7 @@
-<!DOCTYPE html><link rel="stylesheet" href="/_astro/about.aDhIjLUM.css"><h1 id="astrojs-performance-optimization-300-faster-page-loads"><a aria-hidden="true" tabindex="-1" href="#astrojs-performance-optimization-300-faster-page-loads"><span class="icon icon-link"></span></a>Astro.js Performance Optimization: 300% Faster Page Loads</h1>
-<h2 id="introduction"><a aria-hidden="true" tabindex="-1" href="#introduction"><span class="icon icon-link"></span></a>Introduction</h2>
+<!DOCTYPE html><link rel="stylesheet" href="/_astro/about.aDhIjLUM.css"><h1 id="astrojs-performance-optimization-300-faster-page-loads">Astro.js Performance Optimization: 300% Faster Page Loads</h1>
+<h2 id="introduction">Introduction</h2>
 <p>In this comprehensive guide, I’ll share the performance optimization techniques I used to achieve 300% performance improvements and 90% faster page loads when migrating William64.com from React to Astro.js.</p>
-<h2 id="the-performance-challenge"><a aria-hidden="true" tabindex="-1" href="#the-performance-challenge"><span class="icon icon-link"></span></a>The Performance Challenge</h2>
+<h2 id="the-performance-challenge">The Performance Challenge</h2>
 <p>The original React-based website suffered from several performance issues:</p>
 <ul>
 <li><strong>Slow initial load times</strong> due to large JavaScript bundles</li>
@@ -9,8 +9,8 @@
 <li><strong>Poor SEO performance</strong> from client-side rendering</li>
 <li><strong>Memory leaks</strong> in complex components</li>
 </ul>
-<h2 id="solution-astrojs-migration-strategy"><a aria-hidden="true" tabindex="-1" href="#solution-astrojs-migration-strategy"><span class="icon icon-link"></span></a>Solution: Astro.js Migration Strategy</h2>
-<h3 id="1-component-islands-architecture"><a aria-hidden="true" tabindex="-1" href="#1-component-islands-architecture"><span class="icon icon-link"></span></a>1. Component Islands Architecture</h3>
+<h2 id="solution-astrojs-migration-strategy">Solution: Astro.js Migration Strategy</h2>
+<h3 id="1-component-islands-architecture">1. Component Islands Architecture</h3>
 <pre class="astro-code one-dark-pro" style="background-color:#282c34;color:#abb2bf;overflow-x:auto" tabindex="0" data-language="astro"><code><span class="line"><span style="color:#7F848E;font-style:italic">---</span></span>
 <span class="line"><span style="color:#7F848E;font-style:italic">// Only load interactive components when needed</span></span>
 <span class="line"><span style="color:#C678DD">import</span><span style="color:#E06C75"> InteractiveComponent</span><span style="color:#C678DD"> from</span><span style="color:#98C379"> &#39;../components/InteractiveComponent.astro&#39;</span><span style="color:#ABB2BF">;</span></span>
@@ -24,7 +24,7 @@
 <li>Improves Time to Interactive (TTI)</li>
 <li>Better resource utilization</li>
 </ul>
-<h3 id="2-static-site-generation"><a aria-hidden="true" tabindex="-1" href="#2-static-site-generation"><span class="icon icon-link"></span></a>2. Static Site Generation</h3>
+<h3 id="2-static-site-generation">2. Static Site Generation</h3>
 <pre class="astro-code one-dark-pro" style="background-color:#282c34;color:#abb2bf;overflow-x:auto" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#7F848E;font-style:italic">// astro.config.mjs</span></span>
 <span class="line"><span style="color:#C678DD">export</span><span style="color:#C678DD"> default</span><span style="color:#61AFEF"> defineConfig</span><span style="color:#ABB2BF">({</span></span>
 <span class="line"><span style="color:#E06C75">  output</span><span style="color:#ABB2BF">: </span><span style="color:#98C379">&quot;static&quot;</span><span style="color:#ABB2BF">, </span><span style="color:#7F848E;font-style:italic">// Pure static site generation</span></span>
@@ -37,7 +37,7 @@
 <li>Instant content delivery</li>
 <li>Better SEO and accessibility</li>
 </ul>
-<h3 id="3-image-optimization"><a aria-hidden="true" tabindex="-1" href="#3-image-optimization"><span class="icon icon-link"></span></a>3. Image Optimization</h3>
+<h3 id="3-image-optimization">3. Image Optimization</h3>
 <pre class="astro-code one-dark-pro" style="background-color:#282c34;color:#abb2bf;overflow-x:auto" tabindex="0" data-language="astro"><code><span class="line"><span style="color:#7F848E;font-style:italic">---</span></span>
 <span class="line"><span style="color:#C678DD">import</span><span style="color:#ABB2BF"> { </span><span style="color:#E06C75">Image</span><span style="color:#ABB2BF"> } </span><span style="color:#C678DD">from</span><span style="color:#98C379"> &#39;astro:assets&#39;</span><span style="color:#ABB2BF">;</span></span>
 <span class="line"><span style="color:#C678DD">import</span><span style="color:#E06C75"> heroImage</span><span style="color:#C678DD"> from</span><span style="color:#98C379"> &#39;../assets/hero.jpg&#39;</span><span style="color:#ABB2BF">;</span></span>
@@ -51,7 +51,7 @@
 <li>Faster visual loading</li>
 <li>Reduced bandwidth usage</li>
 </ul>
-<h3 id="4-code-splitting-and-lazy-loading"><a aria-hidden="true" tabindex="-1" href="#4-code-splitting-and-lazy-loading"><span class="icon icon-link"></span></a>4. Code Splitting and Lazy Loading</h3>
+<h3 id="4-code-splitting-and-lazy-loading">4. Code Splitting and Lazy Loading</h3>
 <pre class="astro-code one-dark-pro" style="background-color:#282c34;color:#abb2bf;overflow-x:auto" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#7F848E;font-style:italic">// Dynamic imports for non-critical components</span></span>
 <span class="line"><span style="color:#C678DD">const</span><span style="color:#E5C07B"> HeavyComponent</span><span style="color:#56B6C2"> =</span><span style="color:#C678DD"> await</span><span style="color:#61AFEF"> import</span><span style="color:#ABB2BF">(</span><span style="color:#98C379">&quot;../components/HeavyComponent.astro&quot;</span><span style="color:#ABB2BF">);</span></span>
 <span class="line"></span></code></pre>
@@ -61,7 +61,7 @@
 <li>Faster page interactivity</li>
 <li>Better mobile performance</li>
 </ul>
-<h2 id="performance-results"><a aria-hidden="true" tabindex="-1" href="#performance-results"><span class="icon icon-link"></span></a>Performance Results</h2>
+<h2 id="performance-results">Performance Results</h2>
 
 
 
@@ -98,13 +98,13 @@
 
 
 <table><thead><tr><th>Metric</th><th>Before</th><th>After</th><th>Improvement</th></tr></thead><tbody><tr><td>Page Load Time</td><td>2.8s</td><td>0.8s</td><td>71% Faster</td></tr><tr><td>Time to Interactive</td><td>4.2s</td><td>1.2s</td><td>71% Faster</td></tr><tr><td>Bundle Size</td><td>450KB</td><td>120KB</td><td>73% Smaller</td></tr><tr><td>SEO Score</td><td>78/100</td><td>95/100</td><td>22% Better</td></tr></tbody></table>
-<h2 id="key-learnings"><a aria-hidden="true" tabindex="-1" href="#key-learnings"><span class="icon icon-link"></span></a>Key Learnings</h2>
+<h2 id="key-learnings">Key Learnings</h2>
 <ol>
 <li><strong>Component Islands</strong> provide the perfect balance of interactivity and performance</li>
 <li><strong>Static generation</strong> significantly improves SEO and load times</li>
 <li><strong>Image optimization</strong> is crucial for visual-heavy sites</li>
 <li><strong>Lazy loading</strong> should be used for all non-critical resources</li>
 </ol>
-<h2 id="conclusion"><a aria-hidden="true" tabindex="-1" href="#conclusion"><span class="icon icon-link"></span></a>Conclusion</h2>
+<h2 id="conclusion">Conclusion</h2>
 <p>The Astro.js migration resulted in a <strong>300% overall performance improvement</strong>, making William64.com one of the fastest personal portfolio sites while maintaining full interactivity where needed.</p>
 <p><a href="/projects/astro-migration">View the full case study</a> | <a href="https://github.com/williamsutton/astro-migration">See the code</a></p>
