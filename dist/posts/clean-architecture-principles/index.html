@@ -1,8 +1,8 @@
-<!DOCTYPE html><link rel="stylesheet" href="/_astro/about.aDhIjLUM.css"><h1 id="clean-architecture-principles-for-scalable-web-applications">Clean Architecture Principles for Scalable Web Applications</h1>
-<h2 id="introduction">Introduction</h2>
+<!DOCTYPE html><link rel="stylesheet" href="/_astro/about.aDhIjLUM.css"><h1 id="clean-architecture-principles-for-scalable-web-applications"><a aria-hidden="true" tabindex="-1" href="#clean-architecture-principles-for-scalable-web-applications"><span class="icon icon-link"></span></a>Clean Architecture Principles for Scalable Web Applications</h1>
+<h2 id="introduction"><a aria-hidden="true" tabindex="-1" href="#introduction"><span class="icon icon-link"></span></a>Introduction</h2>
 <p>Clean architecture is not just about writing clean code—it’s about creating systems that are maintainable, testable, and adaptable to change. In this article, I’ll explore the core principles of clean architecture and how I’ve applied them to build scalable web applications.</p>
-<h2 id="the-core-principles">The Core Principles</h2>
-<h3 id="1-separation-of-concerns">1. Separation of Concerns</h3>
+<h2 id="the-core-principles"><a aria-hidden="true" tabindex="-1" href="#the-core-principles"><span class="icon icon-link"></span></a>The Core Principles</h2>
+<h3 id="1-separation-of-concerns"><a aria-hidden="true" tabindex="-1" href="#1-separation-of-concerns"><span class="icon icon-link"></span></a>1. Separation of Concerns</h3>
 <pre class="astro-code one-dark-pro" style="background-color:#282c34;color:#abb2bf;overflow-x:auto" tabindex="0" data-language="mermaid"><code><span class="line"><span style="color:#ABB2BF">graph TD</span></span>
 <span class="line"><span style="color:#ABB2BF">    A[Presentation Layer] --&gt; B[Application Layer]</span></span>
 <span class="line"><span style="color:#ABB2BF">    B --&gt; C[Domain Layer]</span></span>
@@ -14,7 +14,7 @@
 <li>Changes in one layer don’t affect others</li>
 <li>Easier to test and maintain</li>
 </ul>
-<h3 id="2-dependency-rule">2. Dependency Rule</h3>
+<h3 id="2-dependency-rule"><a aria-hidden="true" tabindex="-1" href="#2-dependency-rule"><span class="icon icon-link"></span></a>2. Dependency Rule</h3>
 <blockquote>
 <p>“Source code dependencies must point only inward, toward higher-level policies.”</p>
 </blockquote>
@@ -28,7 +28,7 @@
 <span class="line"><span style="color:#7F848E;font-style:italic">  // Implementation details</span></span>
 <span class="line"><span style="color:#ABB2BF">}</span></span>
 <span class="line"></span></code></pre>
-<h3 id="3-interface-segregation">3. Interface Segregation</h3>
+<h3 id="3-interface-segregation"><a aria-hidden="true" tabindex="-1" href="#3-interface-segregation"><span class="icon icon-link"></span></a>3. Interface Segregation</h3>
 <pre class="astro-code one-dark-pro" style="background-color:#282c34;color:#abb2bf;overflow-x:auto" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#7F848E;font-style:italic">// Instead of one large interface...</span></span>
 <span class="line"><span style="color:#C678DD">interface</span><span style="color:#E5C07B"> UserService</span><span style="color:#ABB2BF"> {</span></span>
 <span class="line"><span style="color:#61AFEF">  createUser</span><span style="color:#ABB2BF">(</span><span style="color:#E06C75;font-style:italic">data</span><span style="color:#ABB2BF">: </span><span style="color:#E5C07B">UserData</span><span style="color:#ABB2BF">): </span><span style="color:#E5C07B">Promise</span><span style="color:#ABB2BF">&lt;</span><span style="color:#E5C07B">User</span><span style="color:#ABB2BF">&gt;;</span></span>
@@ -46,15 +46,15 @@
 <span class="line"><span style="color:#61AFEF">  updateUser</span><span style="color:#ABB2BF">(</span><span style="color:#E06C75;font-style:italic">id</span><span style="color:#ABB2BF">: </span><span style="color:#E5C07B">string</span><span style="color:#ABB2BF">, </span><span style="color:#E06C75;font-style:italic">data</span><span style="color:#ABB2BF">: </span><span style="color:#E5C07B">Partial</span><span style="color:#ABB2BF">&lt;</span><span style="color:#E5C07B">UserData</span><span style="color:#ABB2BF">&gt;): </span><span style="color:#E5C07B">Promise</span><span style="color:#ABB2BF">&lt;</span><span style="color:#E5C07B">User</span><span style="color:#ABB2BF">&gt;;</span></span>
 <span class="line"><span style="color:#ABB2BF">}</span></span>
 <span class="line"></span></code></pre>
-<h2 id="applying-clean-architecture-to-william64com">Applying Clean Architecture to William64.com</h2>
-<h3 id="layered-structure">Layered Structure</h3>
+<h2 id="applying-clean-architecture-to-william64com"><a aria-hidden="true" tabindex="-1" href="#applying-clean-architecture-to-william64com"><span class="icon icon-link"></span></a>Applying Clean Architecture to William64.com</h2>
+<h3 id="layered-structure"><a aria-hidden="true" tabindex="-1" href="#layered-structure"><span class="icon icon-link"></span></a>Layered Structure</h3>
 <pre class="astro-code one-dark-pro" style="background-color:#282c34;color:#abb2bf;overflow-x:auto" tabindex="0" data-language="plaintext"><code><span class="line"><span>src/</span></span>
 <span class="line"><span>├── application/    # Use cases and business logic</span></span>
 <span class="line"><span>├── domain/        # Core business entities and rules</span></span>
 <span class="line"><span>├── infrastructure/ # External concerns (DB, APIs, etc.)</span></span>
 <span class="line"><span>└── presentation/  # UI components and delivery mechanisms</span></span>
 <span class="line"><span></span></span></code></pre>
-<h3 id="dependency-injection">Dependency Injection</h3>
+<h3 id="dependency-injection"><a aria-hidden="true" tabindex="-1" href="#dependency-injection"><span class="icon icon-link"></span></a>Dependency Injection</h3>
 <pre class="astro-code one-dark-pro" style="background-color:#282c34;color:#abb2bf;overflow-x:auto" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#7F848E;font-style:italic">// Domain layer defines interfaces</span></span>
 <span class="line"><span style="color:#C678DD">interface</span><span style="color:#E5C07B"> EmailService</span><span style="color:#ABB2BF"> {</span></span>
 <span class="line"><span style="color:#61AFEF">  sendEmail</span><span style="color:#ABB2BF">(</span><span style="color:#E06C75;font-style:italic">to</span><span style="color:#ABB2BF">: </span><span style="color:#E5C07B">string</span><span style="color:#ABB2BF">, </span><span style="color:#E06C75;font-style:italic">subject</span><span style="color:#ABB2BF">: </span><span style="color:#E5C07B">string</span><span style="color:#ABB2BF">, </span><span style="color:#E06C75;font-style:italic">body</span><span style="color:#ABB2BF">: </span><span style="color:#E5C07B">string</span><span style="color:#ABB2BF">): </span><span style="color:#E5C07B">Promise</span><span style="color:#ABB2BF">&lt;</span><span style="color:#E5C07B">void</span><span style="color:#ABB2BF">&gt;;</span></span>
@@ -77,19 +77,19 @@
 <span class="line"><span style="color:#ABB2BF">  }</span></span>
 <span class="line"><span style="color:#ABB2BF">}</span></span>
 <span class="line"></span></code></pre>
-<h2 id="benefits-ive-experienced">Benefits I’ve Experienced</h2>
+<h2 id="benefits-ive-experienced"><a aria-hidden="true" tabindex="-1" href="#benefits-ive-experienced"><span class="icon icon-link"></span></a>Benefits I’ve Experienced</h2>
 <ol>
 <li><strong>Easier Testing</strong>: Mock dependencies at the interface level</li>
 <li><strong>Better Maintainability</strong>: Clear separation makes code easier to understand</li>
 <li><strong>Flexibility</strong>: Swap implementations without changing business logic</li>
 <li><strong>Scalability</strong>: Add new features without breaking existing ones</li>
 </ol>
-<h2 id="common-pitfalls-to-avoid">Common Pitfalls to Avoid</h2>
+<h2 id="common-pitfalls-to-avoid"><a aria-hidden="true" tabindex="-1" href="#common-pitfalls-to-avoid"><span class="icon icon-link"></span></a>Common Pitfalls to Avoid</h2>
 <ol>
 <li><strong>Over-engineering</strong>: Don’t apply clean architecture to simple projects</li>
 <li><strong>Interface explosion</strong>: Too many small interfaces can be hard to manage</li>
 <li><strong>Ignoring the dependency rule</strong>: Keep dependencies pointing inward</li>
 </ol>
-<h2 id="conclusion">Conclusion</h2>
+<h2 id="conclusion"><a aria-hidden="true" tabindex="-1" href="#conclusion"><span class="icon icon-link"></span></a>Conclusion</h2>
 <p>Clean architecture principles have been instrumental in building William64.com’s scalable, maintainable codebase. By focusing on separation of concerns, proper dependency management, and interface segregation, I’ve created a system that can evolve without becoming a maintenance nightmare.</p>
 <p><a href="/projects/design-system-migration">Explore the architecture in detail</a> | <a href="https://github.com/williamsutton/design-system">View the codebase</a></p>
