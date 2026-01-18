@@ -1,18 +1,49 @@
 /*
- * William64.com Premium Main Styles
- * Modern, professional design system
+ * William64.com - Consolidated Design System
+ * Modern, professional design with clean aesthetics
  */
 
-/* Import premium design system */
+/* Import premium design system as primary */
 @import url("./src/styles/premium-design-system.css");
 
-/* Minimal overrides for compatibility */
+/* Critical fixes and optimizations */
 body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
 }
 
 main {
   flex: 1;
+}
+
+/* Fix gradient text display */
+.gradient-text {
+  background: linear-gradient(135deg, #6366f1 0%, #ec4899 50%, #14b8a6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+/* Improve container spacing */
+.hero-section {
+  padding: var(--space-12) 0;
+}
+
+/* Fix content section spacing */
+.content-section {
+  margin-bottom: var(--space-16);
+}
+
+/* Improve project card layout */
+.project-grid {
+  gap: var(--space-8);
+}
+
+/* Fix footer spacing */
+.footer {
+  padding: var(--space-16) 0 var(--space-8);
 }
