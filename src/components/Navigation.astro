@@ -1,16 +1,19 @@
 ---
 const navItems = [
-  { name: 'Home', path: '/' },
-  { name: 'Blog', path: '/blog' },
-  { name: 'Projects', path: '/projects' },
-  { name: 'About', path: '/about' },
-  { name: 'Contact', path: '/about#contact' }
+  { name: 'Portfolio', path: '/', icon: '🏠' },
+  { name: 'Projects', path: '/projects', icon: '⚡' },
+  { name: 'Blog', path: '/blog', icon: '📝' },
+  { name: 'About', path: '/about', icon: '👤' },
+  { name: 'Contact', path: '/about#contact', icon: '📧' }
 ];
 
 const currentPath = Astro.url.pathname;
 ---
 
 <nav class="navbar">
+  <div class="nav-header">
+    <h4 class="nav-title">Navigation</h4>
+  </div>
   <ul class="nav-links">
     {navItems.map(item => (
       <li>
@@ -18,9 +21,102 @@ const currentPath = Astro.url.pathname;
           href={item.path}
           class={`nav-link ${currentPath === item.path ? 'active' : ''}`}
         >
-          {item.name}
+          <span class="nav-icon">{item.icon}</span>
+          <span class="nav-text">{item.name}</span>
         </a>
       </li>
     ))}
   </ul>
+  
+  <div class="nav-footer">
+    <div class="status-indicator online"></div>
+    <span class="status-text">Available for work</span>
+  </div>
 </nav>
+
+<style>
+.nav-header {
+  margin-bottom: var(--space-4);
+}
+
+.nav-title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.nav-icon {
+  font-size: var(--font-size-lg);
+  line-height: 1;
+}
+
+.nav-text {
+  font-weight: var(--font-weight-medium);
+}
+
+.nav-link:hover {
+  background: rgba(99, 102, 241, 0.1);
+  transform: translateX(4px);
+}
+
+.nav-link.active {
+  background: rgba(99, 102, 241, 0.15);
+  color: var(--color-primary);
+}
+
+.nav-footer {
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-success);
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
+}
+
+.status-text {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Responsive navigation */
+@media (max-width: 768px) {
+  .nav-icon {
+    font-size: var(--font-size-base);
+  }
+  
+  .nav-text {
+    display: none;
+  }
+  
+  .nav-link {
+    justify-content: center;
+  }
+  
+  .nav-footer {
+    justify-content: center;
+  }
+}
+</style>

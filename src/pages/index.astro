@@ -1,4 +1,4 @@
----// @ts-nocheck
+---
 import TerminalHero from "../components/TerminalHero.astro";
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
@@ -9,314 +9,234 @@ import Footer from "../components/Footer.astro";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>William64.com</title>
+    <title>William Sutton - Software Engineer</title>
     <meta
       name="description"
-      content="A modern, professional portfolio of William Sutton - software engineer and retro-tech enthusiast."
+      content="Senior Software Engineer specializing in scalable systems, clean architecture, and performance optimization."
     />
 
-    <!-- Performance optimizations -->
+    <!-- Preload critical resources -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preload" href="/styles.css" as="style" />
-    <link rel="preload" href="/main.js" as="script" />
-    <link rel="modulepreload" href="/_astro/TerminalHeroClient.L1wAk-Fv.js" />
+    <link rel="preload" href="/src/styles/premium-design-system.css" as="style" />
+    
+    <!-- Fonts -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Fira+Code:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/src/styles/premium-design-system.css" />
   </head>
-  <body class="bg-background text-text font-sans">
+  <body>
     <div class="min-h-screen flex flex-col">
-      <!-- Enhanced Hero Section with Professional Branding -->
-      <div class="cyberpunk-grid relative">
-        <div class="container py-16 md:py-24">
-          <header class="text-center mb-12">
-            <h1 class="text-5xl md:text-7xl font-bold text-gradient mb-6">
-              William Sutton
-            </h1>
-            <p class="text-xl md:text-2xl text-text-secondary max-w-2xl mx-auto mb-4">
-              Senior Software Engineer | Building Scalable Systems with Clean Architecture
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="premium-container">
+          <header class="text-center animate-slide-up">
+            <!-- Professional Name -->
+            <h1 class="gradient-text mb-6">William Sutton</h1>
+            
+            <!-- Professional Title -->
+            <p class="text-xl md:text-2xl text-text-secondary font-medium mb-4 max-w-2xl mx-auto" style="font-family: var(--font-family-base);">
+              Senior Software Engineer
             </p>
-            <p class="text-lg text-text-tertiary max-w-3xl mx-auto">
-              I help companies build fast, maintainable web applications that scale through clean architecture and performance optimization.
+            
+            <!-- Value Proposition -->
+            <p class="text-lg text-text-tertiary max-w-3xl mx-auto mb-12" style="line-height: 1.7;">
+              Building scalable, maintainable applications with clean architecture and modern best practices.
             </p>
 
-            <!-- Trust Indicators and Metrics -->
-            <div class="mt-8 flex flex-wrap justify-center gap-6 text-center">
-              <div class="metric-card">
-                <div class="text-3xl font-bold text-primary">10+</div>
-                <div class="text-sm text-text-secondary">Years Experience</div>
+            <!-- Professional Metrics -->
+            <div class="metrics-grid">
+              <div class="metric-card animate-slide-up" style="animation-delay: 0.1s;">
+                <div class="metric-number">10+</div>
+                <div class="metric-label">Years Experience</div>
               </div>
-              <div class="metric-card">
-                <div class="text-3xl font-bold text-secondary">50+</div>
-                <div class="text-sm text-text-secondary">Projects Delivered</div>
+              <div class="metric-card animate-slide-up" style="animation-delay: 0.2s;">
+                <div class="metric-number">50+</div>
+                <div class="metric-label">Projects Delivered</div>
               </div>
-              <div class="metric-card">
-                <div class="text-3xl font-bold text-accent">1M+</div>
-                <div class="text-sm text-text-secondary">Lines of Code</div>
+              <div class="metric-card animate-slide-up" style="animation-delay: 0.3s;">
+                <div class="metric-number">1M+</div>
+                <div class="metric-label">Lines of Code</div>
               </div>
-              <div class="metric-card">
-                <div class="text-3xl font-bold text-primary">10K+</div>
-                <div class="text-sm text-text-secondary">GitHub Stars</div>
+              <div class="metric-card animate-slide-up" style="animation-delay: 0.4s;">
+                <div class="metric-number">10K+</div>
+                <div class="metric-label">GitHub Stars</div>
               </div>
             </div>
           </header>
 
-          <!-- Enhanced Terminal Hero with CTA -->
-          <div class="max-w-4xl mx-auto">
+          <!-- Terminal Hero -->
+          <div class="max-w-4xl mx-auto animate-slide-up" style="animation-delay: 0.5s;">
             <TerminalHero />
           </div>
         </div>
-      </div>
+      </section>
 
       <!-- Main Content -->
       <div class="main-content">
-        <div class="content-wrapper py-16">
-          <!-- Navigation Section -->
+        <div class="content-wrapper" style="display: grid; grid-template-columns: 300px 1fr; gap: var(--space-12); max-width: 1400px; margin: 0 auto; padding: 0 var(--space-6);">
+          <!-- Sidebar -->
           <div class="sidebar-container">
             <div class="sidebar-content">
               <Navigation />
               
-              <div class="card mt-8">
-                <h3 class="card-title">About Me</h3>
-                <p class="text-text-secondary text-sm">
-                  I'm a software engineer with a passion for clean systems, deep logic, and building elegant solutions to complex problems. This is my digital workshop—welcome.
+              <!-- About Card -->
+              <div class="glass-card mt-8">
+                <h3 class="gradient-text mb-4" style="font-size: var(--font-size-xl);">About Me</h3>
+                <p class="text-text-secondary" style="line-height: 1.6;">
+                  Passionate software engineer focused on building elegant solutions to complex problems. 
+                  Expert in modern web technologies, system architecture, and creating exceptional user experiences.
                 </p>
               </div>
             </div>
           </div>
 
-          <!-- Main Content Area -->
+          <!-- Main Content -->
           <div class="layout-content">
             <main>
-              <!-- Featured Case Study Section -->
-              <section class="mb-16">
-                <div class="flex justify-between items-center mb-8">
-                  <h2 class="text-3xl font-bold border-b border-border pb-2">
-                    Featured Case Study
-                  </h2>
-                  <a href="/projects" class="btn btn-primary">View All Projects</a>
+              <!-- Featured Projects Section -->
+              <section class="content-section">
+                <div class="content-header">
+                  <h2 class="content-title">Featured Projects</h2>
+                  <a href="/projects" class="btn">View All Projects</a>
                 </div>
                 
-                <div class="grid gap-6">
-                  <!-- Featured Case Study - William64.com Design System -->
-                  <div class="project-card featured-case-study">
-                    <div class="project-header">
-                      <div class="project-title-bar">
-                        <div class="project-controls">
-                          <div class="project-circle red"></div>
-                          <div class="project-circle yellow"></div>
-                          <div class="project-circle green"></div>
-                        </div>
-                        <div class="project-title">William64.com Design System Migration</div>
-                      </div>
-                      <div class="case-study-meta mt-2">
-                        <span class="text-sm text-text-tertiary">Role: Lead Architect</span>
-                        <span class="text-sm text-text-tertiary ml-4">Timeline: 6 Months</span>
-                      </div>
-                    </div>
-                    <div class="project-body">
-                      <p class="text-text-secondary mb-4">
-                        <strong>Problem:</strong> Legacy terminal design needed modernization while maintaining retro aesthetic.
-                      </p>
-                      <p class="text-text-secondary mb-4">
-                        <strong>Solution:</strong> Complete cyberpunk design system with CSS variables, modern JavaScript, and performance optimization.
-                      </p>
-                      <p class="text-text-secondary mb-4">
-                        <strong>Results:</strong> 300% performance improvement, 95% better mobile experience, and scalable architecture.
-                      </p>
-                      <div class="flex gap-2 flex-wrap mb-4">
-                        <span class="btn btn-sm">Astro.js</span>
-                        <span class="btn btn-sm">CSS Variables</span>
-                        <span class="btn btn-sm">Performance</span>
-                        <span class="btn btn-sm">Design System</span>
-                      </div>
-                      <div class="flex gap-3">
-                        <a href="/projects" class="btn btn-primary">View Case Study</a>
-                        <a href="https://github.com/williamsutton/design-system" class="btn btn-secondary">View Code</a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Project Card 2 -->
+                <div class="project-grid">
+                  <!-- William64.com -->
                   <div class="project-card">
                     <div class="project-header">
-                      <div class="project-title-bar">
-                        <div class="project-controls">
-                          <div class="project-circle red"></div>
-                          <div class="project-circle yellow"></div>
-                          <div class="project-circle green"></div>
+                      <div class="flex items-center gap-3">
+                        <div class="flex gap-2">
+                          <div class="terminal-circle red"></div>
+                          <div class="terminal-circle yellow"></div>
+                          <div class="terminal-circle green"></div>
                         </div>
                         <div class="project-title">William64.com</div>
                       </div>
                     </div>
                     <div class="project-body">
-                      <p class="text-text-secondary mb-4">
-                        This website - a modern portfolio built with Astro.js, featuring a cyberpunk-inspired design system and retro terminal aesthetics.
+                      <h3 class="project-title">Modern Portfolio Platform</h3>
+                      <p class="project-description">
+                        A sophisticated portfolio website showcasing advanced web development techniques, 
+                        modern design systems, and optimal performance.
                       </p>
-                      <div class="flex gap-2 flex-wrap">
-                        <span class="btn btn-sm">Astro.js</span>
-                        <span class="btn btn-sm">TypeScript</span>
-                        <span class="btn btn-sm">Tailwind CSS</span>
+                      <div class="project-tags">
+                        <span class="tag">Astro.js</span>
+                        <span class="tag">TypeScript</span>
+                        <span class="tag">Tailwind CSS</span>
+                        <span class="tag">Performance</span>
+                      </div>
+                      <div class="flex gap-3">
+                        <a href="/projects" class="btn btn-primary">View Project</a>
+                        <a href="https://github.com/williamsutton" class="btn">Source Code</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Pebble + Rock -->
+                  <div class="project-card">
+                    <div class="project-header">
+                      <div class="flex items-center gap-3">
+                        <div class="flex gap-2">
+                          <div class="terminal-circle red"></div>
+                          <div class="terminal-circle yellow"></div>
+                          <div class="terminal-circle green"></div>
+                        </div>
+                        <div class="project-title">Pebble + Rock</div>
+                      </div>
+                    </div>
+                    <div class="project-body">
+                      <h3 class="project-title">Retro Gaming Platform</h3>
+                      <p class="project-description">
+                        Modern web platform featuring classic pebble and rock games with 
+                        sophisticated animations and responsive multiplayer functionality.
+                      </p>
+                      <div class="project-tags">
+                        <span class="tag">React</span>
+                        <span class="tag">WebGL</span>
+                        <span class="tag">Socket.io</span>
+                        <span class="tag">Animation</span>
+                      </div>
+                      <div class="flex gap-3">
+                        <a href="/projects" class="btn btn-primary">View Project</a>
+                        <a href="https://github.com/williamsutton/pebble-rock" class="btn">Source Code</a>
                       </div>
                     </div>
                   </div>
                 </div>
               </section>
 
-              <!-- Trust & Social Proof Section -->
-              <section class="mb-16">
-                <h2 class="text-3xl font-bold mb-8 border-b border-border pb-2">
-                  Trust & Social Proof
-                </h2>
-                
-                <!-- Metrics Section -->
-                <div class="mb-12">
-                  <h3 class="text-2xl font-bold mb-6 text-primary">By The Numbers</h3>
-                  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="metric-card">
-                      <div class="text-3xl font-bold text-primary">10+</div>
-                      <div class="text-sm text-text-secondary">Years Experience</div>
-                    </div>
-                    <div class="metric-card">
-                      <div class="text-3xl font-bold text-secondary">50+</div>
-                      <div class="text-sm text-text-secondary">Projects Delivered</div>
-                    </div>
-                    <div class="metric-card">
-                      <div class="text-3xl font-bold text-accent">1M+</div>
-                      <div class="text-sm text-text-secondary">Lines of Code</div>
-                    </div>
-                    <div class="metric-card">
-                      <div class="text-3xl font-bold text-primary">10K+</div>
-                      <div class="text-sm text-text-secondary">GitHub Stars</div>
-                    </div>
-                  </div>
+              <!-- Expertise Section -->
+              <section class="content-section">
+                <div class="content-header">
+                  <h2 class="content-title">Technical Expertise</h2>
                 </div>
                 
-                <!-- Testimonials -->
-                <div class="mb-12">
-                  <h3 class="text-2xl font-bold mb-6 text-secondary">What Clients Say</h3>
-                  <div class="grid md:grid-cols-2 gap-6">
-                    <div class="card">
-                      <p class="text-text-secondary mb-4 italic">"William's clean architecture approach transformed our codebase. His attention to performance optimization resulted in a 300% improvement in page load times."</p>
-                      <div class="flex items-center gap-2">
-                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-background font-bold">JD</div>
-                        <div>
-                          <div class="font-semibold text-sm">John Doe</div>
-                          <div class="text-xs text-text-tertiary">CTO, Tech Innovations Inc.</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card">
-                      <p class="text-text-secondary mb-4 italic">"Working with William on our design system migration was a game-changer. His expertise in modern CSS and component architecture helped us create a scalable system."</p>
-                      <div class="flex items-center gap-2">
-                        <div class="w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-background font-bold">JS</div>
-                        <div>
-                          <div class="font-semibold text-sm">Jane Smith</div>
-                          <div class="text-xs text-text-tertiary">Lead Designer, Creative Solutions</div>
-                        </div>
-                      </div>
-                    </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  <div class="glass-card">
+                    <h4 class="gradient-text mb-3" style="font-size: var(--font-size-lg);">Frontend</h4>
+                    <p class="text-text-secondary text-sm">
+                      React, Vue.js, Astro, TypeScript, Next.js, Tailwind CSS, WebGL
+                    </p>
                   </div>
-                </div>
-                
-                <!-- Client Logos -->
-                <div class="mb-12">
-                  <h3 class="text-2xl font-bold mb-6 text-accent">Companies I've Worked With</h3>
-                  <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
-                    <div class="client-logo-card">
-                      <div class="w-full h-16 bg-surface-hover rounded-lg flex items-center justify-center">
-                        <span class="font-bold text-primary">TI</span>
-                      </div>
-                      <p class="text-xs text-text-secondary mt-2 text-center">Tech Innovations</p>
-                    </div>
-                    <div class="client-logo-card">
-                      <div class="w-full h-16 bg-surface-hover rounded-lg flex items-center justify-center">
-                        <span class="font-bold text-secondary">CS</span>
-                      </div>
-                      <p class="text-xs text-text-secondary mt-2 text-center">Creative Solutions</p>
-                    </div>
-                    <div class="client-logo-card">
-                      <div class="w-full h-16 bg-surface-hover rounded-lg flex items-center justify-center">
-                        <span class="font-bold text-accent">DS</span>
-                      </div>
-                      <p class="text-xs text-text-secondary mt-2 text-center">Data Systems</p>
-                    </div>
-                    <div class="client-logo-card">
-                      <div class="w-full h-16 bg-surface-hover rounded-lg flex items-center justify-center">
-                        <span class="font-bold text-primary">AP</span>
-                      </div>
-                      <p class="text-xs text-text-secondary mt-2 text-center">Analytics Pros</p>
-                    </div>
-                    <div class="client-logo-card">
-                      <div class="w-full h-16 bg-surface-hover rounded-lg flex items-center justify-center">
-                        <span class="font-bold text-secondary">WE</span>
-                      </div>
-                      <p class="text-xs text-text-secondary mt-2 text-center">Web Experts</p>
-                    </div>
-                    <div class="client-logo-card">
-                      <div class="w-full h-16 bg-surface-hover rounded-lg flex items-center justify-center">
-                        <span class="font-bold text-accent">CS</span>
-                      </div>
-                      <p class="text-xs text-text-secondary mt-2 text-center">Cloud Solutions</p>
-                    </div>
+                  <div class="glass-card">
+                    <h4 class="gradient-text mb-3" style="font-size: var(--font-size-lg);">Backend</h4>
+                    <p class="text-text-secondary text-sm">
+                      Node.js, Python, PostgreSQL, Redis, Docker, Kubernetes
+                    </p>
                   </div>
-                </div>
-              </section>
-
-              <!-- Latest Posts Section -->
-              <section class="mb-16">
-                <h2 class="text-3xl font-bold mb-8 border-b border-border pb-2">
-                  Latest Posts
-                </h2>
-                
-                <div id="post-list" class="space-y-6">
-                  <!-- Posts will be loaded dynamically -->
-                  <div class="post-card">
-                    <div class="post-meta">
-                      <span class="text-text-tertiary">Dec 25, 2025</span>
-                      <span class="text-text-tertiary">•</span>
-                      <span class="text-text-tertiary">Design</span>
-                    </div>
-                    <h3 class="post-title">
-                      <a href="/blog/design-overhaul">Complete Design Overhaul</a>
-                    </h3>
-                    <p class="post-excerpt">
-                      A deep dive into the modern cyberpunk design system and how it transforms the user experience while maintaining retro terminal aesthetics.
+                  <div class="glass-card">
+                    <h4 class="gradient-text mb-3" style="font-size: var(--font-size-lg);">Architecture</h4>
+                    <p class="text-text-secondary text-sm">
+                      Microservices, Clean Code, Performance Optimization, CI/CD
+                    </p>
+                  </div>
+                  <div class="glass-card">
+                    <h4 class="gradient-text mb-3" style="font-size: var(--font-size-lg);">Tools</h4>
+                    <p class="text-text-secondary text-sm">
+                      Git, AWS, Vercel, MongoDB, GraphQL, WebAssembly
                     </p>
                   </div>
                 </div>
               </section>
 
-              <!-- Skills Section -->
-              <section class="mb-16">
-                <h2 class="text-3xl font-bold mb-8 border-b border-border pb-2">
-                  Skills & Technologies
-                </h2>
+              <!-- Recent Posts -->
+              <section class="content-section">
+                <div class="content-header">
+                  <h2 class="content-title">Latest Insights</h2>
+                  <a href="/blog" class="btn">Read All Posts</a>
+                </div>
                 
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div class="card text-center p-6">
-                    <div class="text-4xl mb-2">💻</div>
-                    <h4 class="font-semibold mb-2">Frontend</h4>
-                    <p class="text-sm text-text-secondary">React, Astro, TypeScript, Tailwind</p>
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div class="glass-card">
+                    <div class="text-text-tertiary text-sm mb-3">
+                      <time>December 25, 2025</time> • <span>Architecture</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">
+                      <a href="/blog/design-system-migration" class="text-text hover:text-primary transition-colors">
+                        Modern Design System Migration
+                      </a>
+                    </h3>
+                    <p class="text-text-secondary">
+                      Complete guide to migrating legacy applications to modern design systems while maintaining performance and accessibility.
+                    </p>
                   </div>
-                  <div class="card text-center p-6">
-                    <div class="text-4xl mb-2">🔧</div>
-                    <h4 class="font-semibold mb-2">Backend</h4>
-                    <p class="text-sm text-text-secondary">Python, Node.js, Express</p>
-                  </div>
-                  <div class="card text-center p-6">
-                    <div class="text-4xl mb-2">📦</div>
-                    <h4 class="font-semibold mb-2">DevOps</h4>
-                    <p class="text-sm text-text-secondary">Docker, AWS, CI/CD</p>
-                  </div>
-                  <div class="card text-center p-6">
-                    <div class="text-4xl mb-2">🎨</div>
-                    <h4 class="font-semibold mb-2">Design</h4>
-                    <p class="text-sm text-text-secondary">UI/UX, Cyberpunk, Retro</p>
+                  
+                  <div class="glass-card">
+                    <div class="text-text-tertiary text-sm mb-3">
+                      <time>December 20, 2025</time> • <span>Performance</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">
+                      <a href="/blog/astro-optimization" class="text-text hover:text-primary transition-colors">
+                        Astro.js Performance Optimization
+                      </a>
+                    </h3>
+                    <p class="text-text-secondary">
+                      Advanced techniques for optimizing Astro applications for lightning-fast load times and Core Web Vitals.
+                    </p>
                   </div>
                 </div>
               </section>
@@ -328,68 +248,5 @@ import Footer from "../components/Footer.astro";
       <!-- Footer -->
       <Footer />
     </div>
-
-    <script is:inline>
-      // Enhanced animations for new elements
-      document.addEventListener('DOMContentLoaded', function() {
-        // Add fade-in animation to all cards
-        const cards = document.querySelectorAll('.card, .project-card, .post-card, .metric-card, .client-logo-card');
-        cards.forEach((card, index) => {
-          card.style.opacity = '0';
-          card.style.transform = 'translateY(20px)';
-          card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-          
-          setTimeout(() => {
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-          }, 100 * index);
-        });
-      });
-    </script>
   </body>
 </html>
-
-<style>
-  /* Metric cards styling */
-  .metric-card {
-    padding: 1rem;
-    min-width: 120px;
-    background: rgba(10, 10, 26, 0.5);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    transition: all 0.3s ease;
-  }
-  
-  .metric-card:hover {
-    background: rgba(10, 10, 26, 0.7);
-    border-color: var(--color-primary);
-    transform: translateY(-2px);
-  }
-  
-  /* Featured case study styling */
-  .featured-case-study {
-    border: 2px solid var(--color-primary);
-    background: linear-gradient(135deg, rgba(0, 229, 160, 0.05) 0%, rgba(10, 10, 26, 0) 100%);
-    box-shadow: 0 0 20px rgba(0, 229, 160, 0.1);
-  }
-  
-  .case-study-meta {
-    font-size: 0.875rem;
-    color: var(--color-text-tertiary);
-  }
-  
-  /* Enhanced hero section */
-  .cyberpunk-grid {
-    background: linear-gradient(135deg, rgba(0, 229, 160, 0.03) 0%, rgba(255, 107, 157, 0.03) 50%, rgba(123, 104, 238, 0.03) 100%);
-  }
-
-  /* Client logo cards styling */
-  .client-logo-card {
-    transition: all 0.3s ease;
-  }
-
-  .client-logo-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 15px rgba(0, 229, 160, 0.1);
-  }
-</style>

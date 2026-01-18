@@ -1,18 +1,97 @@
 ---
-// TerminalHero.astro - Modern Version
+// Modern Terminal Hero Component
 import TerminalHeroClient from './TerminalHeroClient.tsx';
 ---
 
-<div class="terminal-hero terminal-glow">
+<div class="terminal-hero glass-card">
   <div class="terminal-header">
     <div class="terminal-controls">
-      <div class="terminal-circle red"></div>
-      <div class="terminal-circle yellow"></div>
-      <div class="terminal-circle green"></div>
+      <div class="terminal-circle red animate-pulse"></div>
+      <div class="terminal-circle yellow animate-pulse" style="animation-delay: 0.5s;"></div>
+      <div class="terminal-circle green animate-pulse" style="animation-delay: 1s;"></div>
     </div>
-    <div class="terminal-title">William64 Terminal</div>
+    <div class="terminal-title">william64@portfolio:~$</div>
   </div>
   <div class="terminal-content-container">
     <TerminalHeroClient client:load />
   </div>
 </div>
+
+<style>
+.terminal-hero {
+  max-width: 700px;
+  margin: 0 auto var(--space-8);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  position: relative;
+}
+
+.terminal-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.02) 0%, 
+    rgba(236, 72, 153, 0.02) 50%, 
+    rgba(20, 184, 166, 0.02) 100%);
+  pointer-events: none;
+}
+
+.terminal-header {
+  background: var(--color-surface-hover);
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.terminal-controls {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.terminal-title {
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  flex: 1;
+  text-align: center;
+}
+
+.terminal-content-container {
+  min-height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Enhanced pulse animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(0.9);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .terminal-hero {
+    margin: 0 auto var(--space-6);
+  }
+  
+  .terminal-content-container {
+    min-height: 120px;
+  }
+}
+</style>

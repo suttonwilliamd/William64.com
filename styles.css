@@ -3,7 +3,7 @@
  * Now uses unified design system for consistency
  */
 
-@import url("./src/styles/unified-design-system.css");
+@import url("./src/styles/premium-design-system.css");
 
 /* Legacy compatibility styles - minimal overrides */
 body {
