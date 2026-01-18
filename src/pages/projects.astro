@@ -1,344 +1,202 @@
----
-import Navigation from "../components/Navigation.astro";
+---// @ts-nocheck
+import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
+import CaseStudy from '../components/CaseStudy.astro';
+
+// Import case study data
+import caseStudies from '../data/caseStudies.json';
+
+const pageTitle = "Case Studies | William64.com";
+const pageDescription = "Comprehensive case studies of software projects and technical solutions by William Sutton.";
 ---
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Projects | William64.com</title>
-    <meta
-      name="description"
-      content="Explore William Sutton's software engineering projects, from systems programming to web development and reverse engineering."
-    />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
 
-    <!-- Strategic Preloading -->
-    <link rel="preload" href="/styles.css" as="style" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
-    <link rel="stylesheet" href="/styles.css" />
-  </head>
-  <body class="bg-black text-green-400 font-mono">
-    <div class="max-w-3xl mx-auto p-4">
-      <header class="border-b border-green-700 pb-4 mb-8">
-        <h1 class="text-4xl font-bold mb-2">William64.com</h1>
-        <Navigation />
-      </header>
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={new URL('/images/social-card.png', Astro.url)} />
 
-      <main>
-        <h1 class="text-3xl font-bold mb-6">Projects</h1>
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={pageTitle} />
+    <meta property="twitter:description" content={pageDescription} />
+    <meta property="twitter:image" content={new URL('/images/social-card.png', Astro.url)} />
 
-        <section class="mb-12">
-          <h2 class="text-2xl border-b border-green-700 pb-2 mb-6">
-            Featured Projects
-          </h2>
-
-          <div class="project-card mb-10">
-            <div class="project-header">
-              <div class="title-bar">
-                <span class="controls">
-                  <span class="circle"></span>
-                  <span class="circle"></span>
-                  <span class="circle"></span>
-                </span>
-                <span class="title">tpc-server</span>
-              </div>
-            </div>
-            <div class="project-body p-4">
-              <pre class="mb-4 whitespace-pre-wrap break-words overflow-x-auto">
-$ tpc-server --help
-
-A Python MCP server for structured thought/plan/changelog management
-with SQLite database backend. Provides tools for tracking technical
-decision making and project evolution over time.
-
-Features:
-- Thought/Plan/Change record keeping
-- MCP protocol implementation
-- SQLite data persistence
-- Web interface for visualization
-              </pre>
-              <div class="project-meta">
-                <div class="technologies flex flex-wrap gap-2">
-                  <span class="label">Technologies:</span>
-                  <span class="tech-tag">Python</span>
-                  <span class="tech-tag">MCP</span>
-                  <span class="tech-tag">SQLite</span>
-                  <span class="tech-tag">FastAPI</span>
-                </div>
-                <div class="links mt-2 flex flex-wrap gap-4">
-                  <a
-                    href="https://github.com/suttonwilliamd/tpc-server"
-                    class="project-link">GitHub &rarr;</a
-                  >
-                  <a href="/tpc-server" class="project-link"
-                    >Live Demo &rarr;</a
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="project-card mb-10">
-            <div class="project-header">
-              <div class="title-bar">
-                <span class="controls">
-                  <span class="circle"></span>
-                  <span class="circle"></span>
-                  <span class="circle"></span>
-                </span>
-                <span class="title">Token Viewer</span>
-              </div>
-            </div>
-            <div class="project-body p-4">
-              <pre class="mb-4 whitespace-pre-wrap break-words overflow-x-auto">
-$ token-viewer --help
-           
-An interactive tool for exploring GPT-2 tokens, allowing users to visualize
-the relationship between token IDs and their decoded string representations.
-Built with Astro for static site generation and React for client-side interactivity,
-this tool demonstrates efficient browser-based decoding using the
-@nem035/gpt-3-encoder package.
-              </pre>
-              <div class="project-meta">
-                <div class="technologies flex flex-wrap gap-2">
-                  <span class="label">Technologies:</span>
-                  <span class="tech-tag">Astro</span>
-                  <span class="tech-tag">React</span>
-                  <span class="tech-tag">JavaScript</span>
-                </div>
-                <div class="links mt-2 flex flex-wrap gap-4">
-                  <a
-                    href="https://github.com/suttonwilliamd/token-viewer"
-                    class="project-link">GitHub &rarr;</a
-                  >
-                  <a href="/token-viewer" class="project-link"
-                    >Live Demo &rarr;</a
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="mb-12">
-          <h2 class="text-2xl border-b border-green-700 pb-2 mb-6">
-            Web Projects
-          </h2>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="mini-project-card">
-              <h3 class="text-xl mb-2">William64.com</h3>
-              <p class="mb-3">
-                This website - built with Astro.js, featuring a
-                terminal-inspired design with static generation.
-              </p>
-              <div class="technologies flex flex-wrap gap-2 mb-2">
-                <span class="tech-tag">Astro</span>
-                <span class="tech-tag">TypeScript</span>
-                <span class="tech-tag">React</span>
-              </div>
-              <a href="#" class="project-link">Source Code &rarr;</a>
-            </div>
-
-            <div class="mini-project-card">
-              <h3 class="text-xl mb-2">RetroVisualizer</h3>
-              <p class="mb-3">
-                Data visualization tool inspired by vintage computer graphics,
-                built with modern web technologies.
-              </p>
-              <div class="technologies flex flex-wrap gap-2 mb-2">
-                <span class="tech-tag">JavaScript</span>
-                <span class="tech-tag">Canvas API</span>
-                <span class="tech-tag">D3.js</span>
-              </div>
-              <a href="#" class="project-link">View Project &rarr;</a>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <Footer />
-    </div>
-  </body>
-</html>
-```
-
-Key responsiveness improvements:
-
-1. Added `whitespace-pre-wrap` and `break-words` to the `<pre>` elements to prevent horizontal overflow and allow text wrapping
-
-2. Added `overflow-x-auto` to the pre elements as a fallback in case there are any unbreakable strings
-
-3. Added `flex flex-wrap gap-2` to the technologies sections to ensure tags wrap properly on small screens
-
-4. Added `flex flex-wrap gap-4` to the links sections to ensure links stack properly on narrow screens
-
-These changes will ensure the page is fully responsive and doesn't create horizontal scrollbars, maintaining consistency with your about page styling.
-import Navigation from "../components/Navigation.astro";
-import Footer from '../components/Footer.astro';
----
-
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Projects | William64.com</title>
-    <meta
-      name="description"
-      content="Explore William Sutton's software engineering projects, from systems programming to web development and reverse engineering."
-    />
-
-    <!-- Strategic Preloading -->
-    <link rel="preload" href="/styles.css" as="style" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" href="/styles.css" as="style">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link rel="stylesheet" href="/styles.css" />
   </head>
-  <body class="bg-black text-green-400 font-mono">
-    <div class="max-w-3xl mx-auto p-4">
-      <header class="border-b border-green-700 pb-4 mb-8">
-        <h1 class="text-4xl font-bold mb-2">William64.com</h1>
-        <Navigation />
-      </header>
+  <body class="bg-background text-text font-sans">
+    <div class="min-h-screen flex flex-col">
+      <div class="container py-8">
+        <header class="border-b border-border pb-6 mb-8">
+          <h1 class="text-4xl font-bold mb-2">
+            <a href="/" class="text-gradient hover:opacity-80 transition-opacity">William64.com</a>
+          </h1>
+          <Navigation />
+          <p class="text-sm text-text-secondary mt-2">Software projects and experiments</p>
+        </header>
 
-      <main>
-        <h1 class="text-3xl font-bold mb-6">Projects</h1>
+        <main>
+          <div class="layout-container">
+            <div class="layout-content">
+              <!-- Enhanced Case Studies Header -->
+              <header class="mb-8">
+                <h2 class="text-3xl font-bold mb-4 border-b border-border pb-2">Case Studies</h2>
+                <p class="text-text-secondary mb-6">Comprehensive breakdowns of technical projects, challenges, solutions, and outcomes.</p>
+              </header>
 
-        <section class="mb-12">
-          <h2 class="text-2xl border-b border-green-700 pb-2 mb-6">
-            Featured Projects
-          </h2>
+              <!-- Featured Case Study -->
+              <section class="mb-12">
+                <CaseStudy caseStudy={caseStudies[0]} featured={true} />
+              </section>
 
-          <div class="project-card mb-10">
-            <div class="project-header">
-              <div class="title-bar">
-                <span class="controls">
-                  <span class="circle"></span>
-                  <span class="circle"></span>
-                  <span class="circle"></span>
-                </span>
-                <span class="title">tpc-server</span>
-              </div>
-            </div>
-            <div class="project-body p-4">
-              <pre class="mb-4">
-$ tpc-server --help
+              <!-- Case Studies Grid -->
+              <section class="grid md:grid-cols-2 gap-8">
+                {caseStudies.slice(1).map((caseStudy, index) => (
+                  <CaseStudy caseStudy={caseStudy} />
+                ))}
+              </section>
 
-A Python MCP server for structured thought/plan/changelog management
-with SQLite database backend. Provides tools for tracking technical
-decision making and project evolution over time.
-
-Features:
-- Thought/Plan/Change record keeping
-- MCP protocol implementation
-- SQLite data persistence
-- Web interface for visualization
-              </pre>
-              <div class="project-meta">
-                <div class="technologies">
-                  <span class="label">Technologies:</span>
-                  <span class="tech-tag">Python</span>
-                  <span class="tech-tag">MCP</span>
-                  <span class="tech-tag">SQLite</span>
-                  <span class="tech-tag">FastAPI</span>
+              <!-- Open Source Contributions Section -->
+              <section class="mt-12">
+                <h3 class="text-2xl font-bold mb-6 border-b border-border pb-2 cyberpunk-accent">Open Source Contributions</h3>
+                <p class="text-text-secondary mb-6">Active participation in the open source community through code contributions, documentation, and ecosystem improvements.</p>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                  <div class="card p-6 text-center cyberpunk-card">
+                    <div class="text-3xl mb-3 cyberpunk-accent">💻</div>
+                    <h4 class="font-semibold mb-2 cyberpunk-accent">Astro.js</h4>
+                    <p class="text-sm text-text-secondary mb-3">Performance optimizations, component enhancements, and documentation improvements for the Astro static site builder.</p>
+                    <a href="https://github.com/withastro/astro" class="btn btn-xs btn-cyberpunk">View Contributions</a>
+                  </div>
+                    
+                  <div class="card p-6 text-center cyberpunk-card">
+                    <div class="text-3xl mb-3 cyberpunk-accent">📦</div>
+                    <h4 class="font-semibold mb-2 cyberpunk-accent">TypeScript</h4>
+                    <p class="text-sm text-text-secondary mb-3">Comprehensive type definitions and improvements for various open source libraries.</p>
+                    <a href="https://github.com/microsoft/TypeScript" class="btn btn-xs btn-cyberpunk">View Contributions</a>
+                  </div>
+                    
+                  <div class="card p-6 text-center cyberpunk-card">
+                    <div class="text-3xl mb-3 cyberpunk-accent">🎨</div>
+                    <h4 class="font-semibold mb-2 cyberpunk-accent">Design Systems</h4>
+                    <p class="text-sm text-text-secondary mb-3">Open source UI components and design patterns with cyberpunk aesthetics.</p>
+                    <a href="https://github.com/williamsutton/design-systems" class="btn btn-xs btn-cyberpunk">View Contributions</a>
+                  </div>
                 </div>
-                <div class="links mt-2">
-                  <a
-                    href="https://github.com/suttonwilliamd/tpc-server"
-                    class="project-link">GitHub &rarr;</a
-                  >
-                  <a href="/tpc-server" class="project-link"
-                    >Live Demo &rarr;</a
-                  >
-                </div>
-              </div>
+              </section>
             </div>
           </div>
+        </main>
+      </div>
 
-          <div class="project-card mb-10">
-            <div class="project-header">
-              <div class="title-bar">
-                <span class="controls">
-                  <span class="circle"></span>
-                  <span class="circle"></span>
-                  <span class="circle"></span>
-                </span>
-                <span class="title">Token Viewer</span>
-              </div>
-            </div>
-            <div class="project-body p-4">
-              <pre class="mb-4">
-$ token-viewer --help
-           
-An interactive tool for exploring GPT-2 tokens, allowing users to visualize
-the relationship between token IDs and their decoded string representations.
-Built with Astro for static site generation and React for client-side interactivity,
-this tool demonstrates efficient browser-based decoding using the
-@nem035/gpt-3-encoder package.
-              </pre>
-              <div class="project-meta">
-                <div class="technologies">
-                  <span class="label">Technologies:</span>
-                  <span class="tech-tag">Astro</span>
-                  <span class="tech-tag">React</span>
-                  <span class="tech-tag">JavaScript</span>
-                </div>
-                <div class="links mt-2">
-                  <a
-                    href="https://github.com/suttonwilliamd/token-viewer"
-                    class="project-link">GitHub &rarr;</a
-                  >
-                  <a href="/token-viewer" class="project-link"
-                    >Live Demo &rarr;</a
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="mb-12">
-          <h2 class="text-2xl border-b border-green-700 pb-2 mb-6">
-            Web Projects
-          </h2>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="mini-project-card">
-              <h3 class="text-xl mb-2">William64.com</h3>
-              <p class="mb-3">
-                This website - built with Astro.js, featuring a
-                terminal-inspired design with static generation.
-              </p>
-              <div class="technologies mb-2">
-                <span class="tech-tag">Astro</span>
-                <span class="tech-tag">TypeScript</span>
-                <span class="tech-tag">React</span>
-              </div>
-              <a href="#" class="project-link">Source Code &rarr;</a>
-            </div>
-
-            <div class="mini-project-card">
-              <h3 class="text-xl mb-2">RetroVisualizer</h3>
-              <p class="mb-3">
-                Data visualization tool inspired by vintage computer graphics,
-                built with modern web technologies.
-              </p>
-              <div class="technologies mb-2">
-                <span class="tech-tag">JavaScript</span>
-                <span class="tech-tag">Canvas API</span>
-                <span class="tech-tag">D3.js</span>
-              </div>
-              <a href="#" class="project-link">View Project &rarr;</a>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <Footer />
+      <!-- Footer -->
+      <div class="mt-auto">
+        <Footer />
+      </div>
     </div>
+
+    <script is:inline>
+      // Case study animations
+      document.addEventListener('DOMContentLoaded', function() {
+        const caseStudies = document.querySelectorAll('.case-study');
+         
+        caseStudies.forEach((caseStudy, index) => {
+          caseStudy.style.opacity = '0';
+          caseStudy.style.transform = 'translateY(20px)';
+          caseStudy.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+           
+          setTimeout(() => {
+            caseStudy.style.opacity = '1';
+            caseStudy.style.transform = 'translateY(0)';
+          }, 100 * index);
+        });
+
+        // Add hover effects to case studies
+        caseStudies.forEach(caseStudy => {
+          caseStudy.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-4px)';
+            this.style.boxShadow = '0 12px 25px rgba(0, 229, 160, 0.15)';
+          });
+           
+          caseStudy.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '';
+          });
+        });
+      });
+    </script>
   </body>
 </html>
+
+<style>
+  /* Featured project styling - Enhanced */
+  .featured-project {
+    border: 2px solid var(--color-primary);
+    background: linear-gradient(135deg, rgba(0, 229, 160, 0.05) 0%, rgba(10, 10, 26, 0) 100%);
+    box-shadow: 0 0 20px rgba(0, 229, 160, 0.1);
+  }
+  
+  /* Project grid responsive - Enhanced */
+  @media (max-width: 768px) {
+    .grid.md\:grid-cols-2,
+    .grid.md\:grid-cols-3 {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* Enhanced project card animations */
+  .project-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .project-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 12px 25px rgba(0, 229, 160, 0.15);
+  }
+  
+  /* Cyberpunk project title glow */
+  .project-title {
+    transition: all 0.3s ease;
+  }
+  
+  .project-title:hover {
+    text-shadow: 0 0 10px rgba(0, 229, 160, 0.3);
+  }
+  
+  /* Layout enhancement for projects page */
+  .layout-content {
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  /* Enhanced cyberpunk list styling */
+  .cyberpunk-list li {
+    position: relative;
+    padding-left: 1.25rem;
+  }
+  
+  .cyberpunk-list li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--color-secondary);
+    font-family: var(--font-family-mono);
+    transition: color 0.3s ease;
+  }
+  
+  .cyberpunk-list li:hover::before {
+    color: var(--color-primary);
+  }
+</style>

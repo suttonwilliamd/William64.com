@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout Redesign Test</title>
+  <link rel="stylesheet" href="./src/styles/consolidated-design-system.css">
+  <style>
+    /* Test-specific styles */
+    .test-info {
+      background: rgba(0, 229, 160, 0.1);
+      border: 1px solid var(--color-primary);
+      padding: var(--space-md);
+      margin: var(--space-lg) 0;
+      border-radius: var(--radius-md);
+    }
+    
+    .test-section {
+      margin-bottom: var(--space-xl);
+      padding-bottom: var(--space-xl);
+      border-bottom: 1px solid var(--color-border);
+    }
+    
+    .test-pass {
+      color: var(--color-success);
+      font-weight: var(--font-weight-bold);
+    }
+    
+    .test-fail {
+      color: var(--color-error);
+      font-weight: var(--font-weight-bold);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-gradient">Layout Redesign Test</h1>
+    
+    <div class="test-info">
+      <h3>📋 Test Overview</h3>
+      <p>This page tests the architectural improvements implemented in the layout redesign:</p>
+      <ul class="cyberpunk-list">
+        <li>Flexible column layout with minmax() functions</li>
+        <li>Enhanced visual separation with cyberpunk divider</li>
+        <li>Consolidated CSS resolving conflicts</li>
+        <li>Responsive breakpoints implementation</li>
+        <li>Cyberpunk aesthetic maintenance</li>
+      </ul>
+    </div>
+
+    <div class="test-section">
+      <h2>🎨 Cyberpunk Aesthetic Test</h2>
+      <div class="card">
+        <h3 class="card-title">Cyberpunk Card</h3>
+        <p>This card should have the modern cyberpunk aesthetic with gradient borders, proper spacing, and hover effects.</p>
+        <div class="btn btn-primary">Primary Button</div>
+        <div class="btn btn-secondary">Secondary Button</div>
+      </div>
+    </div>
+
+    <div class="test-section">
+      <h2>📱 Responsive Layout Test</h2>
+      <p>Resize your browser window to test responsive behavior:</p>
+      
+      <div class="test-info">
+        <p><strong>Mobile (<640px):</strong> Should stack vertically, no divider</p>
+        <p><strong>Tablet (641px-1024px):</strong> Should show two columns with flexible widths</p>
+        <p><strong>Desktop (>1025px):</strong> Should show two columns with enhanced divider</p>
+      </div>
+
+      <div class="two-column-layout cyberpunk-grid">
+        <div class="two-column-sidebar sticky-sidebar">
+          <div class="sidebar-content">
+            <div class="card">
+              <h3 class="card-title">Sidebar</h3>
+              <p>This sidebar should:</p>
+              <ul class="enhanced-list">
+                <li>Be sticky on desktop</li>
+                <li>Have flexible width (280px-320px)</li>
+                <li>Stack vertically on mobile</li>
+                <li>Maintain proper padding</li>
+              </ul>
+              <p class="text-text-tertiary">Current viewport: <span id="viewport-width">?</span>px</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="two-column-main">
+          <div class="main-content-area">
+            <div class="card">
+              <h3 class="card-title">Main Content</h3>
+              <p>This main content area should:</p>
+              <ul class="enhanced-list">
+                <li>Have proper width constraints (max 800px)</li>
+                <li>Be separated by cyberpunk divider on desktop</li>
+                <li>Stack below sidebar on mobile</li>
+                <li>Maintain readability</li>
+              </ul>
+              
+              <div class="cyberpunk-divider"></div>
+              
+              <h4>Content Width Test</h4>
+              <p>This paragraph should be properly constrained and readable. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>
+              
+              <div class="project-card">
+                <div class="project-header">
+                  <div class="project-title-bar">
+                    <div class="project-controls">
+                      <div class="project-circle red"></div>
+                      <div class="project-circle yellow"></div>
+                      <div class="project-circle green"></div>
+                    </div>
+                    <div class="project-title">Project Card Test</div>
+                  </div>
+                </div>
+                <div class="project-body">
+                  <p>Project cards should maintain their cyberpunk aesthetic with proper spacing and hover effects.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="test-section">
+      <h2>🎯 Architectural Verification</h2>
+      
+      <div class="card">
+        <h3 class="card-title">✅ Completed Improvements</h3>
+        
+        <div class="test-pass">✅ Flexible column layout with minmax() functions</div>
+        <p>Sidebar uses minmax(var(--sidebar-min-width), var(--sidebar-max-width)) for flexible sizing</p>
+
+        <div class="test-pass">✅ Enhanced visual separation with cyberpunk divider</div>
+        <p>Desktop divider is 2px wide with gradient and 0.3 opacity (up from 1px and 0.2)</p>
+
+        <div class="test-pass">✅ Consolidated CSS resolving conflicts</div>
+        <p>Merged styles.css and design-system.css into consolidated-design-system.css</p>
+
+        <div class="test-pass">✅ Responsive breakpoints implementation</div>
+        <p>Mobile (<640px), Tablet (641px-1024px), Desktop (>1025px) breakpoints</p>
+
+        <div class="test-pass">✅ Cyberpunk aesthetic maintenance</div>
+        <p>Modern cyberpunk palette with enhanced visual hierarchy</p>
+
+        <div class="test-pass">✅ Content width constraints</div>
+        <p>Main content constrained to var(--content-width) for readability</p>
+      </div>
+    </div>
+
+    <div class="test-section">
+      <h2>📊 Technical Specifications</h2>
+      
+      <div class="card">
+        <h3 class="card-title">CSS Variables</h3>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <strong>Layout Variables:</strong>
+            <ul class="enhanced-list">
+              <li>--max-width: 1200px</li>
+              <li>--content-width: 800px</li>
+              <li>--sidebar-min-width: 280px</li>
+              <li>--sidebar-max-width: 320px</li>
+              <li>--column-gap: 2rem</li>
+            </ul>
+          </div>
+          <div>
+            <strong>Color Palette:</strong>
+            <ul class="enhanced-list">
+              <li>--color-primary: #00e5a0</li>
+              <li>--color-secondary: #ff6b9d</li>
+              <li>--color-accent: #7b68ee</li>
+              <li>--color-background: #0a0a1a</li>
+              <li>--color-surface: #12122a</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Update viewport width display
+    function updateViewportWidth() {
+      document.getElementById('viewport-width').textContent = window.innerWidth;
+    }
+    
+    // Initial update
+    updateViewportWidth();
+    
+    // Update on resize
+    window.addEventListener('resize', updateViewportWidth);
+    
+    // Add visual feedback for responsive testing
+    const layout = document.querySelector('.two-column-layout');
+    const computedStyle = window.getComputedStyle(layout);
+    
+    console.log('Layout Redesign Test');
+    console.log('Current viewport width:', window.innerWidth);
+    console.log('Layout grid-template-columns:', computedStyle.gridTemplateColumns);
+    console.log('Layout gap:', computedStyle.gap);
+  </script>
+</body>
+</html>

@@ -1,8 +1,18 @@
 ---
-// TerminalHero.astro
+// TerminalHero.astro - Modern Version
 import TerminalHeroClient from './TerminalHeroClient.tsx';
 ---
 
-<div class="terminal-hero">
-  <TerminalHeroClient client:load />
+<div class="terminal-hero terminal-glow">
+  <div class="terminal-header">
+    <div class="terminal-controls">
+      <div class="terminal-circle red"></div>
+      <div class="terminal-circle yellow"></div>
+      <div class="terminal-circle green"></div>
+    </div>
+    <div class="terminal-title">William64 Terminal</div>
+  </div>
+  <div class="terminal-content-container">
+    <TerminalHeroClient client:load />
+  </div>
 </div>

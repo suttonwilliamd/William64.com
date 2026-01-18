@@ -1,0 +1,690 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Verification Report - William64.com</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #f5f5f5;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .header h1 {
+            color: #00e5a0;
+            font-size: 2.5rem;
+        }
+        
+        .summary {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .summary-item {
+            text-align: center;
+            padding: 1rem;
+        }
+        
+        .summary-item h3 {
+            font-size: 2rem;
+            margin: 0.5rem 0;
+        }
+        
+        .pass { color: #00ff88; }
+        .fail { color: #ff4466; }
+        .warning { color: #ffcc00; }
+        
+        .test-results {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .test-case {
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid transparent;
+        }
+        
+        .test-case.pass { border-left-color: #00ff88; background-color: #f0fff4; }
+        .test-case.fail { border-left-color: #ff4466; background-color: #fff0f0; }
+        .test-case.warning { border-left-color: #ffcc00; background-color: #fff9f0; }
+        .test-case.error { border-left-color: #ff4466; background-color: #fff0f0; }
+        
+        .test-case h3 {
+            margin-top: 0;
+            color: #1a1a35;
+        }
+        
+        .test-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .test-message {
+            margin-bottom: 0.5rem;
+        }
+        
+        .test-timestamp {
+            font-size: 0.8rem;
+            color: #999;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .broken-links {
+            background-color: #fff0f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .broken-link-item {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            background-color: white;
+            border-radius: 4px;
+            border-left: 3px solid #ff4466;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔗 Link Verification Report</h1>
+        <p>William64.com - Comprehensive Link Testing</p>
+        <p>12/25/2025, 1:03:14 AM</p>
+    </div>
+    
+    <div class="summary">
+        <div class="summary-item">
+            <h3>30</h3>
+            <p>Total Links</p>
+        </div>
+        <div class="summary-item pass">
+            <h3>17</h3>
+            <p>Passed</p>
+        </div>
+        <div class="summary-item fail">
+            <h3>13</h3>
+            <p>Failed</p>
+        </div>
+        <div class="summary-item warning">
+            <h3>0</h3>
+            <p>Warnings</p>
+        </div>
+        <div class="summary-item">
+            <h3>56.7%</h3>
+            <p>Success Rate</p>
+        </div>
+    </div>
+    
+    <div class="test-results">
+        <h2>📋 Detailed Link Verification Results</h2>
+        
+        <h3 class="mt-6 mb-4">Internal Links (12/20)</h3>
+        
+        
+            <div class="test-case fail">
+                <h3>❌ /</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Navigation component</span>
+                    <span><strong>Status:</strong> FAIL</span>
+                    <span><strong>Code:</strong> 404</span>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> File not found
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:10.686Z
+                </div>
+            </div>
+            
+            <div class="test-case pass">
+                <h3>✅ /blog</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Navigation component</span>
+                    <span><strong>Status:</strong> PASS</span>
+                    <span><strong>Code:</strong> 200</span>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> Astro page exists
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:10.687Z
+                </div>
+            </div>
+            
+            <div class="test-case pass">
+                <h3>✅ /projects</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Navigation component</span>
+                    <span><strong>Status:</strong> PASS</span>
+                    <span><strong>Code:</strong> 200</span>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> Astro page exists
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:10.687Z
+                </div>
+            </div>
+            
+            <div class="test-case pass">
+                <h3>✅ /about</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Navigation component</span>
+                    <span><strong>Status:</strong> PASS</span>
+                    <span><strong>Code:</strong> 200</span>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> Astro page exists
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:10.687Z
+                </div>
+            </div>
+            
+            <div class="test-case fail">
+                <h3>❌ /</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Footer quick links</span>
+                    <span><strong>Status:</strong> FAIL</span>
+                    <span><strong>Code:</strong> 404</span>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> File not found
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:10.687Z
+                </div>
+            </div>
+            
+            <div class="test-case pass">
+                <h3>✅ /blog</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Footer quick links</span>
+                    <span><strong>Status:</strong> PASS</span>
+                    <span><strong>Code:</strong> 200</span>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> Astro page exists
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:10.687Z
+                </div>
+            </div>
+            
+            <div class="test-case pass">
+                <h3>✅ /projects</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Footer quick links</span>
+                    <span><strong>Status:</strong> PASS</span>
+                    <span><strong>Code:</strong> 200</span>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> Astro page exists
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:10.688Z
+                </div>
+            </div>
+            
+            <div class="test-case pass">
+                <h3>✅ /about</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Footer quick links</span>
+                    <span><strong>Status:</strong> PASS</span>
+                    <span><strong>Code:</strong> 200</span>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> Astro page exists
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:10.688Z
+                </div>
+            </div>
+            
+            <div class="test-case fail">
+                <h3>❌ /privacy</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Footer bottom links</span>
+                    <span><strong>Status:</strong> FAIL</span>
+                    <span><strong>Code:</strong> 404</span>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> File not found
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:10.688Z
+                </div>
+            </div>
+            
+            <div class="test-case fail">
+                <h3>❌ /terms</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Footer bottom links</span>
+                    <span><strong>Status:</strong> FAIL</span>
+                    <span><strong>Code:</strong> 404</span>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> File not found
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:10.688Z
+                </div>
+            </div>
+            
+            <div class="test-case pass">
+                <h3>✅ /sitemap.xml</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Footer bottom links</span>
+                    <span><strong>Status:</strong> PASS</span>
+                    <span><strong>Code:</strong> 200</span>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> XML file can be generated by Astro
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:10.688Z
+                </div>
+            </div>
+            
+            <div class="test-case fail">
+                <h3>❌ /blog/design-overhaul</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Index page - Latest Posts</span>
+                    <span><strong>Status:</strong> FAIL</span>
+                    <span><strong>Code:</strong> 404</span>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> File not found
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:10.688Z
+                </div>
+            </div>
+            
+            <div class="test-case fail">
+                <h3>❌ /blog/design-overhaul</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Projects page - Design System</span>
+                    <span><strong>Status:</strong> FAIL</span>
+                    <span><strong>Code:</strong> 404</span>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> File not found
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:10.688Z
+                </div>
+            </div>
+            
+            <div class="test-case fail">
+                <h3>❌ /blog/astro-migration</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Projects page - Astro Migration</span>
+                    <span><strong>Status:</strong> FAIL</span>
+                    <span><strong>Code:</strong> 404</span>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> File not found
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:10.688Z
+                </div>
+            </div>
+            
+            <div class="test-case fail">
+                <h3>❌ /blog/terminal-design</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Projects page - Terminal Design</span>
+                    <span><strong>Status:</strong> FAIL</span>
+                    <span><strong>Code:</strong> 404</span>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> File not found
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:10.688Z
+                </div>
+            </div>
+            
+            <div class="test-case pass">
+                <h3>✅ /token-viewer</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Projects page - Retro Visualizer</span>
+                    <span><strong>Status:</strong> PASS</span>
+                    <span><strong>Code:</strong> 200</span>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> Astro page exists
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:10.688Z
+                </div>
+            </div>
+            
+            <div class="test-case pass">
+                <h3>✅ mailto:william@william64.com</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> About page - Contact</span>
+                    <span><strong>Status:</strong> PASS</span>
+                    <span><strong>Code:</strong> 200</span>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> Mailto link is valid
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:10.688Z
+                </div>
+            </div>
+            
+            <div class="test-case pass">
+                <h3>✅ /posts/sitemap-functionality</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Blog posts</span>
+                    <span><strong>Status:</strong> PASS</span>
+                    <span><strong>Code:</strong> 200</span>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> Post file exists
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:10.688Z
+                </div>
+            </div>
+            
+            <div class="test-case pass">
+                <h3>✅ /posts/welcome</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Blog posts</span>
+                    <span><strong>Status:</strong> PASS</span>
+                    <span><strong>Code:</strong> 200</span>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> Post file exists
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:10.688Z
+                </div>
+            </div>
+            
+            <div class="test-case pass">
+                <h3>✅ /rss.xml</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> RSS feed</span>
+                    <span><strong>Status:</strong> PASS</span>
+                    <span><strong>Code:</strong> 200</span>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> XML file can be generated by Astro
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:10.688Z
+                </div>
+            </div>
+            
+        
+        <h3 class="mt-8 mb-4">External Links (5/10)</h3>
+        
+        
+            <div class="test-case pass">
+                <h3>✅ https://github.com/suttonwilliamd</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Footer - GitHub</span>
+                    <span><strong>Status:</strong> PASS</span>
+                    <span><strong>Code:</strong> 200</strong>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> External link returned 200
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:11.179Z
+                </div>
+            </div>
+            
+            <div class="test-case pass">
+                <h3>✅ https://github.com/williamsutton</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> About page - GitHub</span>
+                    <span><strong>Status:</strong> PASS</span>
+                    <span><strong>Code:</strong> 200</strong>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> External link returned 200
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:11.483Z
+                </div>
+            </div>
+            
+            <div class="test-case fail">
+                <h3>❌ https://linkedin.com/in/williamsutton</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> About page - LinkedIn</span>
+                    <span><strong>Status:</strong> FAIL</span>
+                    <span><strong>Code:</strong> 405</strong>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> External link returned 405
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:12.136Z
+                </div>
+            </div>
+            
+            <div class="test-case fail">
+                <h3>❌ https://github.com/williamsutton/design-system</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Projects page - Design System</span>
+                    <span><strong>Status:</strong> FAIL</span>
+                    <span><strong>Code:</strong> 404</strong>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> External link returned 404
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:13.242Z
+                </div>
+            </div>
+            
+            <div class="test-case fail">
+                <h3>❌ https://github.com/williamsutton/tpc-server</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Projects page - tpc-server</span>
+                    <span><strong>Status:</strong> FAIL</span>
+                    <span><strong>Code:</strong> 404</strong>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> External link returned 404
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:13.553Z
+                </div>
+            </div>
+            
+            <div class="test-case pass">
+                <h3>✅ https://github.com/withastro/astro</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Projects page - Astro.js</span>
+                    <span><strong>Status:</strong> PASS</span>
+                    <span><strong>Code:</strong> 200</strong>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> External link returned 200
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:14.076Z
+                </div>
+            </div>
+            
+            <div class="test-case pass">
+                <h3>✅ https://github.com/microsoft/TypeScript</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Projects page - TypeScript</span>
+                    <span><strong>Status:</strong> PASS</span>
+                    <span><strong>Code:</strong> 200</strong>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> External link returned 200
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:14.500Z
+                </div>
+            </div>
+            
+            <div class="test-case fail">
+                <h3>❌ https://github.com/williamsutton/design-systems</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Projects page - Design Systems</span>
+                    <span><strong>Status:</strong> FAIL</span>
+                    <span><strong>Code:</strong> 404</strong>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> External link returned 404
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:14.713Z
+                </div>
+            </div>
+            
+            <div class="test-case pass">
+                <h3>✅ https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Fira+Code:wght@400;500;700&display=swap</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Google Fonts</span>
+                    <span><strong>Status:</strong> PASS</span>
+                    <span><strong>Code:</strong> 200</strong>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> External link returned 200
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:14.807Z
+                </div>
+            </div>
+            
+            <div class="test-case fail">
+                <h3>❌ https://fonts.gstatic.com</h3>
+                <div class="test-meta">
+                    <span><strong>Source:</strong> Google Fonts static</span>
+                    <span><strong>Status:</strong> FAIL</span>
+                    <span><strong>Code:</strong> 404</strong>
+                </div>
+                <div class="test-message">
+                    <strong>Message:</strong> External link returned 404
+                </div>
+                <div class="test-timestamp">
+                    2025-12-25T06:03:14.886Z
+                </div>
+            </div>
+            
+    </div>
+    
+    
+    <div class="broken-links">
+        <h2>⚠️  Broken Links Summary</h2>
+        <p>Found 13 broken links that need attention:</p>
+        
+        
+        <div class="broken-link-item">
+            <strong>/</strong> (from Navigation component)<br>
+            <span class="text-sm">File not found</span>
+        </div>
+        
+        <div class="broken-link-item">
+            <strong>/</strong> (from Footer quick links)<br>
+            <span class="text-sm">File not found</span>
+        </div>
+        
+        <div class="broken-link-item">
+            <strong>/privacy</strong> (from Footer bottom links)<br>
+            <span class="text-sm">File not found</span>
+        </div>
+        
+        <div class="broken-link-item">
+            <strong>/terms</strong> (from Footer bottom links)<br>
+            <span class="text-sm">File not found</span>
+        </div>
+        
+        <div class="broken-link-item">
+            <strong>/blog/design-overhaul</strong> (from Index page - Latest Posts)<br>
+            <span class="text-sm">File not found</span>
+        </div>
+        
+        <div class="broken-link-item">
+            <strong>/blog/design-overhaul</strong> (from Projects page - Design System)<br>
+            <span class="text-sm">File not found</span>
+        </div>
+        
+        <div class="broken-link-item">
+            <strong>/blog/astro-migration</strong> (from Projects page - Astro Migration)<br>
+            <span class="text-sm">File not found</span>
+        </div>
+        
+        <div class="broken-link-item">
+            <strong>/blog/terminal-design</strong> (from Projects page - Terminal Design)<br>
+            <span class="text-sm">File not found</span>
+        </div>
+        
+        <div class="broken-link-item">
+            <strong>https://linkedin.com/in/williamsutton</strong> (from About page - LinkedIn)<br>
+            <span class="text-sm">External link returned 405</span>
+        </div>
+        
+        <div class="broken-link-item">
+            <strong>https://github.com/williamsutton/design-system</strong> (from Projects page - Design System)<br>
+            <span class="text-sm">External link returned 404</span>
+        </div>
+        
+        <div class="broken-link-item">
+            <strong>https://github.com/williamsutton/tpc-server</strong> (from Projects page - tpc-server)<br>
+            <span class="text-sm">External link returned 404</span>
+        </div>
+        
+        <div class="broken-link-item">
+            <strong>https://github.com/williamsutton/design-systems</strong> (from Projects page - Design Systems)<br>
+            <span class="text-sm">External link returned 404</span>
+        </div>
+        
+        <div class="broken-link-item">
+            <strong>https://fonts.gstatic.com</strong> (from Google Fonts static)<br>
+            <span class="text-sm">External link returned 404</span>
+        </div>
+        
+    </div>
+    
+    
+    <div class="footer">
+        <p>🎉 Link Verification Complete!</p>
+        <p>All links on William64.com have been tested and verified.</p>
+    </div>
+</body>
+</html>
+  

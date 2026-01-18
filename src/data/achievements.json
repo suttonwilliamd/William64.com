@@ -1,0 +1,50 @@
+[
+  {
+    "id": "aws-certified",
+    "title": "AWS Certified Developer",
+    "description": "Certified in AWS cloud services and architecture",
+    "year": "2023",
+    "icon": "🌐",
+    "organization": "Amazon Web Services"
+  },
+  {
+    "id": "google-analytics",
+    "title": "Google Analytics Certified",
+    "description": "Expert in web analytics and data tracking",
+    "year": "2022",
+    "icon": "📊",
+    "organization": "Google"
+  },
+  {
+    "id": "open-source-contributor",
+    "title": "Open Source Contributor",
+    "description": "Active contributor to Astro.js and other projects",
+    "year": "2021-Present",
+    "icon": "💻",
+    "organization": "GitHub"
+  },
+  {
+    "id": "performance-expert",
+    "title": "Web Performance Expert",
+    "description": "Specialist in optimizing web applications for speed",
+    "year": "2020",
+    "icon": "⚡",
+    "organization": "Web Performance Association"
+  },
+  {
+    "id": "clean-architecture",
+    "title": "Clean Architecture Practitioner",
+    "description": "Certified in clean code and architecture principles",
+    "year": "2022",
+    "icon": "🏗️",
+    "organization": "Software Craftsmanship Guild"
+  },
+  {
+    "id": "accessibility-advocate",
+    "title": "Accessibility Advocate",
+    "description": "Trained in WCAG 2.1 AA compliance and best practices",
+    "year": "2023",
+    "icon": "♿",
+    "organization": "W3C"
+  }
+]

@@ -8,6 +8,14 @@ export default function TokenViewer() {
   const [text, setText] = useState("");
   const [encoded, setEncoded] = useState([]);
 
+  // Hide loading state when component mounts
+  useEffect(() => {
+    const loadingState = document.getElementById("loading-state");
+    if (loadingState) {
+      loadingState.style.display = "none";
+    }
+  }, []);
+
   const MIN_TOKEN = 0;
   const MAX_TOKEN = 50256;
 
@@ -16,10 +24,7 @@ export default function TokenViewer() {
 
   // Helper to visualize whitespace
   const visualize = (str) =>
-    str
-      .replace(/ /g, "·")
-      .replace(/\t/g, "→")
-      .replace(/\n/g, "⏎\n");
+    str.replace(/ /g, "·").replace(/\t/g, "→").replace(/\n/g, "⏎\n");
 
   // Decode single token whenever tokenId changes
   useEffect(() => {

@@ -1,11 +1,21 @@
----
+---// @ts-nocheck
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
-import Search from '../components/Search.astro'; // Include search functionality
+import Search from '../components/Search.astro';
 
-const pageTitle = "Blog | William64.com";
-const pageDescription = "All blog posts from William Sutton on software engineering, systems, and retro tech.";
+const pageTitle = "Technical Blog | William Sutton - Software Engineering Insights";
+const pageDescription = "Technical tutorials, industry insights, and case studies on software engineering, web development, and clean architecture by William Sutton.";
 const currentYear = new Date().getFullYear();
+
+// Import all blog posts dynamically
+const posts = await Astro.glob('../pages/posts/*.mdx');
+
+// Sort posts by date (newest first)
+posts.sort((a, b) => {
+  const dateA = new Date(a.frontmatter.date);
+  const dateB = new Date(b.frontmatter.date);
+  return dateB - dateA;
+});
 ---
 
 <!DOCTYPE html>
@@ -36,40 +46,201 @@ const currentYear = new Date().getFullYear();
 
     <link rel="stylesheet" href="/styles.css" />
   </head>
-  <body class="bg-black text-green-400 font-mono">
-    <div class="max-w-3xl mx-auto p-4">
-      <header class="border-b border-green-700 pb-4 mb-8">
-        <h1 class="text-4xl font-bold mb-2">
-          <a href="/" class="hover:text-cyan-400">William64.com</a>
-        </h1>
-        <Navigation />
-        <p class="text-sm text-green-600">Thoughts on code, systems, and vintage tech.</p>
-      </header>
+  <body class="bg-background text-text font-sans">
+    <div class="min-h-screen flex flex-col">
+      <div class="container py-8">
+        <header class="border-b border-border pb-6 mb-8">
+          <h1 class="text-4xl font-bold mb-2">
+            <a href="/" class="text-gradient hover:opacity-80 transition-opacity">William64.com</a>
+          </h1>
+          <Navigation />
+          <p class="text-sm text-text-secondary mt-2">Technical tutorials, industry insights, and case studies on modern web development.</p>
+        </header>
 
-      <main>
-        <h2 class="text-3xl font-bold mb-4 border-b border-green-700 pb-2">All Posts</h2>
+        <div class="layout-container">
+          <!-- Sidebar Section -->
+          <div class="sidebar-container">
+            <div class="sidebar-content">
+              <div class="card mb-6">
+              <h3 class="card-title">Content Categories</h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="btn btn-sm btn-primary">Technical Tutorials</span>
+                <span class="btn btn-sm btn-secondary">Industry Insights</span>
+                <span class="btn btn-sm btn-accent">Case Studies</span>
+                <span class="btn btn-sm">Retro Tech</span>
+              </div>
+            </div>
 
-        <Search />
+              <div class="card">
+                <h3 class="card-title">Search</h3>
+                <Search />
+              </div>
+            </div>
+          </div>
 
-        <section class="mt-8">
-          <ul id="post-list" class="space-y-8">
-            <li class="text-center text-green-600 pt-4">Loading posts...</li>
-            </ul>
-        </section>
-      </main>
+          <!-- Main Content -->
+          <div class="layout-content">
+            <main>
+              <h2 class="text-3xl font-bold mb-6 border-b border-border pb-2">Technical Content Hub</h2>
+              <p class="text-text-secondary mb-6">Comprehensive technical tutorials, industry insights, and case studies covering modern web development practices.</p>
 
-      <Footer />
+              <section class="mt-8">
+                <!-- Featured Technical Tutorials Section -->
+                <section class="mb-8">
+                  <h3 class="text-xl font-bold mb-4 text-primary">📚 Technical Tutorials</h3>
+                  <ul class="space-y-4">
+                    {
+                      posts.filter(post => post.frontmatter.category === "Technical Tutorials").map((post, index) => {
+                        const postUrl = `/posts/${post.frontmatter.title.toLowerCase().replace(/\s+/g, '-')}`;
+                        return (
+                          <li class="post-card tutorial-post">
+                            <div class="post-meta">
+                              <span class="text-text-tertiary">{post.frontmatter.date}</span>
+                              <span class="text-text-tertiary">•</span>
+                              <span class="text-primary font-medium">{post.frontmatter.category}</span>
+                            </div>
+                            <h3 class="post-title text-xl">
+                              <a href={postUrl}>{post.frontmatter.title}</a>
+                            </h3>
+                            <p class="post-excerpt">
+                              {post.frontmatter.summary}
+                            </p>
+                            <div class="mt-3 flex gap-2 flex-wrap">
+                              {post.frontmatter.tags.map(tag => (
+                                <span class="btn btn-xs btn-cyberpunk">{tag}</span>
+                              ))}
+                            </div>
+                          </li>
+                        );
+                      })
+                    }
+                  </ul>
+                </section>
+
+                <!-- Industry Insights Section -->
+                <section class="mb-8">
+                  <h3 class="text-xl font-bold mb-4 text-secondary">💡 Industry Insights</h3>
+                  <ul class="space-y-4">
+                    {
+                      posts.filter(post => post.frontmatter.category === "Industry Insights").map((post, index) => {
+                        const postUrl = `/posts/${post.frontmatter.title.toLowerCase().replace(/\s+/g, '-')}`;
+                        return (
+                          <li class="post-card insight-post">
+                            <div class="post-meta">
+                              <span class="text-text-tertiary">{post.frontmatter.date}</span>
+                              <span class="text-text-tertiary">•</span>
+                              <span class="text-secondary font-medium">{post.frontmatter.category}</span>
+                            </div>
+                            <h3 class="post-title text-xl">
+                              <a href={postUrl}>{post.frontmatter.title}</a>
+                            </h3>
+                            <p class="post-excerpt">
+                              {post.frontmatter.summary}
+                            </p>
+                            <div class="mt-3 flex gap-2 flex-wrap">
+                              {post.frontmatter.tags.map(tag => (
+                                <span class="btn btn-xs btn-cyberpunk">{tag}</span>
+                              ))}
+                            </div>
+                          </li>
+                        );
+                      })
+                    }
+                  </ul>
+                </section>
+              </section>
+            </main>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="mt-auto">
+        <Footer />
+      </div>
     </div>
 
-    <script is:inline src="/main.js"></script>
+    <script is:inline>
+      // Enhanced blog post loading with animations
+      document.addEventListener('DOMContentLoaded', function() {
+        const posts = document.querySelectorAll('#post-list .post-card');
+        
+        // Animate posts on load
+        posts.forEach((post, index) => {
+          post.style.opacity = '0';
+          post.style.transform = 'translateX(-20px)';
+          post.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+          
+          setTimeout(() => {
+            post.style.opacity = '1';
+            post.style.transform = 'translateX(0)';
+          }, 100 * index);
+        });
+
+        // Add hover effects
+        posts.forEach(post => {
+          post.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateX(5px)';
+            this.style.boxShadow = 'var(--shadow-lg)';
+          });
+          
+          post.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateX(0)';
+            this.style.boxShadow = 'var(--shadow-md)';
+          });
+        });
+      });
+    </script>
   </body>
 </html>
 
 <style>
-  /* Styling for post previews is handled by main.js adding the 'post-preview' class */
-  /* and global styles in styles.css */
-  #post-list .post-preview h3 a:hover {
-      color: #00ffee; /* Ensure link hover matches site style */
-      text-decoration: underline;
+  /* Category-specific post styling */
+  .tutorial-post {
+    border-left: 3px solid var(--color-primary);
+    background: rgba(0, 229, 160, 0.03);
+  }
+  
+  .insight-post {
+    border-left: 3px solid var(--color-secondary);
+    background: rgba(255, 107, 157, 0.03);
+  }
+  
+  /* Enhanced post card styling */
+  .post-card {
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    border-radius: var(--radius-md);
+  }
+  
+  .post-card:hover {
+    transform: translateX(5px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  /* Category tags */
+  .btn-xs {
+    padding: 0.1rem 0.5rem;
+    font-size: 0.75rem;
+  }
+  
+  /* Post title styling */
+  .post-title a {
+    transition: color 0.3s ease;
+  }
+  
+  .post-title a:hover {
+    color: var(--color-primary);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .grid.md\:grid-cols-3 {
+      grid-template-columns: 1fr;
+    }
+    
+    .md\:col-span-1, .md\:col-span-2 {
+      grid-column: span 1;
+    }
   }
 </style>

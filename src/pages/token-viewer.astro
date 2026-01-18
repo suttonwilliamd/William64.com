@@ -12,7 +12,22 @@ import Footer from '../components/Footer.astro';
   </head>
 </header>
   <body>
-    <TokenViewer client:load />
+    <!-- Loading state while TokenViewer loads -->
+    <div id="loading-state" style="
+      min-height: 100vh;
+      background: #111;
+      color: limegreen;
+      font-family: monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    ">
+      Loading Token Viewer...
+    </div>
+    
+    <!-- TokenViewer with idle loading to reduce initial bundle impact -->
+    <TokenViewer client:idle />
   </body>
 
 <Footer />

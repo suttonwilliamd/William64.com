@@ -1,262 +1,19 @@
+/*
+ * William64.com Main Styles
+ * Now uses unified design system for consistency
+ */
+
+@import url("./src/styles/unified-design-system.css");
+
+/* Legacy compatibility styles - minimal overrides */
 body {
-  margin: 0;
-  background-color: #0d0d0d;
-  color: #00ff99;
-  font-family: 'Courier New', Courier, monospace;
-  line-height: 1.6;
-  padding: 1rem;
-}
-
-.navbar {
+  min-height: 100vh;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 700px;
-  margin: 0 auto 2rem;
-  padding: 1rem 0;
-  border-bottom: 1px solid #00aa55;
-}
-
-.navbar-links {
-  display: flex;
-  gap: 2rem;
-}
-
-@media (max-width: 768px) {
-  .navbar {
-    padding: 1rem;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  
-  .navbar-links {
-    gap: 1.5rem;
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .navbar {
-    padding: 0.5rem;
-  }
-  
-  .navbar-links {
-    gap: 1rem;
-    font-size: 0.85rem;
-  }
-}
-
-a {
-  color: #00ffee;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-h1, h2 {
-  font-family: 'Courier New', Courier, monospace;
-  margin-bottom: 0.5rem;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
+  flex-direction: column;
 }
 
 main {
-  max-width: 100%;
-  margin: auto;
-}
-
-.post-preview {
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #00ff99;
-}
-
-code {
-  background-color: #111;
-  padding: 0.2rem 0.4rem;
-  border-radius: 3px;
-  color: #00ffaa;
-}
-
-@media (max-width: 768px) {
-  body {
-    padding: 1rem;
-  }
-  
-  h1 {
-    font-size: 1.75rem;
-  }
-  
-  h2 {
-    font-size: 1.5rem;
-  }
-  
-  .terminal-emulator {
-    padding: 0.75rem;
-  }
-  
-  .terminal-prompt {
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 480px) {
-  h1 {
-    font-size: 1.5rem;
-  }
-  
-  h2 {
-    font-size: 1.25rem;
-  }
-  
-  .navbar-links a.active {
-    color: #00ffee;
-    border-bottom: 2px solid #00aa55;
-  }
-  
-  .terminal-prompt {
-    font-size: 0.8rem;
-  }
-  
-  .post-preview h3 {
-    font-size: 1.1rem;
-  }
-}
-
-/* Project Card Styles */
-.project-card {
-  border: 1px solid #00aa55;
-  border-radius: 4px;
-  overflow: hidden;
-  margin-bottom: 2rem;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.project-header {
-  background: #111;
-}
-
-.title-bar {
-  display: flex;
-  align-items: center;
-  padding: 8px 12px;
-  background: #222;
-  border-bottom: 1px solid #00aa55;
-}
-
-.controls {
-  display: flex;
-  gap: 6px;
-  margin-right: 12px;
-}
-
-.circle {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #444;
-}
-
-.circle:first-child {
-  background: #ff6b6b;
-}
-
-.circle:nth-child(2) {
-  background: #ffb347;
-}
-
-.circle:nth-child(3) {
-  background: #66bb6a;
-}
-
-.title {
-  font-weight: bold;
-  color: #00ff99;
-}
-
-.project-body {
-  background: #111;
-  padding: 1rem;
-}
-
-.project-body pre {
-  line-height: 1.4;
-  overflow-x: auto;
-  padding: 8px;
-  background: #0a0a0a;
-  border-radius: 3px;
-  margin-bottom: 1rem;
-}
-
-.technologies {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 0.5rem;
-}
-
-.label {
-  color: #00aa55;
-}
-
-.tech-tag {
-  background: #00aa55;
-  color: #000;
-  padding: 2px 8px;
-  border-radius: 3px;
-  font-size: 0.8rem;
-}
-
-.links {
-  display: flex;
-  gap: 16px;
-}
-
-.project-link {
-  color: #00ffee;
-  text-decoration: none;
-}
-
-.project-link:hover {
-  text-decoration: underline;
-}
-
-.mini-project-card {
-  border: 1px solid #00aa55;
-  padding: 1rem;
-  border-radius: 4px;
-  background: #111;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Responsive adjustments for project cards */
-@media (max-width: 768px) {
-  .project-card,
-  .mini-project-card {
-    margin-bottom: 1.5rem;
-  }
-
-  .technologies {
-    gap: 4px;
-  }
-
-  .tech-tag {
-    font-size: 0.75rem;
-    padding: 1px 6px;
-  }
-
-  .links {
-    flex-direction: column;
-    gap: 8px;
-  }
+  flex: 1;
 }
 
 /* Terminal styling with increased bottom margin */
@@ -288,21 +45,6 @@ code {
 .terminal-text {
   position: relative;
   text-shadow: 0 0 4px rgba(0, 255, 0, 0.7);
-}
-
-/* Blinking block cursor styling handled by Typewriter */
-
-/* Optional glitch effect */
-.glitch {
-  animation: glitch 300ms linear;
-}
-
-@keyframes glitch {
-  0% { transform: translate(0); opacity: 1; }
-  25% { transform: translate(-2px, 2px); opacity: 0.8; }
-  50% { transform: translate(2px, -2px); opacity: 0.6; }
-  75% { transform: translate(-2px, 2px); opacity: 0.8; }
-  100% { transform: translate(0); opacity: 1; }
 }
 
 /* Demo Scene Banner Styles */
@@ -362,9 +104,15 @@ code {
 }
 
 @keyframes pulse {
-  0% { box-shadow: 0 0 5px rgba(0, 255, 153, 0.7); }
-  50% { box-shadow: 0 0 15px rgba(0, 255, 153, 0.9); }
-  100% { box-shadow: 0 0 5px rgba(0, 255, 153, 0.7); }
+  0% {
+    box-shadow: 0 0 5px rgba(0, 255, 153, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(0, 255, 153, 0.9);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(0, 255, 153, 0.7);
+  }
 }
 
 @media (max-width: 768px) {
@@ -372,7 +120,7 @@ code {
     height: 24rem;
     min-height: 320px;
   }
-  
+
   .banner-audio button {
     width: 28px;
     height: 28px;

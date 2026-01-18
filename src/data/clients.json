@@ -1,0 +1,38 @@
+[
+  {
+    "id": "tech-innovations",
+    "name": "Tech Innovations Inc.",
+    "logo": "/images/clients/tech-innovations.png",
+    "url": "https://techinnovations.com"
+  },
+  {
+    "id": "creative-solutions",
+    "name": "Creative Solutions",
+    "logo": "/images/clients/creative-solutions.png",
+    "url": "https://creativesolutions.com"
+  },
+  {
+    "id": "data-systems",
+    "name": "Data Systems Corp",
+    "logo": "/images/clients/data-systems.png",
+    "url": "https://datasystems.com"
+  },
+  {
+    "id": "analytics-pros",
+    "name": "Analytics Pros",
+    "logo": "/images/clients/analytics-pros.png",
+    "url": "https://analyticspros.com"
+  },
+  {
+    "id": "web-experts",
+    "name": "Web Experts Co.",
+    "logo": "/images/clients/web-experts.png",
+    "url": "https://webexperts.com"
+  },
+  {
+    "id": "cloud-solutions",
+    "name": "Cloud Solutions Ltd",
+    "logo": "/images/clients/cloud-solutions.png",
+    "url": "https://cloudsolutions.com"
+  }
+]

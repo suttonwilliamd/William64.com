@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal Responsive Test</title>
+    <style>
+        :root {
+            /* Base Colors - Modern Cyberpunk Palette */
+            --color-background: #0a0a1a;
+            --color-surface: #12122a;
+            --color-surface-hover: #1a1a35;
+            --color-primary: #00e5a0;
+            --color-primary-hover: #00ffbb;
+            --color-secondary: #ff6b9d;
+            --color-secondary-hover: #ff8fab;
+            --color-accent: #7b68ee;
+            --color-text: #e0e0ff;
+            --color-text-secondary: #a0a0c0;
+            --color-text-tertiary: #666680;
+            --color-border: #2a2a4a;
+            --color-border-hover: #3a3a6a;
+            --color-success: #00ff88;
+            --color-warning: #ffcc00;
+            --color-error: #ff4466;
+
+            /* Typography */
+            --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-family-mono: 'Fira Code', 'Courier New', monospace;
+            --font-family-retro: 'Press Start 2P', 'Silkscreen', monospace;
+            --font-size-base: 16px;
+            --font-size-sm: 14px;
+            --font-size-lg: 18px;
+            --font-size-xl: 24px;
+            --font-size-2xl: 32px;
+            --font-size-3xl: 48px;
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-bold: 700;
+            --line-height-base: 1.6;
+            --line-height-tight: 1.2;
+
+            /* Spacing System */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-full: 9999px;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --shadow-glow: 0 0 20px rgba(0, 255, 0, 0.1);
+            --shadow-glow-pink: 0 0 20px rgba(255, 107, 157, 0.1);
+
+            /* Transitions */
+            --transition-fast: all 0.1s ease;
+            --transition-normal: all 0.2s ease;
+            --transition-slow: all 0.3s ease;
+        }
+
+        body {
+            background-color: var(--color-background);
+            color: var(--color-text);
+            font-family: var(--font-family-base);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        /* Terminal Hero - Modern Version */
+        .terminal-hero {
+            background: linear-gradient(135deg, var(--color-surface) 0%, rgba(10, 10, 26, 0.8) 100%);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-2xl);
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            overflow: hidden;
+            max-width: 100%;
+        }
+
+        .terminal-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary), var(--color-accent));
+        }
+
+        .terminal-content-container {
+            height: 300px;
+            overflow-y: auto;
+            margin-top: var(--space-md);
+            padding-right: var(--space-sm);
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-primary) var(--color-surface);
+        }
+
+        .terminal-content-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .terminal-content-container::-webkit-scrollbar-thumb {
+            background-color: var(--color-primary);
+            border-radius: var(--radius-full);
+        }
+
+        .terminal-content-container::-webkit-scrollbar-track {
+            background-color: var(--color-surface);
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .terminal-controls {
+            display: flex;
+            gap: var(--space-xs);
+        }
+
+        .terminal-circle {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-circle.red { background-color: var(--color-error); }
+        .terminal-circle.yellow { background-color: var(--color-warning); }
+        .terminal-circle.green { background-color: var(--color-success); }
+
+        .terminal-title {
+            font-family: var(--font-family-mono);
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            font-weight: var(--font-weight-medium);
+        }
+
+        .terminal-prompt {
+            color: var(--color-secondary);
+            font-family: var(--font-family-mono);
+            margin-right: var(--space-sm);
+        }
+
+        .terminal-text {
+            color: var(--color-primary);
+            font-family: var(--font-family-mono);
+        }
+
+        .terminal-line {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--space-sm);
+            font-size: var(--font-size-base);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .terminal-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .terminal-lines {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            padding-right: var(--space-sm);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .terminal-hero {
+                padding: var(--space-lg);
+            }
+
+            .terminal-content-container {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .terminal-hero {
+                padding: var(--space-md);
+            }
+
+            .terminal-content-container {
+                height: 200px;
+            }
+        }
+
+        /* Test styles */
+        .test-info {
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-primary);
+            padding: var(--space-md);
+            margin-bottom: var(--space-lg);
+            border-radius: var(--radius-md);
+        }
+
+        .test-info h3 {
+            color: var(--color-primary);
+            margin-top: 0;
+        }
+
+        .test-results {
+            margin-top: var(--space-lg);
+            padding: var(--space-md);
+            background-color: var(--color-surface);
+            border-radius: var(--radius-md);
+        }
+
+        .test-results h4 {
+            color: var(--color-secondary);
+            margin-top: 0;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-lg);
+            margin-top: var(--space-xl);
+        }
+
+        .test-card {
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+        }
+
+        .test-card h4 {
+            color: var(--color-primary);
+            margin-top: 0;
+        }
+
+        .pass {
+            color: var(--color-success);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .fail {
+            color: var(--color-error);
+            font-weight: var(--font-weight-bold);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Terminal Responsive Test</h1>
+
+        <div class="test-info">
+            <h3>Test Overview</h3>
+            <p>This test verifies that the terminal component maintains a fixed height and prevents layout shifts during typing animations.</p>
+            <p>Resize your browser window to test different screen sizes:</p>
+            <ul>
+                <li><strong>Desktop:</strong> ≥ 769px (300px terminal height)</li>
+                <li><strong>Tablet:</strong> ≤ 768px (250px terminal height)</li>
+                <li><strong>Mobile:</strong> ≤ 480px (200px terminal height)</li>
+            </ul>
+        </div>
+
+        <div class="test-grid">
+            <div class="test-card">
+                <h4>Desktop Test (≥ 769px)</h4>
+                <p>Terminal height should be <strong>300px</strong></p>
+                <p>Should show scrollbar when content overflows</p>
+                <p>Cyberpunk aesthetic should be maintained</p>
+            </div>
+
+            <div class="test-card">
+                <h4>Tablet Test (≤ 768px)</h4>
+                <p>Terminal height should be <strong>250px</strong></p>
+                <p>Padding should be reduced</p>
+                <p>Scrollbar should still work</p>
+            </div>
+
+            <div class="test-card">
+                <h4>Mobile Test (≤ 480px)</h4>
+                <p>Terminal height should be <strong>200px</strong></p>
+                <p>Padding should be minimal</p>
+                <p>Content should remain readable</p>
+            </div>
+        </div>
+
+        <div class="terminal-hero terminal-glow">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <div class="terminal-circle red"></div>
+                    <div class="terminal-circle yellow"></div>
+                    <div class="terminal-circle green"></div>
+                </div>
+                <div class="terminal-title">William64 Terminal</div>
+            </div>
+            <div class="terminal-content-container">
+                <div class="terminal-container">
+                    <div class="terminal-lines">
+                        <div class="terminal-line welcome-line">
+                            <span class="terminal-text welcome-text">William64.com</span>
+                        </div>
+                        <div class="terminal-line subtitle-line">
+                            <span class="terminal-text subtitle-text">Software Engineer | Retro Tech Enthusiast</span>
+                        </div>
+                        <div class="terminal-line prompt-line">
+                            <span class="terminal-prompt">william64@cyberspace:~$</span>
+                            <span class="terminal-text command-text">cat welcome.txt</span>
+                        </div>
+                        <div class="terminal-line output-line">
+                            <span class="terminal-text output-text">Welcome to my digital workspace!</span>
+                        </div>
+                        <div class="terminal-line prompt-line">
+                            <span class="terminal-prompt">william64@cyberspace:~$</span>
+                            <span class="terminal-text command-text">explore projects</span>
+                        </div>
+                        <div class="terminal-line final-line">
+                            <span class="terminal-text final-text">Building the future with clean code and retro inspiration.</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">william64@cyberspace:~$</span>
+                            <span class="terminal-text">This is a test line to demonstrate overflow handling and scrolling behavior in the fixed height container.</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">william64@cyberspace:~$</span>
+                            <span class="terminal-text">Another test line to ensure the scrollbar works properly when content exceeds the fixed height.</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">william64@cyberspace:~$</span>
+                            <span class="terminal-text">The terminal should maintain its cyberpunk aesthetic while preventing layout shifts.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-results">
+            <h4>Expected Results</h4>
+            <ul>
+                <li class="pass">✓ Fixed height container prevents layout shifts</li>
+                <li class="pass">✓ Scrollbar appears when content overflows</li>
+                <li class="pass">✓ Cyberpunk design aesthetic maintained</li>
+                <li class="pass">✓ Responsive heights for different screen sizes</li>
+                <li class="pass">✓ Content remains readable on all devices</li>
+                <li class="pass">✓ Terminal header controls visible and functional</li>
+            </ul>
+        </div>
+
+        <div class="test-info">
+            <h3>Visual Verification</h3>
+            <p>As you resize the browser window:</p>
+            <ol>
+                <li>Watch the terminal height change at breakpoints (768px and 480px)</li>
+                <li>Verify scrollbar appears when content overflows the fixed height</li>
+                <li>Check that the cyberpunk color scheme and glow effects are maintained</li>
+                <li>Ensure the terminal header controls remain visible and properly styled</li>
+                <li>Confirm that text remains readable and doesn't overflow its containers</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>

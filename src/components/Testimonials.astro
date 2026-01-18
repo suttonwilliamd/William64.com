@@ -1,0 +1,109 @@
+---// @ts-nocheck
+import testimonials from '../data/testimonials.json';
+---
+
+<section class="testimonials-section">
+  <div class="container">
+    <h2 class="section-heading">What Clients & Colleagues Say</h2>
+    
+    <div class="testimonial-grid">
+      {testimonials.map(testimonial => (
+        <div class="testimonial-card cyberpunk-card">
+          <div class="testimonial-content">
+            <p class="testimonial-quote">"{testimonial.quote}"</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-info">
+              <h4 class="author-name">{testimonial.author}</h4>
+              <p class="author-title">{testimonial.title}</p>
+              {testimonial.company && <p class="author-company">{testimonial.company}</p>}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials-section {
+    padding: var(--space-xl) 0;
+    background: linear-gradient(135deg, rgba(0, 229, 160, 0.03) 0%, rgba(10, 10, 26, 0) 100%);
+  }
+
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .testimonial-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    transition: all 0.3s ease;
+  }
+
+  .testimonial-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 20px rgba(0, 229, 160, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .testimonial-quote {
+    font-style: italic;
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-base);
+    margin-bottom: var(--space-md);
+    position: relative;
+  }
+
+  .testimonial-quote::before {
+    content: '"';
+    font-size: 3rem;
+    color: var(--color-primary);
+    opacity: 0.3;
+    position: absolute;
+    left: -0.5rem;
+    top: -1rem;
+  }
+
+  .author-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .author-name {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .author-title {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  .author-company {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-tertiary);
+    margin: 0;
+  }
+
+  /* Responsive grid */
+  @media (min-width: 768px) {
+    .testimonial-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .testimonial-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

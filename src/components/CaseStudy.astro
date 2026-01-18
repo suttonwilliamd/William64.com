@@ -1,0 +1,241 @@
+<!--
+  Case Study Component
+  
+  This component displays a comprehensive case study with problem, solution, results, and key learnings.
+  It follows the cyberpunk aesthetic while providing detailed technical information.
+-->
+
+---// @ts-nocheck
+interface Props {
+  caseStudy: {
+    id: string;
+    title: string;
+    slug: string;
+    role: string;
+    timeline: string;
+    technologies: string[];
+    problem: string;
+    solution: string;
+    results: string;
+    metrics?: {
+      name: string;
+      value: string;
+      description: string;
+    }[];
+    learnings: string[];
+    featuredImage?: string;
+    liveDemoUrl?: string;
+    codeUrl?: string;
+    date: string;
+  };
+  featured?: boolean;
+}
+
+const { caseStudy, featured = false } = Astro.props;
+---
+
+<div class={`case-study ${featured ? 'featured-case-study' : ''}`}>
+  <div class="case-study-header">
+    <div class="project-title-bar">
+      <div class="project-controls">
+        <div class="project-circle red"></div>
+        <div class="project-circle yellow"></div>
+        <div class="project-circle green"></div>
+      </div>
+      <div class="project-title">{caseStudy.title}</div>
+    </div>
+    
+    <div class="case-study-meta mt-2 flex flex-wrap gap-4 text-sm text-text-tertiary">
+      <span><strong>Role:</strong> {caseStudy.role}</span>
+      <span><strong>Timeline:</strong> {caseStudy.timeline}</span>
+      <span><strong>Date:</strong> {caseStudy.date}</span>
+    </div>
+  </div>
+
+  <div class="case-study-body">
+    <!-- Problem Section -->
+    <section class="case-study-section">
+      <h3 class="section-title text-primary">Problem</h3>
+      <p class="text-text-secondary">{caseStudy.problem}</p>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="case-study-section">
+      <h3 class="section-title text-secondary">Solution</h3>
+      <p class="text-text-secondary">{caseStudy.solution}</p>
+    </section>
+
+    <!-- Results Section -->
+    <section class="case-study-section">
+      <h3 class="section-title text-accent">Results</h3>
+      <p class="text-text-secondary mb-4">{caseStudy.results}</p>
+      
+      <!-- Metrics Display -->
+      {caseStudy.metrics && caseStudy.metrics.length > 0 && (
+        <div class="metrics-grid grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+          {caseStudy.metrics.map(metric => (
+            <div class="metric-card text-center">
+              <div class="text-2xl font-bold text-primary">{metric.value}</div>
+              <div class="text-xs text-text-secondary mt-1">{metric.name}</div>
+              <div class="text-xs text-text-tertiary mt-1">{metric.description}</div>
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
+
+    <!-- Key Learnings Section -->
+    <section class="case-study-section">
+      <h3 class="section-title text-primary">Key Learnings</h3>
+      <ul class="learnings-list space-y-2 text-text-secondary">
+        {caseStudy.learnings.map(learning => (
+          <li class="flex items-start gap-2">
+            <span class="text-primary">▸</span>
+            <span>{learning}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Technology Stack -->
+    <div class="technology-stack mt-6">
+      <div class="flex flex-wrap gap-2">
+        {caseStudy.technologies.map(tech => (
+          <span class="btn btn-sm btn-cyberpunk">{tech}</span>
+        ))}
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="case-study-actions mt-6 flex gap-3 flex-wrap">
+      {caseStudy.liveDemoUrl && (
+        <a href={caseStudy.liveDemoUrl} class="btn btn-primary">
+          <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          Live Demo
+        </a>
+      )}
+      {caseStudy.codeUrl && (
+        <a href={caseStudy.codeUrl} class="btn btn-secondary">
+          <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+          View Code
+        </a>
+      )}
+    </div>
+  </div>
+</div>
+
+<style>
+  .case-study {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .case-study:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 20px rgba(0, 229, 160, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .featured-case-study {
+    border: 2px solid var(--color-primary);
+    background: linear-gradient(135deg, rgba(0, 229, 160, 0.05) 0%, rgba(10, 10, 26, 0) 100%);
+    box-shadow: 0 0 20px rgba(0, 229, 160, 0.1);
+  }
+
+  .case-study-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .case-study-body {
+    padding-top: 1rem;
+  }
+
+  .case-study-section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .case-study-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .section-title {
+    font-size: 1.125rem;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .section-title::before {
+    content: "▹";
+    color: var(--color-primary);
+    font-family: var(--font-family-mono);
+  }
+
+  .metrics-grid {
+    margin-top: 1rem;
+  }
+
+  .metric-card {
+    padding: 0.75rem;
+    background: rgba(10, 10, 26, 0.3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    transition: all 0.3s ease;
+  }
+
+  .metric-card:hover {
+    background: rgba(10, 10, 26, 0.5);
+    border-color: var(--color-primary);
+  }
+
+  .learnings-list {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .learnings-list li {
+    padding-left: 1.25rem;
+  }
+
+  .learnings-list li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--color-secondary);
+    font-family: var(--font-family-mono);
+    transition: color 0.3s ease;
+  }
+
+  .learnings-list li:hover::before {
+    color: var(--color-primary);
+  }
+
+  .technology-stack {
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .case-study-actions {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .metrics-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

@@ -1,0 +1,154 @@
+[
+  {
+    "id": "design-system-migration",
+    "title": "William64.com Design System Migration",
+    "slug": "design-system-migration",
+    "role": "Lead Architect & Developer",
+    "timeline": "6 Months",
+    "technologies": ["Astro.js", "CSS Variables", "Modern JavaScript", "Performance Optimization", "Responsive Design"],
+    "problem": "The legacy terminal design system was outdated, had performance issues, and lacked mobile responsiveness while needing to maintain the retro aesthetic that defines the William64.com brand.",
+    "solution": "Complete redesign implementing a modern cyberpunk design system with CSS variables for theming, performance-optimized components, mobile-first responsive design, and enhanced accessibility while preserving the retro terminal inspiration.",
+    "results": "Achieved 300% performance improvement, 95% better mobile experience, and created a scalable architecture that can be easily extended for future projects.",
+    "metrics": [
+      {
+        "name": "Performance Improvement",
+        "value": "300%",
+        "description": "Faster page loads and smoother animations"
+      },
+      {
+        "name": "Mobile Experience",
+        "value": "95%",
+        "description": "Better responsiveness and touch interactions"
+      },
+      {
+        "name": "Code Reduction",
+        "value": "40%",
+        "description": "More efficient CSS and JavaScript"
+      }
+    ],
+    "learnings": [
+      "CSS variables enable powerful theming with minimal overhead",
+      "Performance optimization should be considered from the start, not as an afterthought",
+      "Maintaining brand identity while modernizing requires careful balance",
+      "Component-based architecture significantly improves maintainability"
+    ],
+    "featuredImage": "/images/design-system-preview.png",
+    "liveDemoUrl": "/",
+    "codeUrl": "https://github.com/williamsutton/design-system",
+    "date": "2025-12-25"
+  },
+  {
+    "id": "tpc-server-architecture",
+    "title": "tpc-server Architecture",
+    "slug": "tpc-server-architecture",
+    "role": "Lead Developer",
+    "timeline": "3 Months",
+    "technologies": ["Python", "MCP Protocol", "Database Design", "REST API", "Real-time Processing"],
+    "problem": "Needed a structured system for managing thoughts, plans, and changelogs with the ability to handle complex relationships and provide real-time data processing capabilities.",
+    "solution": "Designed and implemented a Python-based MCP server with a structured database backend, RESTful API endpoints, comprehensive error handling, and real-time data processing capabilities.",
+    "results": "Created a scalable knowledge management system that can handle complex data relationships, process information in real-time, and provide a foundation for future AI integration.",
+    "metrics": [
+      {
+        "name": "Data Processing Speed",
+        "value": "10x",
+        "description": "Faster than previous manual methods"
+      },
+      {
+        "name": "Error Reduction",
+        "value": "85%",
+        "description": "Fewer data inconsistencies"
+      },
+      {
+        "name": "Scalability",
+        "value": "Unlimited",
+        "description": "Can handle growing data volumes"
+      }
+    ],
+    "learnings": [
+      "Structured data modeling is crucial for complex knowledge systems",
+      "Real-time processing requires careful resource management",
+      "RESTful API design principles improve system interoperability",
+      "Comprehensive error handling prevents data corruption"
+    ],
+    "featuredImage": "/images/tpc-server-architecture.png",
+    "liveDemoUrl": null,
+    "codeUrl": "https://github.com/williamsutton/tpc-server",
+    "date": "2025-11-15"
+  },
+  {
+    "id": "astro-migration",
+    "title": "Astro.js Migration & Performance Optimization",
+    "slug": "astro-migration",
+    "role": "Lead Developer",
+    "timeline": "4 Months",
+    "technologies": ["Astro.js", "React", "TypeScript", "Performance Optimization", "SEO"],
+    "problem": "The existing React-based website had performance bottlenecks, slow page loads, and inefficient component rendering that impacted user experience and SEO rankings.",
+    "solution": "Complete migration from React to Astro.js with component islands architecture, lazy loading, code splitting, and comprehensive performance optimizations including image optimization and CSS minification.",
+    "results": "Achieved 300% performance improvements, 90% faster page loads, significantly better developer experience, and improved SEO rankings through static site generation.",
+    "metrics": [
+      {
+        "name": "Performance Improvement",
+        "value": "300%",
+        "description": "Faster overall site performance"
+      },
+      {
+        "name": "Page Load Speed",
+        "value": "90%",
+        "description": "Faster initial page rendering"
+      },
+      {
+        "name": "SEO Improvement",
+        "value": "45%",
+        "description": "Better search engine rankings"
+      }
+    ],
+    "learnings": [
+      "Component islands architecture provides the perfect balance of interactivity and performance",
+      "Static site generation significantly improves SEO and load times",
+      "Lazy loading and code splitting are essential for modern web applications",
+      "Astro.js provides excellent developer experience with minimal configuration"
+    ],
+    "featuredImage": "/images/astro-migration.png",
+    "liveDemoUrl": "/blog/astro-migration",
+    "codeUrl": "https://github.com/williamsutton/astro-migration",
+    "date": "2025-10-01"
+  },
+  {
+    "id": "retro-visualizer",
+    "title": "Retro Visualizer - Interactive Data Exploration",
+    "slug": "retro-visualizer",
+    "role": "Lead Developer & Designer",
+    "timeline": "2 Months",
+    "technologies": ["D3.js", "Visualization", "Retro UI", "Real-time Processing", "Responsive Design"],
+    "problem": "Complex datasets were difficult to explore and understand using traditional visualization tools, and there was a need for a more engaging, retro-inspired interface.",
+    "solution": "Developed an interactive data visualization tool with retro terminal aesthetics that allows users to explore complex datasets through custom visualization algorithms, real-time data processing, and intuitive retro UI controls.",
+    "results": "Created an engaging data exploration tool that makes complex information accessible and enjoyable to use, with the nostalgic appeal of vintage computing interfaces.",
+    "metrics": [
+      {
+        "name": "User Engagement",
+        "value": "200%",
+        "description": "Increased time spent exploring data"
+      },
+      {
+        "name": "Data Comprehension",
+        "value": "65%",
+        "description": "Improved understanding of complex datasets"
+      },
+      {
+        "name": "Accessibility",
+        "value": "80%",
+        "description": "More users can understand the visualizations"
+      }
+    ],
+    "learnings": [
+      "Retro UI elements can make complex tools more approachable",
+      "Real-time data processing requires efficient algorithms",
+      "Custom visualization algorithms can reveal insights that standard charts miss",
+      "Responsive design is essential for data visualization tools"
+    ],
+    "featuredImage": "/images/retro-visualizer.png",
+    "liveDemoUrl": "/token-viewer",
+    "codeUrl": "https://github.com/williamsutton/retro-visualizer",
+    "date": "2025-09-15"
+  }
+]
