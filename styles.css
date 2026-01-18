@@ -1,11 +1,12 @@
 /*
- * William64.com Main Styles
- * Now uses unified design system for consistency
+ * William64.com Premium Main Styles
+ * Modern, professional design system
  */
 
+/* Import premium design system */
 @import url("./src/styles/premium-design-system.css");
 
-/* Legacy compatibility styles - minimal overrides */
+/* Minimal overrides for compatibility */
 body {
   min-height: 100vh;
   display: flex;
@@ -14,123 +15,4 @@ body {
 
 main {
   flex: 1;
-}
-
-/* Terminal styling with increased bottom margin */
-.terminal-emulator {
-  margin-bottom: 3.5rem;
-  padding: 1rem;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
-  border: 1px solid #00aa55;
-}
-
-.terminal-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.terminal-line {
-  display: flex;
-  align-items: center;
-}
-
-.terminal-prompt {
-  color: #00aa55;
-  margin-right: 0.5rem;
-  white-space: nowrap;
-}
-
-.terminal-text {
-  position: relative;
-  text-shadow: 0 0 4px rgba(0, 255, 0, 0.7);
-}
-
-/* Demo Scene Banner Styles */
-.demo-scene-banner {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid #00aa55;
-  border-radius: 4px;
-  background-color: #000;
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
-}
-
-.demo-scene-banner canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.banner-audio {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  z-index: 10;
-}
-
-.banner-audio button {
-  background: rgba(0, 0, 0, 0.6);
-  border: 1px solid #00aa55;
-  color: #00ff99;
-  font-size: 16px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  outline: none;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 0 5px rgba(0, 255, 153, 0.3);
-}
-
-.banner-audio button:hover {
-  transform: scale(1.1);
-  background: rgba(0, 0, 0, 0.8);
-  box-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
-}
-
-.banner-audio button:active {
-  transform: scale(0.95);
-}
-
-.banner-audio button.playing {
-  background: rgba(0, 170, 85, 0.3);
-  box-shadow: 0 0 15px rgba(0, 255, 153, 0.7);
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 5px rgba(0, 255, 153, 0.7);
-  }
-  50% {
-    box-shadow: 0 0 15px rgba(0, 255, 153, 0.9);
-  }
-  100% {
-    box-shadow: 0 0 5px rgba(0, 255, 153, 0.7);
-  }
-}
-
-@media (max-width: 768px) {
-  .demo-scene-banner {
-    height: 24rem;
-    min-height: 320px;
-  }
-
-  .banner-audio button {
-    width: 28px;
-    height: 28px;
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  .demo-scene-banner {
-    height: 18rem;
-    min-height: 240px;
-  }
 }
