@@ -1,4 +1,6 @@
 ---
+import AISlopBanner from '../components/AISlopBanner.astro';
+
 export interface Props {
   title: string;
   description: string;
@@ -16,7 +18,7 @@ const { title, description, image = '/images/social-card.png' } = Astro.props;
     <title>{title}</title>
     <meta name="description" content={description} />
     
-<!-- Favicon -->
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     
@@ -55,6 +57,8 @@ const { title, description, image = '/images/social-card.png' } = Astro.props;
 <body class="bg-background text-text font-sans">
     <!-- Skip to main content link for accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <AISlopBanner />
     
     <div class="main-layout">
       <main id="main-content" role="main">

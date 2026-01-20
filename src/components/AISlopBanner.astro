@@ -1,0 +1,69 @@
+<div class="ai-slop-banner">
+  <span class="ai-slop-text">AI SLOP</span>
+  <span class="ai-slop-subtext">This is temporary. Real content coming soon™</span>
+</div>
+
+<style>
+  .ai-slop-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: linear-gradient(90deg, #ff0000, #ff6b00, #ffeb00, #00ff00, #0000ff, #8b00ff);
+    background-size: 400% 100%;
+    animation: slop-animate 3s linear infinite;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    pointer-events: none;
+    transform: rotate(-5deg) translateY(-50%);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+    border-bottom: 3px solid #fff;
+  }
+
+  .ai-slop-text {
+    font-size: 32px;
+    font-weight: 900;
+    font-family: 'Impact', 'Arial Black', sans-serif;
+    color: #fff;
+    text-shadow: 
+      3px 3px 0 #000,
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      2px 2px 0 #000;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+
+  .ai-slop-subtext {
+    font-size: 10px;
+    font-family: monospace;
+    color: #fff;
+    text-shadow: 1px 1px 0 #000;
+    margin-top: 2px;
+  }
+
+  @keyframes slop-animate {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 400% 50%; }
+  }
+
+  @media (max-width: 768px) {
+    .ai-slop-banner {
+      height: 50px;
+      transform: rotate(-3deg) translateY(-30%);
+    }
+    
+    .ai-slop-text {
+      font-size: 24px;
+    }
+    
+    .ai-slop-subtext {
+      font-size: 8px;
+    }
+  }
+</style>
