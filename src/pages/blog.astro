@@ -1,14 +1,14 @@
----// @ts-nocheck
+---
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
-import Search from '../components/Search.astro';
 
-const pageTitle = "Technical Blog | William Sutton - Software Engineering Insights";
-const pageDescription = "Technical tutorials, industry insights, and case studies on software engineering, web development, and clean architecture by William Sutton.";
-const currentYear = new Date().getFullYear();
+const pageTitle = "Blog | William Sutton - Software Engineering Insights";
+const pageDescription = "Technical tutorials, industry insights, and case studies on software engineering, web development, and clean architecture.";
 
-// Import all blog posts dynamically
-const posts = await Astro.glob('../pages/posts/*.mdx');
+const POSTS_PER_PAGE = 10;
+
+// Get all posts from the MDX files
+const posts = await Astro.glob('./posts/*.mdx');
 
 // Sort posts by date (newest first)
 posts.sort((a, b) => {
@@ -16,6 +16,19 @@ posts.sort((a, b) => {
   const dateB = new Date(b.frontmatter.date);
   return dateB - dateA;
 });
+
+// Helper to get slug from filename
+function getSlug(post) {
+  return post.file.split('/').pop().replace('.mdx', '');
+}
+
+// Get featured posts
+const featuredPosts = posts.filter(post => post.frontmatter.featured);
+const regularPosts = posts.filter(post => !post.frontmatter.featured);
+
+// Get all unique categories and tags (with fallbacks)
+const categories = [...new Set(posts.map(post => post.frontmatter.category || 'Uncategorized').filter(Boolean))];
+const allTags = [...new Set(posts.flatMap(post => post.frontmatter.tags || []))];
 ---
 
 <!DOCTYPE html>
@@ -25,222 +38,322 @@ posts.sort((a, b) => {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
-
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.url} />
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={pageDescription} />
-    <meta property="og:image" content={new URL('/images/social-card.png', Astro.url)} />
-
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={Astro.url} />
-    <meta property="twitter:title" content={pageTitle} />
-    <meta property="twitter:description" content={pageDescription} />
-    <meta property="twitter:image" content={new URL('/images/social-card.png', Astro.url)} />
-
-    <link rel="preload" href="/styles.css" as="style">
-    <link rel="preload" href="/main.js" as="script">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body class="bg-background text-text font-sans">
     <div class="min-h-screen flex flex-col">
-      <div class="container py-8">
-        <header class="border-b border-border pb-6 mb-8">
-          <h1 class="text-4xl font-bold mb-2">
-            <a href="/" class="text-gradient hover:opacity-80 transition-opacity">William64.com</a>
-          </h1>
-          <Navigation />
-          <p class="text-sm text-text-secondary mt-2">Technical tutorials, industry insights, and case studies on modern web development.</p>
-        </header>
+      <header class="border-b border-border pb-6 mb-8">
+        <h1 class="text-4xl font-bold mb-2">
+          <a href="/" class="gradient-text hover:opacity-80 transition-opacity">William64.com</a>
+        </h1>
+        <Navigation />
+      </header>
 
-        <div class="layout-container">
-          <!-- Sidebar Section -->
-          <div class="sidebar-container">
-            <div class="sidebar-content">
-              <div class="card mb-6">
-              <h3 class="card-title">Content Categories</h3>
-              <div class="flex flex-wrap gap-2">
-                <span class="btn btn-sm btn-primary">Technical Tutorials</span>
-                <span class="btn btn-sm btn-secondary">Industry Insights</span>
-                <span class="btn btn-sm btn-accent">Case Studies</span>
-                <span class="btn btn-sm">Retro Tech</span>
-              </div>
-            </div>
-
-              <div class="card">
-                <h3 class="card-title">Search</h3>
-                <Search />
-              </div>
-            </div>
-          </div>
-
-          <!-- Main Content -->
-          <div class="layout-content">
-            <main>
-              <h2 class="text-3xl font-bold mb-6 border-b border-border pb-2">Technical Content Hub</h2>
-              <p class="text-text-secondary mb-6">Comprehensive technical tutorials, industry insights, and case studies covering modern web development practices.</p>
-
-              <section class="mt-8">
-                <!-- Featured Technical Tutorials Section -->
-                <section class="mb-8">
-                  <h3 class="text-xl font-bold mb-4 text-primary">📚 Technical Tutorials</h3>
-                  <ul class="space-y-4">
-                    {
-                      posts.filter(post => post.frontmatter.category === "Technical Tutorials").map((post, index) => {
-                        const postUrl = `/posts/${post.frontmatter.title.toLowerCase().replace(/\s+/g, '-')}`;
-                        return (
-                          <li class="post-card tutorial-post">
-                            <div class="post-meta">
-                              <span class="text-text-tertiary">{post.frontmatter.date}</span>
-                              <span class="text-text-tertiary">•</span>
-                              <span class="text-primary font-medium">{post.frontmatter.category}</span>
-                            </div>
-                            <h3 class="post-title text-xl">
-                              <a href={postUrl}>{post.frontmatter.title}</a>
-                            </h3>
-                            <p class="post-excerpt">
-                              {post.frontmatter.summary}
-                            </p>
-                            <div class="mt-3 flex gap-2 flex-wrap">
-                              {post.frontmatter.tags.map(tag => (
-                                <span class="btn btn-xs btn-cyberpunk">{tag}</span>
-                              ))}
-                            </div>
-                          </li>
-                        );
-                      })
-                    }
-                  </ul>
-                </section>
-
-                <!-- Industry Insights Section -->
-                <section class="mb-8">
-                  <h3 class="text-xl font-bold mb-4 text-secondary">💡 Industry Insights</h3>
-                  <ul class="space-y-4">
-                    {
-                      posts.filter(post => post.frontmatter.category === "Industry Insights").map((post, index) => {
-                        const postUrl = `/posts/${post.frontmatter.title.toLowerCase().replace(/\s+/g, '-')}`;
-                        return (
-                          <li class="post-card insight-post">
-                            <div class="post-meta">
-                              <span class="text-text-tertiary">{post.frontmatter.date}</span>
-                              <span class="text-text-tertiary">•</span>
-                              <span class="text-secondary font-medium">{post.frontmatter.category}</span>
-                            </div>
-                            <h3 class="post-title text-xl">
-                              <a href={postUrl}>{post.frontmatter.title}</a>
-                            </h3>
-                            <p class="post-excerpt">
-                              {post.frontmatter.summary}
-                            </p>
-                            <div class="mt-3 flex gap-2 flex-wrap">
-                              {post.frontmatter.tags.map(tag => (
-                                <span class="btn btn-xs btn-cyberpunk">{tag}</span>
-                              ))}
-                            </div>
-                          </li>
-                        );
-                      })
-                    }
-                  </ul>
-                </section>
-              </section>
-            </main>
-          </div>
+      <main class="container">
+        <div class="blog-header mb-12">
+          <h2 class="text-3xl font-bold mb-4">Blog</h2>
+          <p class="text-text-secondary text-lg max-w-2xl">
+            Technical tutorials, industry insights, and case studies covering modern web development, software architecture, and clean code principles.
+          </p>
         </div>
-      </div>
 
-      <!-- Footer -->
-      <div class="mt-auto">
-        <Footer />
-      </div>
+        <div class="blog-layout">
+          <div class="blog-main">
+            {featuredPosts.length > 0 && (
+              <section class="featured-section mb-12">
+                <h3 class="text-xl font-semibold mb-6 text-primary">Featured</h3>
+                <div class="featured-grid">
+                  {featuredPosts.slice(0, 2).map((post, index) => {
+                    const slug = getSlug(post);
+                    return (
+                      <article class="featured-card">
+                        <div class="featured-content">
+                          <div class="post-meta mb-3">
+                            <span class="text-text-tertiary text-sm">{post.frontmatter.date}</span>
+                            <span class="text-text-tertiary text-sm mx-2">•</span>
+                            <span class="text-primary text-sm">{post.frontmatter.category}</span>
+                          </div>
+                          <h4 class="text-2xl font-bold mb-3">
+                            <a href={`/blog/posts/${slug}`} class="hover:text-primary transition-colors">
+                              {post.frontmatter.title}
+                            </a>
+                          </h4>
+                          <p class="text-text-secondary mb-4">{post.frontmatter.summary}</p>
+                          <div class="flex gap-2 flex-wrap">
+                            {post.frontmatter.tags?.slice(0, 3).map(tag => (
+                              <span class="tag">{tag}</span>
+                            ))}
+                          </div>
+                        </div>
+                      </article>
+                    );
+                  })}
+                </div>
+              </section>
+            )}
+
+            <section class="posts-section">
+              <h3 class="text-xl font-semibold mb-6">Recent Posts</h3>
+              <div class="posts-list">
+                {regularPosts.slice(0, POSTS_PER_PAGE).map((post) => {
+                  const slug = getSlug(post);
+                  return (
+                    <article class="post-card">
+                      <div class="post-meta mb-2">
+                        <span class="text-text-tertiary text-sm">{post.frontmatter.date}</span>
+                        <span class="text-text-tertiary text-sm mx-2">•</span>
+                        <span class="text-secondary text-sm">{post.frontmatter.category}</span>
+                      </div>
+                      <h4 class="text-xl font-bold mb-2">
+                        <a href={`/blog/posts/${slug}`} class="hover:text-primary transition-colors">
+                          {post.frontmatter.title}
+                        </a>
+                      </h4>
+                      <p class="text-text-secondary mb-3">{post.frontmatter.summary}</p>
+                      <div class="flex gap-2 flex-wrap">
+                        {post.frontmatter.tags?.slice(0, 4).map(tag => (
+                          <span class="tag tag-sm">{tag}</span>
+                        ))}
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+
+              {regularPosts.length > POSTS_PER_PAGE && (
+                <div class="pagination mt-8">
+                  <span class="text-text-tertiary">Showing {POSTS_PER_PAGE} of {regularPosts.length} posts</span>
+                </div>
+              )}
+            </section>
+          </div>
+
+          <aside class="blog-sidebar">
+            <div class="sidebar-section">
+              <h4 class="font-semibold mb-4">Categories</h4>
+              <div class="category-list">
+                {categories.map(category => (
+                  <a href={`/blog/category/${category.toLowerCase().replace(/\s+/g, '-')}`} class="category-link">
+                    {category}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div class="sidebar-section">
+              <h4 class="font-semibold mb-4">Popular Tags</h4>
+              <div class="tag-list">
+                {allTags.slice(0, 15).map(tag => (
+                  <a href={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`} class="tag tag-outline">
+                    {tag}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div class="sidebar-section">
+              <h4 class="font-semibold mb-4">About</h4>
+              <p class="text-text-secondary text-sm mb-4">
+                I write about software engineering, clean architecture, and modern web development practices.
+              </p>
+              <a href="/about" class="btn btn-primary w-full">Learn More</a>
+            </div>
+          </aside>
+        </div>
+      </main>
+
+      <Footer />
     </div>
-
-    <script is:inline>
-      // Enhanced blog post loading with animations
-      document.addEventListener('DOMContentLoaded', function() {
-        const posts = document.querySelectorAll('#post-list .post-card');
-        
-        // Animate posts on load
-        posts.forEach((post, index) => {
-          post.style.opacity = '0';
-          post.style.transform = 'translateX(-20px)';
-          post.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-          
-          setTimeout(() => {
-            post.style.opacity = '1';
-            post.style.transform = 'translateX(0)';
-          }, 100 * index);
-        });
-
-        // Add hover effects
-        posts.forEach(post => {
-          post.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateX(5px)';
-            this.style.boxShadow = 'var(--shadow-lg)';
-          });
-          
-          post.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateX(0)';
-            this.style.boxShadow = 'var(--shadow-md)';
-          });
-        });
-      });
-    </script>
   </body>
 </html>
 
 <style>
-  /* Category-specific post styling */
-  .tutorial-post {
-    border-left: 3px solid var(--color-primary);
-    background: rgba(0, 229, 160, 0.03);
+  .blog-header {
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--color-border);
   }
-  
-  .insight-post {
-    border-left: 3px solid var(--color-secondary);
-    background: rgba(255, 107, 157, 0.03);
+
+  .blog-layout {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: var(--space-8);
   }
-  
-  /* Enhanced post card styling */
-  .post-card {
-    padding: 1.5rem;
-    transition: all 0.3s ease;
-    border-radius: var(--radius-md);
+
+  .blog-main {
+    min-width: 0;
   }
-  
-  .post-card:hover {
-    transform: translateX(5px);
+
+  .blog-sidebar {
+    position: sticky;
+    top: var(--space-8);
+    height: fit-content;
+  }
+
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  .featured-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    transition: all var(--transition-normal);
+  }
+
+  .featured-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
   }
-  
-  /* Category tags */
-  .btn-xs {
-    padding: 0.1rem 0.5rem;
-    font-size: 0.75rem;
+
+  .post-card {
+    background: transparent;
+    border: 1px solid transparent;
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--space-6) 0;
+    transition: all var(--transition-normal);
   }
-  
-  /* Post title styling */
-  .post-title a {
-    transition: color 0.3s ease;
+
+  .post-card:last-child {
+    border-bottom: none;
   }
-  
-  .post-title a:hover {
+
+  .post-card:hover {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-6);
+    margin: 0 calc(-1 * var(--space-6));
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-3);
+    background: rgba(0, 229, 160, 0.1);
     color: var(--color-primary);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    transition: all var(--transition-fast);
   }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .grid.md\:grid-cols-3 {
+
+  .tag:hover {
+    background: var(--color-primary);
+    color: var(--color-background);
+  }
+
+  .tag-sm {
+    padding: 2px var(--space-2);
+    font-size: 0.7rem;
+  }
+
+  .tag-outline {
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+  }
+
+  .tag-outline:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: rgba(0, 229, 160, 0.1);
+  }
+
+  .sidebar-section {
+    margin-bottom: var(--space-8);
+  }
+
+  .category-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .category-link {
+    display: block;
+    padding: var(--space-2) var(--space-3);
+    color: var(--color-text-secondary);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    transition: all var(--transition-fast);
+  }
+
+  .category-link:hover {
+    background: var(--color-surface);
+    color: var(--color-text);
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3) var(--space-5);
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    text-decoration: none;
+  }
+
+  .btn-primary {
+    background: var(--color-primary);
+    color: var(--color-background);
+    border-color: var(--color-primary);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+  }
+
+  .w-full {
+    width: 100%;
+  }
+
+  @media (max-width: 1024px) {
+    .blog-layout {
       grid-template-columns: 1fr;
     }
-    
-    .md\:col-span-1, .md\:col-span-2 {
-      grid-column: span 1;
+
+    .blog-sidebar {
+      position: static;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+
+    .sidebar-section {
+      margin-bottom: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .featured-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .blog-sidebar {
+      grid-template-columns: 1fr;
     }
   }
 </style>

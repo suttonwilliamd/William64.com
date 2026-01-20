@@ -4,94 +4,434 @@ import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 
 const { frontmatter } = Astro.props;
+
+// Calculate reading time
+function calculateReadingTime(content) {
+  const wordsPerMinute = 200;
+  const text = typeof content === 'string' ? content : '';
+  const wordCount = text.split(/\s+/).length;
+  return Math.ceil(wordCount / wordsPerMinute);
+}
+
+// Extract headings for TOC from the slot content
+const headings = Astro.props.headings || [];
 ---
 
-<BaseLayout
-  title={`${frontmatter.title} | William64.com`}
-  description={frontmatter.summary}
->
-  <div class="max-w-3xl mx-auto p-4">
-    <header class="border-b border-green-700 pb-4 mb-8">
-      <h1 class="text-4xl font-bold mb-2">William64.com</h1>
-      <Navigation />
+<BaseLayout title={`${frontmatter.title} | William64.com`} description={frontmatter.summary}>
+  <div class="post-layout">
+    <header class="post-header">
+      <a href="/blog" class="back-link">← Back to Blog</a>
+      
+      <div class="post-meta">
+        <span class="meta-item">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          {frontmatter.date}
+        </span>
+        <span class="meta-item">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          {calculateReadingTime(frontmatter.body || '')} min read
+        </span>
+        <span class="meta-item category">{frontmatter.category}</span>
+      </div>
+
+      <h1 class="post-title">{frontmatter.title}</h1>
+      <p class="post-summary">{frontmatter.summary}</p>
+
+      {frontmatter.tags && frontmatter.tags.length > 0 && (
+        <div class="post-tags">
+          {frontmatter.tags.map(tag => (
+            <a href={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`} class="tag">
+              {tag}
+            </a>
+          ))}
+        </div>
+      )}
     </header>
 
-    <main>
-      <article class="post">
-        <header class="mb-8">
-          <h1 class="text-3xl font-bold mb-2">{frontmatter.title}</h1>
-          <p class="text-green-600">{frontmatter.date}</p>
-        </header>
+    <div class="post-container">
+      <aside class="post-toc">
+        <nav class="toc-nav">
+          <h4 class="toc-title">Table of Contents</h4>
+          <ul class="toc-list">
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#conclusion">Conclusion</a></li>
+          </ul>
+        </nav>
+      </aside>
 
-        <div class="post-content prose prose-invert prose-green max-w-none">
-          <slot />
-        </div>
+      <article class="post-content">
+        <slot />
       </article>
+    </div>
 
-      <div class="mt-12 pt-4 border-t border-green-700">
-        <a href="/blog" class="text-cyan-400 hover:underline">&larr; Back to all posts</a>
+    <footer class="post-footer">
+      <div class="author-card">
+        <div class="author-avatar">
+          <span>WS</span>
+        </div>
+        <div class="author-info">
+          <h4 class="author-name">William Sutton</h4>
+          <p class="author-bio">Senior Software Engineer specializing in scalable systems and clean architecture.</p>
+          <div class="author-links">
+            <a href="https://github.com/williamsutton" class="author-link">GitHub</a>
+            <a href="https://linkedin.com/in/williamsutton" class="author-link">LinkedIn</a>
+          </div>
+        </div>
       </div>
-    </main>
 
-    <Footer />
+      <div class="post-navigation">
+        <a href="/blog" class="nav-link">← All Posts</a>
+      </div>
+    </footer>
   </div>
 </BaseLayout>
 
 <style>
+  .post-layout {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--space-6);
+  }
+
+  .post-header {
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+    margin-bottom: var(--space-4);
+    transition: color var(--transition-fast);
+  }
+
+  .back-link:hover {
+    color: var(--color-primary);
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-text-tertiary);
+    font-size: var(--font-size-sm);
+  }
+
+  .meta-item.category {
+    background: rgba(0, 229, 160, 0.1);
+    color: var(--color-primary);
+    padding: var(--space-xs) var(--space-3);
+    border-radius: var(--radius-full);
+  }
+
+  .post-title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    margin-bottom: var(--space-4);
+    color: var(--color-text);
+  }
+
+  .post-summary {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-base);
+    margin-bottom: var(--space-6);
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .tag {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-3);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+  }
+
+  .tag:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: rgba(0, 229, 160, 0.1);
+  }
+
+  .post-container {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--space-8);
+  }
+
+  .post-toc {
+    position: sticky;
+    top: var(--space-8);
+    height: fit-content;
+  }
+
+  .toc-nav {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+  }
+
+  .toc-title {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-3);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .toc-list li {
+    margin-bottom: var(--space-2);
+  }
+
+  .toc-list a {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .toc-list a:hover {
+    color: var(--color-primary);
+  }
+
+  .post-content {
+    min-width: 0;
+  }
+
   .post-content :global(h2) {
-    font-size: 1.5rem;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid #00aa55;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
   }
-  
+
   .post-content :global(h3) {
-    font-size: 1.25rem;
-    margin-top: 1.5rem;
-    margin-bottom: 0.75rem;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-3);
+    color: var(--color-text);
   }
-  
+
   .post-content :global(p) {
-    margin-bottom: 1rem;
+    margin-bottom: var(--space-4);
+    line-height: var(--line-height-base);
+    color: var(--color-text-secondary);
   }
-  
+
   .post-content :global(a) {
-    color: #00ffee;
+    color: var(--color-primary);
     text-decoration: none;
   }
-  
+
   .post-content :global(a:hover) {
     text-decoration: underline;
   }
-  
+
   .post-content :global(pre) {
-    background-color: #111;
-    padding: 1rem;
-    border-radius: 4px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
     overflow-x: auto;
-    margin: 1.5rem 0;
+    margin: var(--space-6) 0;
   }
-  
+
   .post-content :global(code) {
-    background-color: #111;
-    padding: 0.2rem 0.4rem;
-    border-radius: 3px;
-    color: #00ffaa;
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-sm);
   }
-  
-  .post-content :global(ul), .post-content :global(ol) {
-    margin: 1rem 0 1rem 2rem;
+
+  .post-content :global(:not(pre) > code) {
+    background: var(--color-surface);
+    padding: var(--space-xs) var(--space-2);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    color: var(--color-primary);
   }
-  
+
+  .post-content :global(ul),
+  .post-content :global(ol) {
+    margin: var(--space-4) 0;
+    padding-left: var(--space-6);
+    color: var(--color-text-secondary);
+  }
+
   .post-content :global(li) {
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-2);
+    line-height: var(--line-height-base);
   }
-  
+
   .post-content :global(blockquote) {
-    border-left: 4px solid #00aa55;
-    padding-left: 1rem;
-    margin: 1.5rem 0;
+    border-left: 4px solid var(--color-primary);
+    padding-left: var(--space-4);
+    margin: var(--space-6) 0;
     font-style: italic;
+    color: var(--color-text-tertiary);
+  }
+
+  .post-content :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-6) 0;
+  }
+
+  .post-content :global(th),
+  .post-content :global(td) {
+    border: 1px solid var(--color-border);
+    padding: var(--space-3);
+    text-align: left;
+  }
+
+  .post-content :global(th) {
+    background: var(--color-surface);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .post-content :global(img) {
+    max-width: 100%;
+    border-radius: var(--radius-lg);
+    margin: var(--space-6) 0;
+  }
+
+  .post-footer {
+    margin-top: var(--space-12);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .author-card {
+    display: flex;
+    gap: var(--space-4);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-6);
+  }
+
+  .author-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-background);
+    flex-shrink: 0;
+  }
+
+  .author-info {
+    flex: 1;
+  }
+
+  .author-name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-1);
+  }
+
+  .author-bio {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-3);
+  }
+
+  .author-links {
+    display: flex;
+    gap: var(--space-4);
+  }
+
+  .author-link {
+    font-size: var(--font-size-sm);
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .author-link:hover {
+    text-decoration: underline;
+  }
+
+  .post-navigation {
+    display: flex;
+    justify-content: center;
+  }
+
+  .nav-link {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    transition: color var(--transition-fast);
+  }
+
+  .nav-link:hover {
+    color: var(--color-primary);
+  }
+
+  @media (max-width: 768px) {
+    .post-container {
+      grid-template-columns: 1fr;
+    }
+
+    .post-toc {
+      display: none;
+    }
+
+    .post-title {
+      font-size: var(--font-size-2xl);
+    }
+
+    .author-card {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .author-avatar {
+      margin: 0 auto;
+    }
+
+    .author-links {
+      justify-content: center;
+    }
   }
 </style>

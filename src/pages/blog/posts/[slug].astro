@@ -1,0 +1,24 @@
+---
+import PostLayout from '../../../layouts/PostLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await Astro.glob('../../../pages/posts/*.mdx');
+  
+  return posts.map(post => {
+    // Use filename as slug
+    const slug = post.file.split('/').pop().replace('.mdx', '');
+    
+    return {
+      params: { slug },
+      props: { post },
+    };
+  });
+}
+
+const { post } = Astro.props;
+const { frontmatter } = post;
+---
+
+<PostLayout frontmatter={frontmatter}>
+  <post.Content />
+</PostLayout>
