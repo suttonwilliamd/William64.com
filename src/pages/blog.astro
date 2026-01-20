@@ -1,9 +1,8 @@
 ---
 import Footer from '../components/Footer.astro';
 
-const pageTitle = "Blog | William Sutton - Software Engineering Insights";
-const pageDescription = "Technical tutorials, industry insights, and case studies on software engineering, web development, and clean architecture.";
-const POSTS_PER_PAGE = 10;
+const pageTitle = "Blog | William Sutton";
+const pageDescription = "Blog posts and tutorials by William Sutton, a hobbyist developer.";
 
 import { getCollection } from 'astro:content';
 
@@ -41,121 +40,131 @@ const allTags = [...new Set(posts.flatMap(post => post.data.tags || []))];
         <nav class="nav">
           <a href="/" class="nav-link">Home</a>
           <a href="/projects" class="nav-link">Projects</a>
-          <a href="/blog" class="nav-link active">Blog</a>
           <a href="/about" class="nav-link">About</a>
         </nav>
-        <p class="text-sm text-text-secondary mt-2">Technical tutorials, industry insights, and case studies on modern web development.</p>
+        <p class="text-sm text-text-secondary mt-2">Blog posts and tutorials on web development.</p>
       </header>
 
       <main class="container">
         <div class="blog-header mb-12">
           <h2 class="text-3xl font-bold mb-4">Blog</h2>
           <p class="text-text-secondary text-lg max-w-2xl">
-            Technical tutorials, industry insights, and case studies covering modern web development, software architecture, and clean code principles.
+            {posts.length > 0 
+              ? "Technical tutorials, industry insights, and case studies covering modern web development, software architecture, and clean code principles."
+              : "No blog posts yet. Check back soon for updates!"}
           </p>
         </div>
 
-        <div class="blog-layout">
-          <div class="blog-main">
-            {featuredPosts.length > 0 && (
-              <section class="featured-section mb-12">
-                <h3 class="text-xl font-semibold mb-6 text-primary">Featured</h3>
-                <div class="featured-grid">
-                  {featuredPosts.slice(0, 2).map((post) => {
+        {posts.length === 0 ? (
+          <div class="empty-state" style="text-align: center; padding: var(--space-12); background: var(--color-surface); border-radius: var(--radius-lg);">
+            <p class="text-muted" style="font-size: var(--font-size-lg);">No blog posts available at this time.</p>
+            <p class="text-muted" style="margin-top: var(--space-4);">
+              In the meantime, check out my <a href="/projects" style="color: var(--color-primary);">projects on GitHub</a>.
+            </p>
+          </div>
+        ) : (
+          <div class="blog-layout">
+            <div class="blog-main">
+              {featuredPosts.length > 0 && (
+                <section class="featured-section mb-12">
+                  <h3 class="text-xl font-semibold mb-6 text-primary">Featured</h3>
+                  <div class="featured-grid">
+                    {featuredPosts.slice(0, 2).map((post) => {
+                      return (
+                        <article class="featured-card">
+                          <div class="featured-content">
+                            <div class="post-meta mb-3">
+                              <span class="text-text-tertiary text-sm">{post.data.publishedDate.toISOString().slice(0, 10)}</span>
+                              <span class="text-text-tertiary text-sm mx-2">•</span>
+                              <span class="text-primary text-sm">{post.data.category}</span>
+                            </div>
+                            <h4 class="text-2xl font-bold mb-3">
+                              <a href={`/blog/posts/${post.id}`} class="hover:text-primary transition-colors">
+                                {post.data.title}
+                              </a>
+                            </h4>
+                            <p class="text-text-secondary mb-4">{post.data.summary}</p>
+                            <div class="flex gap-2 flex-wrap">
+                              {post.data.tags?.slice(0, 3).map(tag => (
+                                <span class="tag">{tag}</span>
+                              ))}
+                            </div>
+                          </div>
+                        </article>
+                      );
+                    })}
+                  </div>
+                </section>
+              )}
+
+              <section class="posts-section">
+                <h3 class="text-xl font-semibold mb-6">Recent Posts</h3>
+                <div class="posts-list">
+                  {regularPosts.slice(0, POSTS_PER_PAGE).map((post) => {
                     return (
-                      <article class="featured-card">
-                        <div class="featured-content">
-                          <div class="post-meta mb-3">
-                            <span class="text-text-tertiary text-sm">{post.data.publishedDate.toISOString().slice(0, 10)}</span>
-                            <span class="text-text-tertiary text-sm mx-2">•</span>
-                            <span class="text-primary text-sm">{post.data.category}</span>
-                          </div>
-                          <h4 class="text-2xl font-bold mb-3">
-                            <a href={`/blog/posts/${post.id}`} class="hover:text-primary transition-colors">
-                              {post.data.title}
-                            </a>
-                          </h4>
-                          <p class="text-text-secondary mb-4">{post.data.summary}</p>
-                          <div class="flex gap-2 flex-wrap">
-                            {post.data.tags?.slice(0, 3).map(tag => (
-                              <span class="tag">{tag}</span>
-                            ))}
-                          </div>
+                      <article class="post-card">
+                        <div class="post-meta mb-2">
+                          <span class="text-text-tertiary text-sm">{post.data.publishedDate.toISOString().slice(0, 10)}</span>
+                          <span class="text-text-tertiary text-sm mx-2">•</span>
+                          <span class="text-secondary text-sm">{post.data.category}</span>
+                        </div>
+                        <h4 class="text-xl font-bold mb-2">
+                          <a href={`/blog/posts/${post.id}`} class="hover:text-primary transition-colors">
+                            {post.data.title}
+                          </a>
+                        </h4>
+                        <p class="text-text-secondary mb-3">{post.data.summary}</p>
+                        <div class="flex gap-2 flex-wrap">
+                          {post.data.tags?.slice(0, 4).map(tag => (
+                            <span class="tag tag-sm">{tag}</span>
+                          ))}
                         </div>
                       </article>
                     );
                   })}
                 </div>
+
+                {regularPosts.length > POSTS_PER_PAGE && (
+                  <div class="pagination mt-8">
+                    <span class="text-text-tertiary">Showing {POSTS_PER_PAGE} of {regularPosts.length} posts</span>
+                  </div>
+                )}
               </section>
-            )}
+            </div>
 
-            <section class="posts-section">
-              <h3 class="text-xl font-semibold mb-6">Recent Posts</h3>
-              <div class="posts-list">
-                {regularPosts.slice(0, POSTS_PER_PAGE).map((post) => {
-                  return (
-                    <article class="post-card">
-                      <div class="post-meta mb-2">
-                        <span class="text-text-tertiary text-sm">{post.data.publishedDate.toISOString().slice(0, 10)}</span>
-                        <span class="text-text-tertiary text-sm mx-2">•</span>
-                        <span class="text-secondary text-sm">{post.data.category}</span>
-                      </div>
-                      <h4 class="text-xl font-bold mb-2">
-                        <a href={`/blog/posts/${post.id}`} class="hover:text-primary transition-colors">
-                          {post.data.title}
-                        </a>
-                      </h4>
-                      <p class="text-text-secondary mb-3">{post.data.summary}</p>
-                      <div class="flex gap-2 flex-wrap">
-                        {post.data.tags?.slice(0, 4).map(tag => (
-                          <span class="tag tag-sm">{tag}</span>
-                        ))}
-                      </div>
-                    </article>
-                  );
-                })}
-              </div>
-
-              {regularPosts.length > POSTS_PER_PAGE && (
-                <div class="pagination mt-8">
-                  <span class="text-text-tertiary">Showing {POSTS_PER_PAGE} of {regularPosts.length} posts</span>
+            <aside class="blog-sidebar">
+              <div class="sidebar-section">
+                <h4 class="font-semibold mb-4">Categories</h4>
+                <div class="category-list">
+                  {categories.map(category => (
+                    <a href={`/blog/category/${category.toLowerCase().replace(/\s+/g, '-')}`} class="category-link">
+                      {category}
+                    </a>
+                  ))}
                 </div>
-              )}
-            </section>
+              </div>
+
+              <div class="sidebar-section">
+                <h4 class="font-semibold mb-4">Popular Tags</h4>
+                <div class="tag-list">
+                  {allTags.slice(0, 15).map(tag => (
+                    <a href={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`} class="tag tag-outline">
+                      {tag}
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <div class="sidebar-section">
+                <h4 class="font-semibold mb-4">About</h4>
+                <p class="text-text-secondary text-sm mb-4">
+                  I write about software engineering, clean architecture, and modern web development practices.
+                </p>
+                <a href="/about" class="btn btn-primary w-full">Learn More</a>
+              </div>
+            </aside>
           </div>
-
-          <aside class="blog-sidebar">
-            <div class="sidebar-section">
-              <h4 class="font-semibold mb-4">Categories</h4>
-              <div class="category-list">
-                {categories.map(category => (
-                  <a href={`/blog/category/${category.toLowerCase().replace(/\s+/g, '-')}`} class="category-link">
-                    {category}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <div class="sidebar-section">
-              <h4 class="font-semibold mb-4">Popular Tags</h4>
-              <div class="tag-list">
-                {allTags.slice(0, 15).map(tag => (
-                  <a href={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`} class="tag tag-outline">
-                    {tag}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <div class="sidebar-section">
-              <h4 class="font-semibold mb-4">About</h4>
-              <p class="text-text-secondary text-sm mb-4">
-                I write about software engineering, clean architecture, and modern web development practices.
-              </p>
-              <a href="/about" class="btn btn-primary w-full">Learn More</a>
-            </div>
-          </aside>
-        </div>
+        )}
       </main>
 
       <Footer />

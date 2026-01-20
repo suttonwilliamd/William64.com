@@ -1,8 +1,8 @@
 ---
 import Footer from '../components/Footer.astro';
 
-const pageTitle = "Projects | William Sutton - Software Engineer";
-const pageDescription = "Portfolio of software projects, case studies, and technical solutions by William Sutton.";
+const pageTitle = "Projects | William Sutton - Hobbyist Developer";
+const pageDescription = "Portfolio of software projects by William Sutton, a hobbyist developer.";
 ---
 
 <!DOCTYPE html>
@@ -38,68 +38,63 @@ const pageDescription = "Portfolio of software projects, case studies, and techn
         <div class="container">
           <h1 class="hero-title">Projects</h1>
           <p class="hero-subtitle" style="margin-bottom: var(--space-12);">
-            A collection of software projects, case studies, and technical solutions.
+            A collection of my GitHub repositories and hobby projects.
           </p>
 
-          <div class="grid grid-2">
-            <article class="project-card">
-              <div class="project-header">
-                <div style="display: flex; gap: var(--space-2);">
-                  <div class="terminal-dot red"></div>
-                  <div class="terminal-dot yellow"></div>
-                  <div class="terminal-dot green"></div>
-                </div>
-                <span class="project-title">William64.com</span>
-              </div>
-              <div class="project-body">
-                <h3 class="card-title">Modern Portfolio Platform</h3>
-                <p class="project-description">
-                  A sophisticated portfolio website showcasing advanced web development techniques, modern design systems, and optimal performance built with Astro.js.
-                </p>
-                <div class="project-tags">
-                  <span class="tag">Astro.js</span>
-                  <span class="tag">TypeScript</span>
-                  <span class="tag">Tailwind CSS</span>
-                  <span class="tag">React</span>
-                </div>
-              </div>
-              <div class="project-footer">
-                <a href="/" class="btn btn-primary">View Live</a>
-                <a href="https://github.com/williamsutton" class="btn btn-secondary">Source Code</a>
-              </div>
-            </article>
-
-            <article class="project-card">
-              <div class="project-header">
-                <div style="display: flex; gap: var(--space-2);">
-                  <div class="terminal-dot red"></div>
-                  <div class="terminal-dot yellow"></div>
-                  <div class="terminal-dot green"></div>
-                </div>
-                <span class="project-title">Pebble + Rock</span>
-              </div>
-              <div class="project-body">
-                <h3 class="card-title">Retro Gaming Platform</h3>
-                <p class="project-description">
-                  Modern web platform featuring classic pebble and rock games with sophisticated animations and responsive multiplayer functionality.
-                </p>
-                <div class="project-tags">
-                  <span class="tag">React</span>
-                  <span class="tag">WebGL</span>
-                  <span class="tag">Socket.io</span>
-                  <span class="tag">Animation</span>
-                </div>
-              </div>
-              <div class="project-footer">
-                <a href="https://pebble-rock.vercel.app" class="btn btn-primary">View Live</a>
-                <a href="https://github.com/williamsutton/pebble-rock" class="btn btn-secondary">Source Code</a>
-              </div>
-            </article>
+          <div class="grid grid-2" id="all-projects">
+            <div class="loading-placeholder">Loading projects from GitHub...</div>
+          </div>
+          <div style="text-align: center; margin-top: var(--space-8);">
+            <a href="https://github.com/suttonwilliamd?tab=repositories" class="btn btn-secondary" target="_blank" rel="noopener">View All on GitHub →</a>
           </div>
         </div>
       </section>
     </main>
 
     <Footer />
+
+    <script>
+      const GITHUB_USERNAME = 'suttonwilliamd';
+
+      async function fetchAllProjects() {
+        try {
+          const reposRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`);
+          const repos = await reposRes.json();
+
+          if (Array.isArray(repos) && repos.length > 0) {
+            const projectsContainer = document.getElementById('all-projects');
+            projectsContainer.innerHTML = repos.map(repo => `
+              <article class="project-card">
+                <div class="project-header">
+                  <div style="display: flex; gap: var(--space-2);">
+                    <div class="terminal-dot red"></div>
+                    <div class="terminal-dot yellow"></div>
+                    <div class="terminal-dot green"></div>
+                  </div>
+                  <span class="project-title">${repo.name}</span>
+                </div>
+                <div class="project-body">
+                  <h3 class="card-title">${repo.description || 'No description available'}</h3>
+                  <div class="project-tags">
+                    ${repo.language ? `<span class="tag">${repo.language}</span>` : ''}
+                    <span class="tag">⭐ ${repo.stargazers_count}</span>
+                    <span class="tag">🍴 ${repo.forks_count}</span>
+                  </div>
+                </div>
+                <div class="project-footer">
+                  <a href="${repo.html_url}" class="btn btn-primary" target="_blank" rel="noopener">View Project</a>
+                  ${repo.homepage ? `<a href="${repo.homepage}" class="btn btn-secondary" target="_blank" rel="noopener">Live Demo</a>` : ''}
+                </div>
+              </article>
+            `).join('');
+          }
+        } catch (error) {
+          console.error('Error fetching projects:', error);
+          document.getElementById('all-projects').innerHTML = '<p class="text-muted">Unable to load projects. Please visit my <a href="https://github.com/suttonwilliamd">GitHub profile</a> directly.</p>';
+        }
+      }
+
+      fetchAllProjects();
+    </script>
   </body>
 </html>

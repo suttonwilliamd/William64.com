@@ -3,8 +3,8 @@ import TerminalHero from "../components/TerminalHero.astro";
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
 
-const pageTitle = "William Sutton - Senior Software Engineer";
-const pageDescription = "Senior Software Engineer specializing in scalable systems, clean architecture, and performance optimization.";
+const pageTitle = "William Sutton - Hobbyist Developer";
+const pageDescription = "Hobbyist developer passionate about coding, clean code, and continuous learning.";
 ---
 
 <!DOCTYPE html>
@@ -31,7 +31,7 @@ const pageDescription = "Senior Software Engineer specializing in scalable syste
           <a href="/projects" class="nav-link">Projects</a>
           <a href="/blog" class="nav-link">Blog</a>
           <a href="/about" class="nav-link">About</a>
-          <a href="mailto:william@william64.com" class="btn btn-primary" style="margin-left: var(--space-4);">
+            <a href="mailto:suttonwilliamd@gmail.com" class="btn btn-primary" style="margin-left: var(--space-4);">
             Get in Touch
           </a>
         </nav>
@@ -46,7 +46,7 @@ const pageDescription = "Senior Software Engineer specializing in scalable syste
             <span class="text-gradient">William Sutton</span>
           </h1>
           <p class="hero-subtitle">
-            Senior Software Engineer building scalable systems with clean architecture and modern best practices.
+            Hobbyist developer passionate about clean code and continuous learning.
           </p>
           <div class="hero-actions">
             <a href="/projects" class="btn btn-primary">View Projects</a>
@@ -56,19 +56,19 @@ const pageDescription = "Senior Software Engineer specializing in scalable syste
           <div class="metrics">
             <div class="metric">
               <div class="metric-value">10+</div>
-              <div class="metric-label">Years Experience</div>
+              <div class="metric-label">Years Learning</div>
             </div>
             <div class="metric">
-              <div class="metric-value">50+</div>
-              <div class="metric-label">Projects Delivered</div>
-            </div>
-            <div class="metric">
-              <div class="metric-value">1M+</div>
-              <div class="metric-label">Lines of Code</div>
-            </div>
-            <div class="metric">
-              <div class="metric-value">10K+</div>
+              <div class="metric-value" id="github-stars">---</div>
               <div class="metric-label">GitHub Stars</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value" id="total-stars">---</div>
+              <div class="metric-label">Total Stars</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value" id="total-repos">---</div>
+              <div class="metric-label">Repositories</div>
             </div>
           </div>
 
@@ -76,155 +76,78 @@ const pageDescription = "Senior Software Engineer specializing in scalable syste
         </div>
       </section>
 
-      <!-- Featured Projects -->
+      <!-- Featured Projects from GitHub -->
       <section class="section" style="background: var(--color-surface);">
         <div class="container">
           <div class="section-header">
             <h2 class="section-title">Featured Projects</h2>
-            <a href="/projects" class="btn btn-ghost">View All →</a>
+            <a href="https://github.com/suttonwilliamd?tab=repositories" class="btn btn-ghost" target="_blank" rel="noopener">View All →</a>
           </div>
 
-          <div class="grid grid-2">
-            <article class="project-card">
-              <div class="project-header">
-                <div style="display: flex; gap: var(--space-2);">
-                  <div class="terminal-dot red"></div>
-                  <div class="terminal-dot yellow"></div>
-                  <div class="terminal-dot green"></div>
-                </div>
-                <span class="project-title">William64.com</span>
-              </div>
-              <div class="project-body">
-                <h3 class="card-title">Modern Portfolio Platform</h3>
-                <p class="project-description">
-                  A sophisticated portfolio website showcasing advanced web development techniques, modern design systems, and optimal performance.
-                </p>
-                <div class="project-tags">
-                  <span class="tag">Astro.js</span>
-                  <span class="tag">TypeScript</span>
-                  <span class="tag">Tailwind CSS</span>
-                  <span class="tag">Performance</span>
-                </div>
-              </div>
-              <div class="project-footer">
-                <a href="/projects" class="btn btn-primary">View Project</a>
-                <a href="https://github.com/williamsutton" class="btn btn-secondary">Source Code</a>
-              </div>
-            </article>
-
-            <article class="project-card">
-              <div class="project-header">
-                <div style="display: flex; gap: var(--space-2);">
-                  <div class="terminal-dot red"></div>
-                  <div class="terminal-dot yellow"></div>
-                  <div class="terminal-dot green"></div>
-                </div>
-                <span class="project-title">Pebble + Rock</span>
-              </div>
-              <div class="project-body">
-                <h3 class="card-title">Retro Gaming Platform</h3>
-                <p class="project-description">
-                  Modern web platform featuring classic pebble and rock games with sophisticated animations and responsive multiplayer functionality.
-                </p>
-                <div class="project-tags">
-                  <span class="tag">React</span>
-                  <span class="tag">WebGL</span>
-                  <span class="tag">Socket.io</span>
-                  <span class="tag">Animation</span>
-                </div>
-              </div>
-              <div class="project-footer">
-                <a href="/projects" class="btn btn-primary">View Project</a>
-                <a href="https://github.com/williamsutton/pebble-rock" class="btn btn-secondary">Source Code</a>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- Technical Expertise -->
-      <section class="section">
-        <div class="container">
-          <h2 class="section-title">Technical Expertise</h2>
-
-          <div class="grid grid-2" style="gap: var(--space-4);">
-            <div class="card">
-              <h4 class="card-title" style="color: var(--color-primary);">Frontend</h4>
-              <p class="text-muted" style="font-size: var(--font-size-sm);">
-                React, Vue.js, Astro, TypeScript, Next.js, Tailwind CSS, WebGL
-              </p>
-            </div>
-            <div class="card">
-              <h4 class="card-title" style="color: var(--color-secondary);">Backend</h4>
-              <p class="text-muted" style="font-size: var(--font-size-sm);">
-                Node.js, Python, PostgreSQL, Redis, Docker, Kubernetes
-              </p>
-            </div>
-            <div class="card">
-              <h4 class="card-title" style="color: var(--color-accent);">Architecture</h4>
-              <p class="text-muted" style="font-size: var(--font-size-sm);">
-                Microservices, Clean Code, Performance Optimization, CI/CD
-              </p>
-            </div>
-            <div class="card">
-              <h4 class="card-title">Tools</h4>
-              <p class="text-muted" style="font-size: var(--font-size-sm);">
-                Git, AWS, Vercel, MongoDB, GraphQL, WebAssembly
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Latest Posts -->
-      <section class="section" style="background: var(--color-surface);">
-        <div class="container">
-          <div class="section-header">
-            <h2 class="section-title">Latest Insights</h2>
-            <a href="/blog" class="btn btn-ghost">Read All →</a>
-          </div>
-
-          <div class="grid grid-2">
-            <article class="card">
-              <div class="text-tertiary text-sm mb-3">
-                <time>December 25, 2025</time> • <span style="color: var(--color-primary);">Technical Tutorials</span>
-              </div>
-              <h4 class="card-title">
-                <a href="/blog/posts/astro-performance-optimization" style="color: var(--color-text); text-decoration: none;">
-                  Astro.js Performance Optimization
-                </a>
-              </h4>
-              <p class="text-muted" style="font-size: var(--font-size-sm);">
-                Advanced techniques for optimizing Astro applications for lightning-fast load times and Core Web Vitals.
-              </p>
-              <div style="display: flex; gap: var(--space-2); margin-top: var(--space-4);">
-                <span class="tag tag-outline">Astro.js</span>
-                <span class="tag tag-outline">Performance</span>
-              </div>
-            </article>
-
-            <article class="card">
-              <div class="text-tertiary text-sm mb-3">
-                <time>December 20, 2025</time> • <span style="color: var(--color-secondary);">Industry Insights</span>
-              </div>
-              <h4 class="card-title">
-                <a href="/blog/posts/clean-architecture-principles" style="color: var(--color-text); text-decoration: none;">
-                  Clean Architecture Principles
-                </a>
-              </h4>
-              <p class="text-muted" style="font-size: var(--font-size-sm);">
-                Exploring clean architecture principles and how they enable building maintainable, scalable web applications.
-              </p>
-              <div style="display: flex; gap: var(--space-2); margin-top: var(--space-4);">
-                <span class="tag tag-outline">Architecture</span>
-                <span class="tag tag-outline">Best Practices</span>
-              </div>
-            </article>
+          <div class="grid grid-2" id="featured-projects">
+            <div class="loading-placeholder">Loading projects from GitHub...</div>
           </div>
         </div>
       </section>
     </main>
 
     <Footer />
+
+    <script>
+      const GITHUB_USERNAME = 'suttonwilliamd';
+
+      async function fetchGitHubStats() {
+        try {
+          const reposRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`);
+          const repos = await reposRes.json();
+
+          if (Array.isArray(repos)) {
+            const totalStars = repos.reduce((acc, repo) => acc + (repo.stargazers_count || 0), 0);
+            const topRepos = repos.sort((a, b) => b.stargazers_count - a.stargazers_count).slice(0, 4);
+
+            document.getElementById('total-stars').textContent = totalStars.toLocaleString();
+            document.getElementById('total-repos').textContent = repos.length;
+
+            const maxStars = Math.max(...topRepos.map(r => r.stargazers_count), 1);
+            document.getElementById('github-stars').textContent = topRepos[0]?.stargazers_count.toLocaleString() || '0';
+
+            const projectsContainer = document.getElementById('featured-projects');
+            if (projectsContainer && topRepos.length > 0) {
+              projectsContainer.innerHTML = topRepos.map(repo => `
+                <article class="project-card">
+                  <div class="project-header">
+                    <div style="display: flex; gap: var(--space-2);">
+                      <div class="terminal-dot red"></div>
+                      <div class="terminal-dot yellow"></div>
+                      <div class="terminal-dot green"></div>
+                    </div>
+                    <span class="project-title">${repo.name}</span>
+                  </div>
+                  <div class="project-body">
+                    <h3 class="card-title">${repo.description || 'No description available'}</h3>
+                    <div class="project-tags">
+                      ${repo.language ? `<span class="tag">${repo.language}</span>` : ''}
+                      <span class="tag">⭐ ${repo.stargazers_count}</span>
+                      <span class="tag">🍴 ${repo.forks_count}</span>
+                    </div>
+                  </div>
+                  <div class="project-footer">
+                    <a href="${repo.html_url}" class="btn btn-primary" target="_blank" rel="noopener">View Project</a>
+                    ${repo.homepage ? `<a href="${repo.homepage}" class="btn btn-secondary" target="_blank" rel="noopener">Live Demo</a>` : ''}
+                  </div>
+                </article>
+              `).join('');
+            }
+          }
+        } catch (error) {
+          console.error('Error fetching GitHub stats:', error);
+          document.getElementById('github-stars').textContent = 'N/A';
+          document.getElementById('total-stars').textContent = 'N/A';
+          document.getElementById('total-repos').textContent = 'N/A';
+        }
+      }
+
+      fetchGitHubStats();
+    </script>
   </body>
 </html>
