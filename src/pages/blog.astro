@@ -1,34 +1,25 @@
 ---
-import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 
 const pageTitle = "Blog | William Sutton - Software Engineering Insights";
 const pageDescription = "Technical tutorials, industry insights, and case studies on software engineering, web development, and clean architecture.";
-
 const POSTS_PER_PAGE = 10;
 
-// Get all posts from the MDX files
-const posts = await Astro.glob('./posts/*.mdx');
+import { getCollection } from 'astro:content';
 
-// Sort posts by date (newest first)
+const posts = await getCollection('posts');
+
 posts.sort((a, b) => {
-  const dateA = new Date(a.frontmatter.date);
-  const dateB = new Date(b.frontmatter.date);
+  const dateA = new Date(a.data.publishedDate).valueOf();
+  const dateB = new Date(b.data.publishedDate).valueOf();
   return dateB - dateA;
 });
 
-// Helper to get slug from filename
-function getSlug(post) {
-  return post.file.split('/').pop().replace('.mdx', '');
-}
+const featuredPosts = posts.filter(post => post.data.featured);
+const regularPosts = posts.filter(post => !post.data.featured);
 
-// Get featured posts
-const featuredPosts = posts.filter(post => post.frontmatter.featured);
-const regularPosts = posts.filter(post => !post.frontmatter.featured);
-
-// Get all unique categories and tags (with fallbacks)
-const categories = [...new Set(posts.map(post => post.frontmatter.category || 'Uncategorized').filter(Boolean))];
-const allTags = [...new Set(posts.flatMap(post => post.frontmatter.tags || []))];
+const categories = [...new Set(posts.map(post => post.data.category || 'Uncategorized').filter(Boolean))];
+const allTags = [...new Set(posts.flatMap(post => post.data.tags || []))];
 ---
 
 <!DOCTYPE html>
@@ -38,7 +29,7 @@ const allTags = [...new Set(posts.flatMap(post => post.frontmatter.tags || []))]
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body class="bg-background text-text font-sans">
@@ -47,7 +38,13 @@ const allTags = [...new Set(posts.flatMap(post => post.frontmatter.tags || []))]
         <h1 class="text-4xl font-bold mb-2">
           <a href="/" class="gradient-text hover:opacity-80 transition-opacity">William64.com</a>
         </h1>
-        <Navigation />
+        <nav class="nav">
+          <a href="/" class="nav-link">Home</a>
+          <a href="/projects" class="nav-link">Projects</a>
+          <a href="/blog" class="nav-link active">Blog</a>
+          <a href="/about" class="nav-link">About</a>
+        </nav>
+        <p class="text-sm text-text-secondary mt-2">Technical tutorials, industry insights, and case studies on modern web development.</p>
       </header>
 
       <main class="container">
@@ -64,24 +61,23 @@ const allTags = [...new Set(posts.flatMap(post => post.frontmatter.tags || []))]
               <section class="featured-section mb-12">
                 <h3 class="text-xl font-semibold mb-6 text-primary">Featured</h3>
                 <div class="featured-grid">
-                  {featuredPosts.slice(0, 2).map((post, index) => {
-                    const slug = getSlug(post);
+                  {featuredPosts.slice(0, 2).map((post) => {
                     return (
                       <article class="featured-card">
                         <div class="featured-content">
                           <div class="post-meta mb-3">
-                            <span class="text-text-tertiary text-sm">{post.frontmatter.date}</span>
+                            <span class="text-text-tertiary text-sm">{post.data.publishedDate.toISOString().slice(0, 10)}</span>
                             <span class="text-text-tertiary text-sm mx-2">•</span>
-                            <span class="text-primary text-sm">{post.frontmatter.category}</span>
+                            <span class="text-primary text-sm">{post.data.category}</span>
                           </div>
                           <h4 class="text-2xl font-bold mb-3">
-                            <a href={`/blog/posts/${slug}`} class="hover:text-primary transition-colors">
-                              {post.frontmatter.title}
+                            <a href={`/blog/posts/${post.id}`} class="hover:text-primary transition-colors">
+                              {post.data.title}
                             </a>
                           </h4>
-                          <p class="text-text-secondary mb-4">{post.frontmatter.summary}</p>
+                          <p class="text-text-secondary mb-4">{post.data.summary}</p>
                           <div class="flex gap-2 flex-wrap">
-                            {post.frontmatter.tags?.slice(0, 3).map(tag => (
+                            {post.data.tags?.slice(0, 3).map(tag => (
                               <span class="tag">{tag}</span>
                             ))}
                           </div>
@@ -97,22 +93,21 @@ const allTags = [...new Set(posts.flatMap(post => post.frontmatter.tags || []))]
               <h3 class="text-xl font-semibold mb-6">Recent Posts</h3>
               <div class="posts-list">
                 {regularPosts.slice(0, POSTS_PER_PAGE).map((post) => {
-                  const slug = getSlug(post);
                   return (
                     <article class="post-card">
                       <div class="post-meta mb-2">
-                        <span class="text-text-tertiary text-sm">{post.frontmatter.date}</span>
+                        <span class="text-text-tertiary text-sm">{post.data.publishedDate.toISOString().slice(0, 10)}</span>
                         <span class="text-text-tertiary text-sm mx-2">•</span>
-                        <span class="text-secondary text-sm">{post.frontmatter.category}</span>
+                        <span class="text-secondary text-sm">{post.data.category}</span>
                       </div>
                       <h4 class="text-xl font-bold mb-2">
-                        <a href={`/blog/posts/${slug}`} class="hover:text-primary transition-colors">
-                          {post.frontmatter.title}
+                        <a href={`/blog/posts/${post.id}`} class="hover:text-primary transition-colors">
+                          {post.data.title}
                         </a>
                       </h4>
-                      <p class="text-text-secondary mb-3">{post.frontmatter.summary}</p>
+                      <p class="text-text-secondary mb-3">{post.data.summary}</p>
                       <div class="flex gap-2 flex-wrap">
-                        {post.frontmatter.tags?.slice(0, 4).map(tag => (
+                        {post.data.tags?.slice(0, 4).map(tag => (
                           <span class="tag tag-sm">{tag}</span>
                         ))}
                       </div>

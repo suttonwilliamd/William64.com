@@ -1,11 +1,12 @@
 ---
-import Navigation from '../../../components/Navigation.astro';
 import Footer from '../../../components/Footer.astro';
+import Navigation from '../../../components/Navigation.astro';
+import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const posts = await Astro.glob('../../../pages/posts/*.mdx');
+  const posts = await getCollection('posts');
   
-  const categories = [...new Set(posts.map(post => post.frontmatter.category).filter(Boolean))];
+  const categories = [...new Set(posts.map(post => post.data.category).filter(Boolean))];
   
   return categories.map(category => ({
     params: { category: category.toLowerCase().replace(/\s+/g, '-') },
@@ -16,12 +17,8 @@ export async function getStaticPaths() {
 const { category, posts } = Astro.props;
 
 const categoryPosts = posts
-  .filter(post => post.frontmatter.category === category)
-  .sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date));
-
-function getSlug(post) {
-  return post.file.split('/').pop().replace('.mdx', '');
-}
+  .filter(post => post.data.category === category)
+  .sort((a, b) => new Date(b.data.publishedDate).valueOf() - new Date(a.data.publishedDate).valueOf());
 
 const pageTitle = `${category} | William64.com Blog`;
 const pageDescription = `Browse all ${category.toLowerCase()} articles and tutorials on William64.com`;
@@ -34,7 +31,7 @@ const pageDescription = `Browse all ${category.toLowerCase()} articles and tutor
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body class="bg-background text-text font-sans">
@@ -55,21 +52,20 @@ const pageDescription = `Browse all ${category.toLowerCase()} articles and tutor
 
         <div class="posts-list">
           {categoryPosts.map((post) => {
-            const slug = getSlug(post);
             return (
               <article class="post-card">
                 <div class="post-meta mb-2">
-                  <span class="text-text-tertiary text-sm">{post.frontmatter.date}</span>
+                  <span class="text-text-tertiary text-sm">{post.data.publishedDate.toISOString().slice(0, 10)}</span>
                 </div>
                 <h3 class="text-xl font-bold mb-2">
-                  <a href={`/blog/posts/${slug}`} class="hover:text-primary transition-colors">
-                    {post.frontmatter.title}
+                  <a href={`/blog/posts/${post.id}`} class="hover:text-primary transition-colors">
+                    {post.data.title}
                   </a>
                 </h3>
-                <p class="text-text-secondary mb-3">{post.frontmatter.summary}</p>
-                {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
+                <p class="text-text-secondary mb-3">{post.data.summary}</p>
+                {post.data.tags && post.data.tags.length > 0 && (
                   <div class="flex gap-2 flex-wrap">
-                    {post.frontmatter.tags.slice(0, 4).map(tag => (
+                    {post.data.tags.slice(0, 4).map(tag => (
                       <a href={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`} class="tag">
                         {tag}
                       </a>

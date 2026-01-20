@@ -1,24 +1,21 @@
 ---
 import PostLayout from '../../../layouts/PostLayout.astro';
+import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-  const posts = await Astro.glob('../../../pages/posts/*.mdx');
+  const posts = await getCollection('posts');
   
-  return posts.map(post => {
-    // Use filename as slug
-    const slug = post.file.split('/').pop().replace('.mdx', '');
-    
-    return {
-      params: { slug },
-      props: { post },
-    };
-  });
+  return posts.map(post => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
 }
 
 const { post } = Astro.props;
-const { frontmatter } = post;
+const { Content } = await render(post);
+const { data: frontmatter } = post;
 ---
 
 <PostLayout frontmatter={frontmatter}>
-  <post.Content />
+  <Content />
 </PostLayout>
