@@ -1,13 +1,8 @@
----// @ts-nocheck
-import Navigation from '../components/Navigation.astro';
+---
 import Footer from '../components/Footer.astro';
-import CaseStudy from '../components/CaseStudy.astro';
 
-// Import case study data
-import caseStudies from '../data/caseStudies.json';
-
-const pageTitle = "Case Studies | William64.com";
-const pageDescription = "Comprehensive case studies of software projects and technical solutions by William Sutton.";
+const pageTitle = "Projects | William Sutton - Software Engineer";
+const pageDescription = "Portfolio of software projects, case studies, and technical solutions by William Sutton.";
 ---
 
 <!DOCTYPE html>
@@ -17,186 +12,94 @@ const pageDescription = "Comprehensive case studies of software projects and tec
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
-
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.url} />
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={pageDescription} />
-    <meta property="og:image" content={new URL('/images/social-card.png', Astro.url)} />
-
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={Astro.url} />
-    <meta property="twitter:title" content={pageTitle} />
-    <meta property="twitter:description" content={pageDescription} />
-    <meta property="twitter:image" content={new URL('/images/social-card.png', Astro.url)} />
-
-    <link rel="preload" href="/styles.css" as="style">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="stylesheet" href="/styles.css" />
   </head>
-  <body class="bg-background text-text font-sans">
-    <div class="min-h-screen flex flex-col">
-      <div class="container py-8">
-        <header class="border-b border-border pb-6 mb-8">
-          <h1 class="text-4xl font-bold mb-2">
-            <a href="/" class="text-gradient hover:opacity-80 transition-opacity">William64.com</a>
-          </h1>
-          <Navigation />
-          <p class="text-sm text-text-secondary mt-2">Software projects and experiments</p>
-        </header>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-        <main>
-          <div class="layout-container">
-            <div class="layout-content">
-              <!-- Enhanced Case Studies Header -->
-              <header class="mb-8">
-                <h2 class="text-3xl font-bold mb-4 border-b border-border pb-2">Case Studies</h2>
-                <p class="text-text-secondary mb-6">Comprehensive breakdowns of technical projects, challenges, solutions, and outcomes.</p>
-              </header>
+    <header class="header">
+      <div class="header-inner">
+        <a href="/" class="logo">
+          <span class="logo-gradient">William64</span>
+          <span>.com</span>
+        </a>
+        <nav class="nav">
+          <a href="/" class="nav-link">Home</a>
+          <a href="/projects" class="nav-link active">Projects</a>
+          <a href="/blog" class="nav-link">Blog</a>
+          <a href="/about" class="nav-link">About</a>
+        </nav>
+      </div>
+    </header>
 
-              <!-- Featured Case Study -->
-              <section class="mb-12">
-                <CaseStudy caseStudy={caseStudies[0]} featured={true} />
-              </section>
+    <main id="main-content">
+      <section class="section">
+        <div class="container">
+          <h1 class="hero-title">Projects</h1>
+          <p class="hero-subtitle" style="margin-bottom: var(--space-12);">
+            A collection of software projects, case studies, and technical solutions.
+          </p>
 
-              <!-- Case Studies Grid -->
-              <section class="grid md:grid-cols-2 gap-8">
-                {caseStudies.slice(1).map((caseStudy, index) => (
-                  <CaseStudy caseStudy={caseStudy} />
-                ))}
-              </section>
-
-              <!-- Open Source Contributions Section -->
-              <section class="mt-12">
-                <h3 class="text-2xl font-bold mb-6 border-b border-border pb-2 cyberpunk-accent">Open Source Contributions</h3>
-                <p class="text-text-secondary mb-6">Active participation in the open source community through code contributions, documentation, and ecosystem improvements.</p>
-                
-                <div class="grid md:grid-cols-3 gap-6">
-                  <div class="card p-6 text-center cyberpunk-card">
-                    <div class="text-3xl mb-3 cyberpunk-accent">💻</div>
-                    <h4 class="font-semibold mb-2 cyberpunk-accent">Astro.js</h4>
-                    <p class="text-sm text-text-secondary mb-3">Performance optimizations, component enhancements, and documentation improvements for the Astro static site builder.</p>
-                    <a href="https://github.com/withastro/astro" class="btn btn-xs btn-cyberpunk">View Contributions</a>
-                  </div>
-                    
-                  <div class="card p-6 text-center cyberpunk-card">
-                    <div class="text-3xl mb-3 cyberpunk-accent">📦</div>
-                    <h4 class="font-semibold mb-2 cyberpunk-accent">TypeScript</h4>
-                    <p class="text-sm text-text-secondary mb-3">Comprehensive type definitions and improvements for various open source libraries.</p>
-                    <a href="https://github.com/microsoft/TypeScript" class="btn btn-xs btn-cyberpunk">View Contributions</a>
-                  </div>
-                    
-                  <div class="card p-6 text-center cyberpunk-card">
-                    <div class="text-3xl mb-3 cyberpunk-accent">🎨</div>
-                    <h4 class="font-semibold mb-2 cyberpunk-accent">Design Systems</h4>
-                    <p class="text-sm text-text-secondary mb-3">Open source UI components and design patterns with cyberpunk aesthetics.</p>
-                    <a href="https://github.com/williamsutton/design-systems" class="btn btn-xs btn-cyberpunk">View Contributions</a>
-                  </div>
+          <div class="grid grid-2">
+            <article class="project-card">
+              <div class="project-header">
+                <div style="display: flex; gap: var(--space-2);">
+                  <div class="terminal-dot red"></div>
+                  <div class="terminal-dot yellow"></div>
+                  <div class="terminal-dot green"></div>
                 </div>
-              </section>
-            </div>
+                <span class="project-title">William64.com</span>
+              </div>
+              <div class="project-body">
+                <h3 class="card-title">Modern Portfolio Platform</h3>
+                <p class="project-description">
+                  A sophisticated portfolio website showcasing advanced web development techniques, modern design systems, and optimal performance built with Astro.js.
+                </p>
+                <div class="project-tags">
+                  <span class="tag">Astro.js</span>
+                  <span class="tag">TypeScript</span>
+                  <span class="tag">Tailwind CSS</span>
+                  <span class="tag">React</span>
+                </div>
+              </div>
+              <div class="project-footer">
+                <a href="/" class="btn btn-primary">View Live</a>
+                <a href="https://github.com/williamsutton" class="btn btn-secondary">Source Code</a>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-header">
+                <div style="display: flex; gap: var(--space-2);">
+                  <div class="terminal-dot red"></div>
+                  <div class="terminal-dot yellow"></div>
+                  <div class="terminal-dot green"></div>
+                </div>
+                <span class="project-title">Pebble + Rock</span>
+              </div>
+              <div class="project-body">
+                <h3 class="card-title">Retro Gaming Platform</h3>
+                <p class="project-description">
+                  Modern web platform featuring classic pebble and rock games with sophisticated animations and responsive multiplayer functionality.
+                </p>
+                <div class="project-tags">
+                  <span class="tag">React</span>
+                  <span class="tag">WebGL</span>
+                  <span class="tag">Socket.io</span>
+                  <span class="tag">Animation</span>
+                </div>
+              </div>
+              <div class="project-footer">
+                <a href="https://pebble-rock.vercel.app" class="btn btn-primary">View Live</a>
+                <a href="https://github.com/williamsutton/pebble-rock" class="btn btn-secondary">Source Code</a>
+              </div>
+            </article>
           </div>
-        </main>
-      </div>
+        </div>
+      </section>
+    </main>
 
-      <!-- Footer -->
-      <div class="mt-auto">
-        <Footer />
-      </div>
-    </div>
-
-    <script is:inline>
-      // Case study animations
-      document.addEventListener('DOMContentLoaded', function() {
-        const caseStudies = document.querySelectorAll('.case-study');
-         
-        caseStudies.forEach((caseStudy, index) => {
-          caseStudy.style.opacity = '0';
-          caseStudy.style.transform = 'translateY(20px)';
-          caseStudy.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-           
-          setTimeout(() => {
-            caseStudy.style.opacity = '1';
-            caseStudy.style.transform = 'translateY(0)';
-          }, 100 * index);
-        });
-
-        // Add hover effects to case studies
-        caseStudies.forEach(caseStudy => {
-          caseStudy.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-4px)';
-            this.style.boxShadow = '0 12px 25px rgba(0, 229, 160, 0.15)';
-          });
-           
-          caseStudy.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-            this.style.boxShadow = '';
-          });
-        });
-      });
-    </script>
+    <Footer />
   </body>
 </html>
-
-<style>
-  /* Featured project styling - Enhanced */
-  .featured-project {
-    border: 2px solid var(--color-primary);
-    background: linear-gradient(135deg, rgba(0, 229, 160, 0.05) 0%, rgba(10, 10, 26, 0) 100%);
-    box-shadow: 0 0 20px rgba(0, 229, 160, 0.1);
-  }
-  
-  /* Project grid responsive - Enhanced */
-  @media (max-width: 768px) {
-    .grid.md\:grid-cols-2,
-    .grid.md\:grid-cols-3 {
-      grid-template-columns: 1fr;
-    }
-  }
-  
-  /* Enhanced project card animations */
-  .project-card {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  .project-card:hover {
-    transform: translateY(-6px) scale(1.01);
-    box-shadow: 0 12px 25px rgba(0, 229, 160, 0.15);
-  }
-  
-  /* Cyberpunk project title glow */
-  .project-title {
-    transition: all 0.3s ease;
-  }
-  
-  .project-title:hover {
-    text-shadow: 0 0 10px rgba(0, 229, 160, 0.3);
-  }
-  
-  /* Layout enhancement for projects page */
-  .layout-content {
-    animation: fadeIn 0.5s ease-out;
-  }
-  
-  /* Enhanced cyberpunk list styling */
-  .cyberpunk-list li {
-    position: relative;
-    padding-left: 1.25rem;
-  }
-  
-  .cyberpunk-list li::before {
-    content: '▸';
-    position: absolute;
-    left: 0;
-    color: var(--color-secondary);
-    font-family: var(--font-family-mono);
-    transition: color 0.3s ease;
-  }
-  
-  .cyberpunk-list li:hover::before {
-    color: var(--color-primary);
-  }
-</style>

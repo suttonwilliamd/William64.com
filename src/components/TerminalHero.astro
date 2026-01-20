@@ -1,97 +1,93 @@
 ---
-// Modern Terminal Hero Component
-import TerminalHeroClient from './TerminalHeroClient.tsx';
 ---
 
-<div class="terminal-hero glass-card">
+<div class="terminal">
   <div class="terminal-header">
-    <div class="terminal-controls">
-      <div class="terminal-circle red animate-pulse"></div>
-      <div class="terminal-circle yellow animate-pulse" style="animation-delay: 0.5s;"></div>
-      <div class="terminal-circle green animate-pulse" style="animation-delay: 1s;"></div>
-    </div>
-    <div class="terminal-title">william64@portfolio:~$</div>
+    <div class="terminal-dot red"></div>
+    <div class="terminal-dot yellow"></div>
+    <div class="terminal-dot green"></div>
+    <span class="terminal-title">william64@portfolio:~$</span>
   </div>
-  <div class="terminal-content-container">
-    <TerminalHeroClient client:load />
+  <div class="terminal-body">
+    <div class="terminal-line">
+      <span class="terminal-prompt">$</span>
+      <span class="terminal-command">whoami</span>
+    </div>
+    <div class="terminal-line terminal-output">William Sutton - Senior Software Engineer</div>
+    <div class="terminal-line" style="margin-top: var(--space-3);">
+      <span class="terminal-prompt">$</span>
+      <span class="terminal-command">cat skills.txt</span>
+    </div>
+    <div class="terminal-line terminal-output">Frontend: React, Vue.js, Astro, TypeScript</div>
+    <div class="terminal-line terminal-output">Backend: Node.js, Python, PostgreSQL</div>
+    <div class="terminal-line terminal-output">Architecture: Clean Code, Microservices, CI/CD</div>
+    <div class="terminal-line" style="margin-top: var(--space-3);">
+      <span class="terminal-prompt">$</span>
+      <span class="terminal-command" style="color: var(--color-primary);">echo "Let's build something amazing!"</span>
+    </div>
+    <div class="terminal-line terminal-output">Let's build something amazing!</div>
   </div>
 </div>
 
 <style>
-.terminal-hero {
-  max-width: 700px;
-  margin: 0 auto var(--space-8);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-lg);
-  overflow: hidden;
-  position: relative;
-}
-
-.terminal-hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, 
-    rgba(99, 102, 241, 0.02) 0%, 
-    rgba(236, 72, 153, 0.02) 50%, 
-    rgba(20, 184, 166, 0.02) 100%);
-  pointer-events: none;
-}
-
-.terminal-header {
-  background: var(--color-surface-hover);
-  padding: var(--space-4);
-  border-bottom: 1px solid var(--color-border);
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
-}
-
-.terminal-controls {
-  display: flex;
-  gap: var(--space-2);
-}
-
-.terminal-title {
-  color: var(--color-text-secondary);
-  font-family: var(--font-family-mono);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  flex: 1;
-  text-align: center;
-}
-
-.terminal-content-container {
-  min-height: 140px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Enhanced pulse animation */
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
+  .terminal {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    max-width: 700px;
+    margin: var(--space-8) auto 0;
   }
-  50% {
-    opacity: 0.6;
-    transform: scale(0.9);
-  }
-}
 
-/* Responsive design */
-@media (max-width: 768px) {
-  .terminal-hero {
-    margin: 0 auto var(--space-6);
+  .terminal-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-surface-light);
+    border-bottom: 1px solid var(--color-border);
   }
-  
-  .terminal-content-container {
-    min-height: 120px;
+
+  .terminal-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
   }
-}
+
+  .terminal-dot.red { background: var(--color-error); }
+  .terminal-dot.yellow { background: var(--color-warning); }
+  .terminal-dot.green { background: var(--color-success); }
+
+  .terminal-title {
+    flex: 1;
+    text-align: center;
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-tertiary);
+  }
+
+  .terminal-body {
+    padding: var(--space-4);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-base);
+  }
+
+  .terminal-line {
+    margin-bottom: var(--space-1);
+  }
+
+  .terminal-prompt {
+    color: var(--color-secondary);
+    margin-right: var(--space-2);
+  }
+
+  .terminal-command {
+    color: var(--color-primary);
+  }
+
+  .terminal-output {
+    color: var(--color-text-secondary);
+    padding-left: var(--space-6);
+  }
 </style>

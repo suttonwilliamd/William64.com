@@ -1,9 +1,5 @@
----// @ts-nocheck
-import Navigation from '../components/Navigation.astro';
+---
 import Footer from '../components/Footer.astro';
-import Testimonials from '../components/Testimonials.astro';
-import ClientLogos from '../components/ClientLogos.astro';
-import Achievements from '../components/Achievements.astro';
 
 const pageTitle = "About | William Sutton - Senior Software Engineer";
 const pageDescription = "Professional profile of William Sutton - Senior Software Engineer specializing in scalable systems, clean architecture, and performance optimization.";
@@ -16,625 +12,131 @@ const pageDescription = "Professional profile of William Sutton - Senior Softwar
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
-
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.url} />
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={pageDescription} />
-    <meta property="og:image" content={new URL('/images/social-card.png', Astro.url)} />
-
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={Astro.url} />
-    <meta property="twitter:title" content={pageTitle} />
-    <meta property="twitter:description" content={pageDescription} />
-    <meta property="twitter:image" content={new URL('/images/social-card.png', Astro.url)} />
-
-    <link rel="preload" href="/styles.css" as="style">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="stylesheet" href="/styles.css" />
   </head>
-  <body class="bg-background text-text font-sans">
-    <div class="min-h-screen flex flex-col">
-      <div class="container py-8">
-        <header class="border-b border-border pb-6 mb-8">
-          <h1 class="text-4xl font-bold mb-2">
-            <a href="/" class="text-gradient hover:opacity-80 transition-opacity">William64.com</a>
-          </h1>
-          <Navigation />
-          <p class="text-sm text-text-secondary mt-2">Senior Software Engineer | Building Scalable Systems with Clean Architecture</p>
-        </header>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-        <main>
-          <div class="layout-container">
-            <!-- Main Content -->
-            <div class="layout-content">
-                <h2 class="text-3xl font-bold mb-6 border-b border-border pb-2">Professional Profile</h2>
+    <header class="header">
+      <div class="header-inner">
+        <a href="/" class="logo">
+          <span class="logo-gradient">William64</span>
+          <span>.com</span>
+        </a>
+        <nav class="nav">
+          <a href="/" class="nav-link">Home</a>
+          <a href="/projects" class="nav-link">Projects</a>
+          <a href="/blog" class="nav-link">Blog</a>
+          <a href="/about" class="nav-link active">About</a>
+        </nav>
+      </div>
+    </header>
 
-              <!-- Professional Summary Section -->
-              <section class="card mb-8">
-                <div class="flex flex-col md:flex-row gap-6">
-                  <div class="md:w-1/3">
-                    <div class="w-32 h-32 bg-surface-hover rounded-lg flex items-center justify-center mb-4">
-                      <div class="text-6xl">👨💻</div>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">William Sutton</h3>
-                    <p class="text-text-secondary text-sm">Senior Software Engineer</p>
-                    <p class="text-text-tertiary text-xs mt-1">10+ Years Experience</p>
-                  </div>
-                   
-                  <div class="md:w-2/3">
-                    <div class="mb-4">
-                      <h4 class="font-semibold mb-2 text-primary">Professional Summary</h4>
-                      <p class="text-text-secondary">
-                        I'm a Senior Software Engineer with over a decade of experience specializing in building scalable systems with clean architecture. My expertise spans full-stack development, performance optimization, and creating maintainable codebases that stand the test of time.
-                      </p>
-                    </div>
+    <main id="main-content">
+      <section class="section">
+        <div class="container" style="max-width: 800px;">
+          <h1 class="hero-title" style="font-size: var(--font-size-4xl);">About Me</h1>
+          <p class="hero-subtitle" style="margin-bottom: var(--space-8);">
+            I'm a Senior Software Engineer with over 10 years of experience building scalable systems, clean architecture, and performance-optimized applications.
+          </p>
 
-                    <div class="mb-4">
-                      <h4 class="font-semibold mb-2 text-secondary">Value Proposition</h4>
-                      <ul class="space-y-2 text-text-secondary value-proposition-list">
-                        <li>✅ Clean, maintainable code architecture that scales</li>
-                        <li>✅ Performance-optimized web applications with 300%+ improvements</li>
-                        <li>✅ Modern design systems with developer experience focus</li>
-                        <li>✅ Cross-disciplinary problem solving across frontend, backend, and DevOps</li>
-                      </ul>
-                    </div>
+          <div class="card" style="margin-bottom: var(--space-8);">
+            <h2 class="card-title" style="color: var(--color-primary);">Professional Summary</h2>
+            <p class="text-muted">
+              I specialize in building maintainable, scalable web applications using modern best practices.
+              My expertise spans full-stack development, performance optimization, and creating codebases that stand the test of time.
+            </p>
+          </div>
 
-                    <div>
-                      <h4 class="font-semibold mb-2 text-accent">Professional Focus</h4>
-                      <p class="text-text-secondary">
-                        I help companies build fast, maintainable web applications that scale through clean architecture principles, performance optimization, and modern development practices.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </section>
-
-              <!-- Expertise Areas Section -->
-              <section class="mb-8">
-                <h3 class="text-2xl font-bold mb-6 border-b border-border pb-2">Expertise Areas</h3>
-                <p class="text-text-secondary mb-6">Comprehensive technical skills with proven proficiency across the full software development lifecycle.</p>
-
-                <!-- Skills Matrix -->
-                <div class="card mb-6">
-                  <h4 class="font-semibold mb-4 text-primary">Skills Proficiency Matrix</h4>
-                  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="skill-item">
-                      <div class="skill-name font-medium">Frontend Development</div>
-                      <div class="skill-proficiency">
-                        <div class="proficiency-bar" style="width: 95%"></div>
-                      </div>
-                      <div class="skill-level text-xs text-text-tertiary">Expert</div>
-                    </div>
-                    <div class="skill-item">
-                      <div class="skill-name font-medium">Backend Development</div>
-                      <div class="skill-proficiency">
-                        <div class="proficiency-bar" style="width: 90%"></div>
-                      </div>
-                      <div class="skill-level text-xs text-text-tertiary">Advanced</div>
-                    </div>
-                    <div class="skill-item">
-                      <div class="skill-name font-medium">Performance Optimization</div>
-                      <div class="skill-proficiency">
-                        <div class="proficiency-bar" style="width: 95%"></div>
-                      </div>
-                      <div class="skill-level text-xs text-text-tertiary">Expert</div>
-                    </div>
-                    <div class="skill-item">
-                      <div class="skill-name font-medium">UI/UX Design</div>
-                      <div class="skill-proficiency">
-                        <div class="proficiency-bar" style="width: 85%"></div>
-                      </div>
-                      <div class="skill-level text-xs text-text-tertiary">Advanced</div>
-                    </div>
-                    <div class="skill-item">
-                      <div class="skill-name font-medium">DevOps & Cloud</div>
-                      <div class="skill-proficiency">
-                        <div class="proficiency-bar" style="width: 80%"></div>
-                      </div>
-                      <div class="skill-level text-xs text-text-tertiary">Intermediate</div>
-                    </div>
-                    <div class="skill-item">
-                      <div class="skill-name font-medium">Architecture Design</div>
-                      <div class="skill-proficiency">
-                        <div class="proficiency-bar" style="width: 90%"></div>
-                      </div>
-                      <div class="skill-level text-xs text-text-tertiary">Advanced</div>
-                    </div>
-                    <div class="skill-item">
-                      <div class="skill-name font-medium">Testing & QA</div>
-                      <div class="skill-proficiency">
-                        <div class="proficiency-bar" style="width: 85%"></div>
-                      </div>
-                      <div class="skill-level text-xs text-text-tertiary">Advanced</div>
-                    </div>
-                    <div class="skill-item">
-                      <div class="skill-name font-medium">Accessibility</div>
-                      <div class="skill-proficiency">
-                        <div class="proficiency-bar" style="width: 80%"></div>
-                      </div>
-                      <div class="skill-level text-xs text-text-tertiary">Intermediate</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-6">
-                  <div class="card">
-                    <h4 class="font-semibold mb-4 text-primary">Frontend Development</h4>
-                    <ul class="space-y-2 text-sm text-text-secondary">
-                      <li>• React, Astro.js, Vue.js</li>
-                      <li>• TypeScript, JavaScript (ES6+)</li>
-                      <li>• Tailwind CSS, CSS Modules</li>
-                      <li>• Responsive & Accessible Design</li>
-                      <li>• Web Performance Optimization</li>
-                    </ul>
-                  </div>
-
-                  <div class="card">
-                    <h4 class="font-semibold mb-4 text-secondary">Backend Development</h4>
-                    <ul class="space-y-2 text-sm text-text-secondary">
-                      <li>• Node.js, Express, NestJS</li>
-                      <li>• Python, Django, Flask</li>
-                      <li>• RESTful API Design</li>
-                      <li>• Database Design (SQL/NoSQL)</li>
-                      <li>• Authentication & Security</li>
-                    </ul>
-                  </div>
-
-                  <div class="card">
-                    <h4 class="font-semibold mb-4 text-accent">DevOps & Tools</h4>
-                    <ul class="space-y-2 text-sm text-text-secondary">
-                      <li>• Docker & Containerization</li>
-                      <li>• CI/CD Pipelines</li>
-                      <li>• AWS, Vercel, Netlify</li>
-                      <li>• Git, GitHub Actions</li>
-                      <li>• Testing & QA</li>
-                    </ul>
-                  </div>
-
-                  <div class="card">
-                    <h4 class="font-semibold mb-4 text-primary">Design & UX</h4>
-                    <ul class="space-y-2 text-sm text-text-secondary">
-                      <li>• UI/UX Design Principles</li>
-                      <li>• Design Systems</li>
-                      <li>• Figma, Adobe XD</li>
-                      <li>• Accessibility (WCAG)</li>
-                      <li>• Animation & Micro-interactions</li>
-                    </ul>
-                  </div>
-                </div>
-              </section>
-
-              <!-- Philosophy Section -->
-              <section class="mb-8">
-                <h3 class="text-2xl font-bold mb-6 border-b border-border pb-2">Development Philosophy</h3>
-
-                <div class="card">
-                  <p class="text-text-secondary mb-4">
-                    I believe in building software that is:
-                  </p>
-
-                  <div class="grid md:grid-cols-3 gap-4">
-                    <div class="text-center p-4 bg-surface-hover rounded-lg">
-                      <div class="text-3xl mb-2">⚡</div>
-                      <h4 class="font-semibold mb-2">Performant</h4>
-                      <p class="text-sm text-text-secondary">Optimized for speed and efficiency</p>
-                    </div>
-
-                    <div class="text-center p-4 bg-surface-hover rounded-lg">
-                      <div class="text-3xl mb-2">🎨</div>
-                      <h4 class="font-semibold mb-2">Beautiful</h4>
-                      <p class="text-sm text-text-secondary">Aesthetically pleasing and intuitive</p>
-                    </div>
-
-                    <div class="text-center p-4 bg-surface-hover rounded-lg">
-                      <div class="text-3xl mb-2">🔧</div>
-                      <h4 class="font-semibold mb-2">Maintainable</h4>
-                      <p class="text-sm text-text-secondary">Clean, documented, and scalable</p>
-                    </div>
-                  </div>
-                </div>
-              </section>
-
-              <!-- Experience Timeline -->
-              <section class="mb-8">
-                <h3 class="text-2xl font-bold mb-6 border-b border-border pb-2">Experience Timeline</h3>
-
-                <div class="card">
-                  <div class="space-y-6">
-                    <div class="flex gap-4">
-                      <div class="text-text-tertiary text-sm whitespace-nowrap">2020-Present</div>
-                      <div>
-                        <h4 class="font-semibold text-primary">Senior Software Engineer</h4>
-                        <p class="text-text-secondary text-sm">Leading frontend architecture and design system development</p>
-                      </div>
-                    </div>
-
-                    <div class="flex gap-4">
-                      <div class="text-text-tertiary text-sm whitespace-nowrap">2017-2020</div>
-                      <div>
-                        <h4 class="font-semibold text-secondary">Full Stack Developer</h4>
-                        <p class="text-text-secondary text-sm">Building web applications with React and Node.js</p>
-                      </div>
-                    </div>
-
-                    <div class="flex gap-4">
-                      <div class="text-text-tertiary text-sm whitespace-nowrap">2015-2017</div>
-                      <div>
-                        <h4 class="font-semibold text-accent">Frontend Developer</h4>
-                        <p class="text-text-secondary text-sm">Specializing in UI/UX and responsive design</p>
-                      </div>
-                    </div>
-
-                    <div class="flex gap-4">
-                      <div class="text-text-tertiary text-sm whitespace-nowrap">2012-2015</div>
-                      <div>
-                        <h4 class="font-semibold text-primary">Junior Developer</h4>
-                        <p class="text-text-secondary text-sm">Learning the fundamentals of web development</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-              
-             <!-- Testimonials Section -->
-             <Testimonials />
-             
-             <!-- Client Logos Section -->
-             <ClientLogos />
-             
-             <!-- Achievements Section -->
-             <Achievements />
+          <h2 class="section-title">Skills & Expertise</h2>
+          <div class="grid grid-2" style="gap: var(--space-4); margin-bottom: var(--space-12);">
+            <div class="card">
+              <h4 class="card-title" style="color: var(--color-primary);">Frontend</h4>
+              <p class="text-muted" style="font-size: var(--font-size-sm);">
+                React, Vue.js, Astro, TypeScript, Next.js, Tailwind CSS, WebGL
+              </p>
             </div>
-
+            <div class="card">
+              <h4 class="card-title" style="color: var(--color-secondary);">Backend</h4>
+              <p class="text-muted" style="font-size: var(--font-size-sm);">
+                Node.js, Python, PostgreSQL, Redis, Docker, Kubernetes
+              </p>
             </div>
-            
-            <!-- Sidebar -->
-            <div class="sidebar-container">
-              <div class="sidebar-content">
-                <div class="sticky top-8 space-y-6">
-                <!-- Contact Card -->
-                <div class="card">
-                  <h4 class="font-semibold mb-4 text-text">Contact Me</h4>
-                  <div class="space-y-3">
-                    <div class="flex items-center gap-2">
-                      <svg class="w-4 h-4 text-text-secondary" fill="currentColor" viewBox="0 0 24 24"><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"/></svg>
-                      <span class="text-sm text-text-secondary">Indianapolis, IN</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                      <svg class="w-4 h-4 text-text-secondary" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.39 0 2.5-1.11 2.5-2.5s-1.11-2.5-2.5-2.5-2.5 1.11-2.5 2.5 1.11 2.5 2.5 2.5zm10.76 0c1.39 0 2.5-1.11 2.5-2.5s-1.11-2.5-2.5-2.5-2.5 1.11-2.5 2.5 1.11 2.5 2.5 2.5zM12 0c-4.19 0-8 3.41-8 8 0 1.11.24 2.17.66 3.11l-1.46 1.46c-.2.2-.2.51 0 .71l.71.71c.2.2.51.2.71 0l1.46-1.46c.94.42 1.9 1.66 3.11.66 4.59 0 8-3.41 8-8s-3.41-8-8-8z"/></svg>
-                      <a href="mailto:william@william64.com" class="text-sm text-primary hover:text-primary-hover">william@william64.com</a>
-                    </div>
-                    <div class="flex items-center gap-2">
-                      <svg class="w-4 h-4 text-text-secondary" fill="currentColor" viewBox="0 0 24 24"><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"/></svg>
-                      <a href="https://github.com/williamsutton" class="text-sm text-primary hover:text-primary-hover">GitHub</a>
-                    </div>
-                    <div class="flex items-center gap-2">
-                      <svg class="w-4 h-4 text-text-secondary" fill="currentColor" viewBox="0 0 24 24"><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"/></svg>
-                      <a href="https://linkedin.com/in/williamsutton" class="text-sm text-primary hover:text-primary-hover">LinkedIn</a>
-                    </div>
-                  </div>
-                </div>
+            <div class="card">
+              <h4 class="card-title" style="color: var(--color-accent);">Architecture</h4>
+              <p class="text-muted" style="font-size: var(--font-size-sm);">
+                Microservices, Clean Code, Performance Optimization, CI/CD
+              </p>
+            </div>
+            <div class="card">
+              <h4 class="card-title">Tools</h4>
+              <p class="text-muted" style="font-size: var(--font-size-sm);">
+                Git, AWS, Vercel, MongoDB, GraphQL, WebAssembly
+              </p>
+            </div>
+          </div>
 
-                <!-- Tech Stack -->
-                <div class="card">
-                  <h4 class="font-semibold mb-4 text-text">Current Tech Stack</h4>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="btn btn-xs">Astro.js</span>
-                    <span class="btn btn-xs">React</span>
-                    <span class="btn btn-xs">TypeScript</span>
-                    <span class="btn btn-xs">Tailwind</span>
-                    <span class="btn btn-xs">Node.js</span>
-                    <span class="btn btn-xs">Python</span>
-                    <span class="btn btn-xs">Docker</span>
-                    <span class="btn btn-xs">AWS</span>
-                  </div>
-                </div>
-
-                <!-- Fun Facts -->
-                <div class="card">
-                  <h4 class="font-semibold mb-4 text-text">Fun Facts</h4>
-                  <ul class="space-y-3 text-sm text-text-secondary">
-                    <li class="flex items-start gap-2">
-                      <span>💻</span>
-                      <span>Built my first website in 1998 using Notepad</span>
-                    </li>
-                    <li class="flex items-start gap-2">
-                      <span>🎮</span>
-                      <span>Collect vintage computer hardware from the 80s/90s</span>
-                    </li>
-                    <li class="flex items-start gap-2">
-                      <span>☕</span>
-                      <span>Powered by coffee and curiosity</span>
-                    </li>
-                    <li class="flex items-start gap-2">
-                      <span>🌍</span>
-                      <span>Open source contributor and advocate</span>
-                    </li>
-                  </ul>
-                </div>
+          <h2 class="section-title">Experience</h2>
+          <div class="card" style="margin-bottom: var(--space-8);">
+            <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+              <div class="timeline-item">
+                <div class="text-tertiary text-sm" style="margin-bottom: var(--space-1);">2020 - Present</div>
+                <h4 class="card-title" style="color: var(--color-primary);">Senior Software Engineer</h4>
+                <p class="text-muted" style="font-size: var(--font-size-sm);">Leading frontend architecture and design system development</p>
+              </div>
+              <div class="timeline-item">
+                <div class="text-tertiary text-sm" style="margin-bottom: var(--space-1);">2017 - 2020</div>
+                <h4 class="card-title" style="color: var(--color-secondary);">Full Stack Developer</h4>
+                <p class="text-muted" style="font-size: var(--font-size-sm);">Building web applications with React and Node.js</p>
+              </div>
+              <div class="timeline-item">
+                <div class="text-tertiary text-sm" style="margin-bottom: var(--space-1);">2015 - 2017</div>
+                <h4 class="card-title" style="color: var(--color-accent);">Frontend Developer</h4>
+                <p class="text-muted" style="font-size: var(--font-size-sm);">Specializing in UI/UX and responsive design</p>
+              </div>
+              <div class="timeline-item">
+                <div class="text-tertiary text-sm" style="margin-bottom: var(--space-1);">2012 - 2015</div>
+                <h4 class="card-title">Junior Developer</h4>
+                <p class="text-muted" style="font-size: var(--font-size-sm);">Learning the fundamentals of web development</p>
               </div>
             </div>
-            
-           <!-- Contact Section -->
-           <div class="layout-content">
-             <section id="contact" class="mb-8">
-               <h2 class="text-3xl font-bold mb-8 border-b border-border pb-2">Get In Touch</h2>
-               
-               <div class="card">
-                 <div class="grid md:grid-cols-2 gap-8">
-                   <div>
-                     <h3 class="text-xl font-bold mb-4 text-primary">Let's Build Something Amazing</h3>
-                     <p class="text-text-secondary mb-6">
-                       I'm currently available for consulting on web development projects, design system architecture, and performance optimization. Whether you need help with a specific challenge or want to build a complete application, let's discuss how I can help.
-                     </p>
-                     
-                     <div class="space-y-4">
-                       <div class="flex items-center gap-3">
-                         <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.39 0 2.5-1.11 2.5-2.5s-1.11-2.5-2.5-2.5-2.5 1.11-2.5 2.5 1.11 2.5 2.5 2.5zm10.76 0c1.39 0 2.5-1.11 2.5-2.5s-1.11-2.5-2.5-2.5-2.5 1.11-2.5 2.5 1.11 2.5 2.5 2.5zM12 0c-4.19 0-8 3.41-8 8 0 1.11.24 2.17.66 3.11l-1.46 1.46c-.2.2-.2.51 0 .71l.71.71c.2.2.51.2.71 0l1.46-1.46c.94.42 1.9 1.66 3.11.66 4.59 0 8-3.41 8-8s-3.41-8-8-8z"/></svg>
-                         <a href="mailto:william@william64.com" class="text-primary hover:text-primary-hover font-semibold">william@william64.com</a>
-                       </div>
-                       <div class="flex items-center gap-3">
-                         <svg class="w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 24 24"><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"/></svg>
-                         <span class="text-text-secondary">Indianapolis, IN</span>
-                       </div>
-                       <div class="flex items-center gap-3">
-                         <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                         <span class="text-text-secondary">Available for new projects</span>
-                       </div>
-                     </div>
-                   </div>
-                   
-                   <div>
-                     <h3 class="text-xl font-bold mb-4 text-secondary">Connect With Me</h3>
-                     <p class="text-text-secondary mb-6">
-                       Let's connect on social media or professional networks to stay in touch and discuss potential collaborations.
-                     </p>
-                     
-                     <div class="grid grid-cols-2 gap-4">
-                       <a href="https://github.com/suttonwilliamd" class="social-card github">
-                         <div class="social-icon">💻</div>
-                         <div class="social-label">GitHub</div>
-                       </a>
-                       <a href="https://linkedin.com/in/williamsutton" class="social-card linkedin">
-                         <div class="social-icon">💼</div>
-                         <div class="social-label">LinkedIn</div>
-                       </a>
-                       <a href="https://twitter.com/williamsutton" class="social-card twitter">
-                         <div class="social-icon">🐦</div>
-                         <div class="social-label">Twitter</div>
-                       </a>
-                       <a href="https://stackoverflow.com/users/williamsutton" class="social-card stackoverflow">
-                         <div class="social-icon">🔧</div>
-                         <div class="social-label">Stack Overflow</div>
-                       </a>
-                     </div>
-                   </div>
-                 </div>
-                 
-                 <div class="mt-8 pt-6 border-t border-border">
-                   <h3 class="text-xl font-bold mb-4 text-accent">Professional Availability</h3>
-                   <div class="grid md:grid-cols-3 gap-4">
-                     <div class="availability-card">
-                       <div class="availability-icon">⚡</div>
-                       <div class="availability-title">Consulting</div>
-                       <div class="availability-status available">Available</div>
-                     </div>
-                     <div class="availability-card">
-                       <div class="availability-icon">💻</div>
-                       <div class="availability-title">Development</div>
-                       <div class="availability-status available">Available</div>
-                     </div>
-                     <div class="availability-card">
-                       <div class="availability-icon">🎨</div>
-                       <div class="availability-title">Design Systems</div>
-                       <div class="availability-status available">Available</div>
-                     </div>
-                   </div>
-                 </div>
-               </div>
-             </section>
-           </div>
-        </main>
-      </div>
+          </div>
 
-      <!-- Footer -->
-      <div class="mt-auto">
-        <Footer />
-      </div>
-    </div>
+          <h2 class="section-title">Get in Touch</h2>
+          <div class="card">
+            <p class="text-muted" style="margin-bottom: var(--space-6);">
+              I'm currently available for consulting on web development projects, design system architecture, and performance optimization.
+            </p>
+            <div style="display: flex; gap: var(--space-4); flex-wrap: wrap;">
+              <a href="mailto:william@william64.com" class="btn btn-primary">Email Me</a>
+              <a href="https://github.com/williamsutton" class="btn btn-secondary">GitHub</a>
+              <a href="https://linkedin.com/in/williamsutton" class="btn btn-secondary">LinkedIn</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
 
-    <script is:inline>
-      // Animate sections on scroll
-      document.addEventListener('DOMContentLoaded', function() {
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.style.opacity = '1';
-              entry.target.style.transform = 'translateY(0)';
-            }
-          });
-        }, { threshold: 0.1 });
-
-        // Observe all cards and sections
-        document.querySelectorAll('.card, section').forEach(el => {
-          el.style.opacity = '0';
-          el.style.transform = 'translateY(20px)';
-          el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-          observer.observe(el);
-        });
-      });
-    </script>
+    <Footer />
   </body>
 </html>
 
 <style>
-  /* Value proposition list styling */
-  .value-proposition-list li {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .value-proposition-list li::before {
-    content: "✅";
-    color: var(--color-primary);
-    font-weight: bold;
-  }
-  
-  /* Skills matrix styling */
-  .skill-item {
-    margin-bottom: 1rem;
-  }
-  
-  .skill-name {
-    font-size: 0.875rem;
-    margin-bottom: 0.25rem;
-    color: var(--color-text);
-  }
-  
-  .skill-proficiency {
-    background: var(--color-surface-hover);
-    border-radius: var(--radius-sm);
-    height: 6px;
-    overflow: hidden;
-    margin-bottom: 0.25rem;
-  }
-  
-  .proficiency-bar {
-    background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-    height: 100%;
-    border-radius: var(--radius-sm);
-    transition: width 0.3s ease;
-  }
-  
-  .skill-level {
-    text-align: right;
-  }
-  
-  /* Enhanced card styling */
-  .card {
-    transition: all 0.3s ease;
-  }
-  
-  .card:hover {
-    border-color: var(--color-primary);
-    transform: translateY(-2px);
-  }
-  
-  /* Timeline connector */
-  .timeline-connector {
-    position: relative;
-    padding-left: 20px;
-  }
-  
-  .timeline-connector::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 10px;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: var(--color-primary);
-  }
-  
-  /* Responsive about page */
-  @media (max-width: 768px) {
-    .grid.md\:grid-cols-3, .grid.md\:grid-cols-4 {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .md\:col-span-2, .md\:col-span-1 {
-      grid-column: span 1;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .grid.md\:grid-cols-3, .grid.md\:grid-cols-4 {
-      grid-template-columns: 1fr;
-    }
+  .timeline-item {
+    padding-left: var(--space-4);
+    border-left: 2px solid var(--color-border);
   }
 
-  /* Contact section styling */
-  .social-card {
-    background: var(--color-surface-hover);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--space-md);
-    text-align: center;
-    transition: all 0.3s ease;
-    text-decoration: none;
+  .timeline-item:first-child {
+    border-left-color: var(--color-primary);
   }
 
-  .social-card:hover {
-    border-color: var(--color-primary);
-    background: var(--color-surface);
-    transform: translateY(-2px);
-    box-shadow: 0 0 15px rgba(0, 229, 160, 0.1);
+  .timeline-item:nth-child(2) {
+    border-left-color: var(--color-secondary);
   }
 
-  .social-icon {
-    font-size: var(--font-size-xl);
-    margin-bottom: var(--space-sm);
-  }
-
-  .social-label {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-text);
-  }
-
-  .github .social-icon { color: var(--color-text-secondary); }
-  .linkedin .social-icon { color: var(--color-secondary); }
-  .twitter .social-icon { color: var(--color-primary); }
-  .stackoverflow .social-icon { color: var(--color-accent); }
-
-  /* Availability cards */
-  .availability-card {
-    background: var(--color-surface-hover);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--space-md);
-    text-align: center;
-  }
-
-  .availability-icon {
-    font-size: var(--font-size-xl);
-    margin-bottom: var(--space-sm);
-  }
-
-  .availability-title {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-text);
-    margin-bottom: var(--space-xs);
-  }
-
-  .availability-status {
-    font-size: var(--font-size-xs);
-    padding: var(--space-xs) var(--space-sm);
-    border-radius: var(--radius-sm);
-    font-weight: var(--font-weight-bold);
-  }
-
-  .available {
-    background: rgba(0, 229, 160, 0.2);
-    color: var(--color-primary);
-  }
-
-  .busy {
-    background: rgba(255, 107, 157, 0.2);
-    color: var(--color-secondary);
-  }
-
-  /* Responsive contact section */
-  @media (max-width: 768px) {
-    .grid.md\:grid-cols-2 {
-      grid-template-columns: 1fr;
-    }
+  .timeline-item:nth-child(3) {
+    border-left-color: var(--color-accent);
   }
 </style>
