@@ -63,6 +63,10 @@ const pageDescription = "Portfolio of software projects by William Sutton, a hob
 
           if (Array.isArray(repos) && repos.length > 0) {
             const projectsContainer = document.getElementById('all-projects');
+            // Optional per-repo description overrides for sites like LewtNanny
+            const descriptionOverrides = {
+              LewtNanny: 'LewtNanny is a web-based assistant that helps caregivers manage tasks and scheduling (description updated for website).'
+            };
             projectsContainer.innerHTML = repos.map(repo => `
               <article class="project-card">
                 <div class="project-header">
@@ -74,7 +78,7 @@ const pageDescription = "Portfolio of software projects by William Sutton, a hob
                   <span class="project-title">${repo.name}</span>
                 </div>
                 <div class="project-body">
-                  <h3 class="card-title">${repo.description || 'No description available'}</h3>
+                  <h3 class="card-title">${(descriptionOverrides[repo.name] ?? repo.description) || 'No description available'}</h3>
                   <div class="project-tags">
                     ${repo.language ? `<span class="tag">${repo.language}</span>` : ''}
                     <span class="tag">⭐ ${repo.stargazers_count}</span>
