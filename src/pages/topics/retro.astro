@@ -1,0 +1,183 @@
+---
+import ReaderLayout from '../../layouts/ReaderLayout.astro';
+---
+
+<ReaderLayout
+  title="Retro Computing Archaeology"
+  description="Old machines, new lessons. Digging through decades of code."
+  updated="February 2026"
+  tags={['retro', 'computing', 'history', 'assembly']}
+>
+  <p>
+    I spend too much time reading old assembly listings. There's something about
+    fitting a program into 4KB of memory that modern development has lost.
+  </p>
+
+  <h2>Why Old Code Matters</h2>
+
+  <p>
+    Modern software is bloated. An app that displays text can weigh 100MB+.
+    The Apollo guidance computer had 72KB of ROM. It flew us to the moon.
+  </p>
+
+  <p>
+    Not everything old is worth preserving. But understanding how people solved
+    hard problems with tiny resources teaches you something you can't get from
+    reading modern tutorials.
+  </p>
+
+  <h2>🖥️ Machines Worth Knowing</h2>
+
+  <h3> Commodore 64 (1982)</h3>
+  <p>
+    64KB of RAM. 0.985 MHz CPU. Best-selling computer ever.
+    <a href="https://www.c64os.com">The community is still incredibly active.</a>
+  </p>
+
+  <h3> Apple II (1977)</h3>
+  <p>
+    Wozniak's masterpiece. Elegant hardware design. The first computer
+    many programmers learned on.
+  </p>
+
+  <h3> DEC PDP-11 (1970)</h3>
+  <p>
+    The architecture that inspired C. Unix was written here.
+    Understanding this helps you understand why C works the way it does.
+  </p>
+
+  <h3> IBM System/370 (1970)</h3>
+  <p>
+    Mainframes are still everywhere. COBOL runs on them. Someone has to
+    maintain that code. Might as well understand it.
+  </p>
+
+  <h2>📜 Languages Worth Learning</h2>
+
+  <h3>Assembly (6502, Z80, 8086)</h3>
+  <p>
+    You don't need to write it. You need to be able to read it.
+    <a href="https://skilldrick.github.io/easy6502/">Easy 6502</a> is a great start.
+  </p>
+
+  <h3>Forth</h3>
+  <p>
+    Stack-based, minimal, weird. Used in spacecraft and hearing aids.
+    <a href="https://github.com/nicholashh/joy-forth">Joy Forth</a> is a modern take.
+  </p>
+
+  <h3>Lisp</h3>
+  <p>
+    John McCarthy wrote the original paper in 1958. It's still relevant.
+    <a href="https://languagelog.ldc.upenn.edu/nll/?p=3385">The roots of everything are here.</a>
+  </p>
+
+  <h2>🔧 Tools I Use</h2>
+
+  <div class="resource-card">
+    <div class="resource-icon">🔧</div>
+    <div class="resource-info">
+      <div class="resource-title">PCem</div>
+      <div class="resource-desc">PC emulator. Runs Windows 95 at real speed. Painfully accurate.</div>
+    </div>
+  </div>
+
+  <div class="resource-card">
+    <div class="resource-icon">🔧</div>
+    <div class="resource-info">
+      <div class="resource-title">MAME</div>
+      <div class="resource-desc">Arcade machines, computers, calculators. If it has a CPU, MAME emulates it.</div>
+    </div>
+  </div>
+
+  <div class="resource-card">
+    <div class="resource-icon">🔧</div>
+    <div class="resource-info">
+      <div class="resource-title">VICE</div>
+      <div class="resource-desc">Commodore emulator. Essential for C64 development.</div>
+    </div>
+  </div>
+
+  <div class="resource-card">
+    <div class="resource-icon">🔧</div>
+    <div class="resource-info">
+      <div class="resource-title">Ghidra</div>
+      <div class="resource-desc">NSA's reverse engineering suite. Free. Powerful. terrifying.</div>
+    </div>
+  </div>
+
+  <h2>🎮 Games That Teach</h2>
+
+  <p>
+    These games are more educational than any computer science course I've taken:
+  </p>
+
+  <ul>
+    <li><strong>TIS-100</strong> - Programming puzzles in fake assembly</li>
+    <li><strong>SpaceChem</strong> - Factory simulation with flow-based programming</li>
+    <li><strong>Human Resource Machine</strong> - Simple puzzles that teach memory management</li>
+    <li><strong>7 Billion Humans</strong> - Multiworker programming</li>
+    <li><strong>Shenzhen I/O</strong> - Circuit design and assembly</li>
+  </ul>
+
+  <h2>📚 Books</h2>
+
+  <div class="resource-card">
+    <div class="resource-icon">📕</div>
+    <div class="resource-info">
+      <div class="resource-title">The Soul of a New Machine</div>
+      <div class="resource-desc">Tracy Kidder's account of building a minicomputer. Gripping.</div>
+    </div>
+  </div>
+
+  <div class="resource-card">
+    <div class="resource-icon">📗</div>
+    <div class="resource-info">
+      <div class="resource-title">Programmers at Work</div>
+      <div class="resource-desc">Interviews from the 80s. Gates, Kildall, DRI, and more.</div>
+    </div>
+  </div>
+
+  <div class="resource-card">
+    <div class="resource-icon">📘</div>
+    <div class="resource-info">
+      <div class="resource-title">Hackers: Heroes of the Computer Revolution</div>
+      <div class="resource-desc">Steven Levy's history. The original hackers, MIT, Homebrew.</div>
+    </div>
+  </div>
+
+  <h2>🗄️ Archives Worth Exploring</h2>
+
+  <ul>
+    <li><a href="https://archive.org/details/software">Internet Archive Software Collection</a> - Thousands of old programs</li>
+    <li><a href="https://www.pagetable.com">Pagetable</a> - Chris's deep dives into old tech</li>
+    <li><a href="https://www.c64.com">C64.com</a> - The Commodore 64 encyclopedia</li>
+    <li><a href="http://www.textfiles.com">Textfiles.com</a> - BBS archives from the 80s and 90s</li>
+  </ul>
+
+  <h2>🎥 Watch</h2>
+
+  <p>
+    <a href="https://www.youtube.com/watch?v=uw211R3kC6Y">The 6502 Processor</a> -
+    Ben Eater's breadboard computer series.
+  </p>
+
+  <p>
+    <a href="https://www.youtube.com/watch?v=KnHZa3fCqX8">Building an 8-bit Computer</a> -
+    From scratch. In real-time.
+  </p>
+
+  <h2>🧩 My Projects</h2>
+
+  <ul>
+    <li><a href="#">C64 Disco</a> - Music visualization on actual hardware</li>
+    <li><a href="#">Assembly Experiments</a> - Learning 6502 one instruction at a time</li>
+    <li><a href="#">Disk Archiver</a> - Preserving floppy disks before they're gone</li>
+  </ul>
+
+  <hr style="border: none; border-top: 2px dashed var(--color-wood-light); margin: 2rem 0;" />
+
+  <p style="font-size: 0.85rem; color: var(--color-ink-faded);">
+    Updated: February 2026. Always adding more old things.
+  </p>
+</ReaderLayout>

@@ -1,0 +1,154 @@
+---
+interface Poster {
+  title: string;
+  subtitle: string;
+  href: string;
+  color?: string;
+  rotation?: number;
+}
+
+interface Note {
+  text: string;
+  href?: string;
+  rotation?: number;
+}
+
+interface Props {
+  posters?: Poster[];
+  notes?: Note[];
+  showNav?: boolean;
+}
+
+const {
+  posters = [
+    { title: 'Systems That Break\nInterestingly', subtitle: 'logistics • games • org design', href: '/topics/systems', color: '#8b2942', rotation: -4 },
+    { title: 'Generative Art\n& Creative Code', subtitle: 'shaders • chaos • beauty', href: '/topics/generative', color: '#3d5c3d', rotation: 3 },
+    { title: 'The Internet\nEconomy', subtitle: 'platforms • marketplaces • weird', href: '/topics/economy', color: '#4a3728', rotation: -2 },
+    { title: 'Retro Computing\nArchaeology', subtitle: 'old code • new lessons', href: '/topics/retro', color: '#5a1c2a', rotation: 5 },
+    { title: 'Mental Models\n& Frameworks', subtitle: 'thinking tools', href: '/topics/mental-models', color: '#2d4a3d', rotation: -3 },
+  ],
+  notes = [
+    { text: 'Still setting this one up.', href: '/topics/unfinished' },
+    { text: 'Come back later.', href: '/topics/placeholder' },
+    { text: '???', href: '/topics/mystery' },
+  ],
+  showNav = true
+} = Astro.props;
+---
+
+<div class="carnival-container">
+  <!-- Booth Area -->
+  <main class="booth" id="booth">
+    <!-- Back Wall - Posters & Notes -->
+    <div class="back-wall">
+      {posters.map((poster) => (
+        <a
+          href={poster.href}
+          class="poster"
+          style={`
+            background: ${poster.color || '#8b2942'};
+            --rotation: ${poster.rotation || -2}deg;
+          `}
+          data-navigate={poster.href}
+        >
+          <div class="poster-title">{poster.title.split('\n').map(line => <>{line}<br/></>)}</div>
+          <div class="poster-subtitle">{poster.subtitle}</div>
+        </a>
+      ))}
+
+      {notes.map((note) => (
+        <a
+          href={note.href || '#'}
+          class="tacked-note"
+          style={`--rotation: ${note.rotation || -1}deg;`}
+          data-navigate={note.href}
+        >
+          {note.text}
+        </a>
+      ))}
+    </div>
+
+    <!-- Wheel (injected here) -->
+    <slot name="wheel" />
+
+    <!-- Counter -->
+    <div class="counter">
+      <button class="spin-button" id="spinButton">
+        Spin the Wheel
+      </button>
+
+      <div class="sign-small">
+        "No guarantees.<br>No refunds."
+      </div>
+
+      <div class="sign-rules" style="position: absolute; bottom: 10px; right: 20px;">
+        Odds not evenly distributed.
+      </div>
+    </div>
+  </main>
+
+  <!-- Navigation HUD -->
+  {showNav && (
+    <nav class="nav-hud" id="navHud" style="opacity: 0; pointer-events: none;">
+      <button id="spinAgain">
+        🎡 Spin again
+      </button>
+      <button id="backToBooth">
+        🧭 Back to booth
+      </button>
+    </nav>
+  )}
+</div>
+
+<script>
+  // Handle navigation events
+  document.addEventListener('wheelSpinComplete', (e: CustomEvent) => {
+    const result = e.detail;
+    console.log('Wheel landed on:', result);
+
+    // Navigate to the selected topic
+    window.location.href = result.href || `/topics/${result.id}`;
+  });
+
+  // Handle poster/note clicks
+  document.querySelectorAll('[data-navigate]').forEach((el) => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      const href = el.getAttribute('data-navigate');
+      if (href && href !== '#') {
+        navigateToPage(href);
+      }
+    });
+  });
+
+  function navigateToPage(href: string) {
+    const booth = document.getElementById('booth');
+    const navHud = document.getElementById('navHud');
+
+    // Add fade out effect
+    booth?.classList.add('fade-out');
+
+    setTimeout(() => {
+      window.location.href = href;
+    }, 300);
+  }
+
+  // Handle spin button
+  const spinButton = document.getElementById('spinButton');
+  spinButton?.addEventListener('click', () => {
+    (window as any).spinCarnivalWheel?.();
+  });
+
+  // Handle HUD navigation
+  const spinAgain = document.getElementById('spinAgain');
+  const backToBooth = document.getElementById('backToBooth');
+
+  spinAgain?.addEventListener('click', () => {
+    // Navigate back to home (which triggers wheel)
+    window.location.href = '/';
+  });
+
+  backToBooth?.addEventListener('click', () => {
+    window.location.href = '/';
+  });
+</script>

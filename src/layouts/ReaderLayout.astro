@@ -1,0 +1,107 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  updated?: string;
+  tags?: string[];
+}
+
+const { title, description, updated, tags = [] } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} - William64.com</title>
+    <meta name="description" content={description || title} />
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="/styles/carnival-design-system.css" />
+  </head>
+  <body>
+    <div class="reader-container">
+      <article class="reader">
+        <header class="reader-header">
+          <h1 class="reader-title">{title}</h1>
+          {description && <p class="reader-meta">{description}</p>}
+          <div class="reader-meta" style="margin-top: 1rem;">
+            {updated && <span>Updated: {updated}</span>}
+            {tags.length > 0 && (
+              <span style="margin-left: 1rem;">
+                {tags.map((tag, i) => (
+                  <span key={tag} style="margin-right: 0.5rem;">
+                    #{tag}{i < tags.length - 1 ? ',' : ''}
+                  </span>
+                ))}
+              </span>
+            )}
+          </div>
+        </header>
+
+        <div class="reader-content">
+          <slot />
+        </div>
+
+        <footer class="reader-footer" style="margin-top: 3rem; padding-top: 1rem; border-top: 1px dashed var(--color-wood-light);">
+          <p style="font-size: 0.85rem; font-style: italic; color: var(--color-ink-faded);">
+            Something missing? Something wrong? <a href="mailto:william@william64.com">Let me know.</a>
+          </p>
+        </footer>
+      </article>
+    </div>
+
+    <!-- Persistent HUD -->
+    <nav class="nav-hud" style="opacity: 1; pointer-events: auto;">
+      <a href="/" style="
+        background: var(--color-booth-dark);
+        border: 2px solid var(--color-wood-light);
+        color: var(--color-faded-paper);
+        padding: var(--space-sm) var(--space-md);
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      ">
+        🎡 Spin again
+      </a>
+      <a href="/" style="
+        background: var(--color-booth-dark);
+        border: 2px solid var(--color-wood-light);
+        color: var(--color-faded-paper);
+        padding: var(--space-sm) var(--space-md);
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      ">
+        🧭 Back to booth
+      </a>
+    </nav>
+
+    <script>
+      // Entrance animation
+      document.body.style.animation = 'none';
+      document.body.offsetHeight; // Trigger reflow
+      document.body.style.animation = 'slideInFromRight 0.6s ease';
+    </script>
+  </body>
+</html>
+
+<style>
+  /* Reader-specific overrides */
+  :root {
+    --color-bg: #1a1512;
+  }
+
+  body {
+    background:
+      radial-gradient(circle at top right, #2d251f 0%, #0d0d0d 50%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-blend-mode: soft-light;
+  }
+</style>

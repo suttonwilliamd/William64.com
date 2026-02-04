@@ -1,10 +1,18 @@
 ---
-import TerminalHero from "../components/TerminalHero.astro";
-import Navigation from "../components/Navigation.astro";
-import Footer from "../components/Footer.astro";
+import Booth from '../components/Booth/Booth.astro';
+import Wheel from '../components/Wheel/Wheel.astro';
+import '../styles/carnival-design-system.css';
 
-const pageTitle = "William Sutton - Hobbyist Developer";
-const pageDescription = "Hobbyist developer passionate about coding, clean code, and continuous learning.";
+const wheelTopics = [
+  { id: 'generative', label: 'Generative Art', color: '#3d5c3d', weight: 1.5 },
+  { id: 'systems', label: 'Systems', color: '#8b2942', weight: 1.2 },
+  { id: 'retro', label: 'Retro Tech', color: '#5a1c2a', weight: 1 },
+  { id: 'mental-models', label: 'Mental Models', color: '#2d4a3d', weight: 1 },
+  { id: 'economics', label: 'Economics', color: '#4a3728', weight: 0.8 },
+  { id: 'games', label: 'Game Dev', color: '#6b4423', weight: 1 },
+  { id: 'unfinished', label: '???', color: '#2d2d2d', weight: 0.5 },
+  { id: 'placeholder', label: 'Come Back', color: '#3d342b', weight: 0.3 },
+];
 ---
 
 <!DOCTYPE html>
@@ -12,142 +20,54 @@ const pageDescription = "Hobbyist developer passionate about coding, clean code,
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{pageTitle}</title>
-    <meta name="description" content={pageDescription} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="stylesheet" href="/styles.css" />
+    <title>The Booth - William64.com</title>
+    <meta name="description" content="Step right up. Spin the wheel. Discover something new." />
+    <link rel="icon" href="/favicon.svg" />
   </head>
   <body>
-    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <Booth>
+      <Wheel slot="wheel" topics={wheelTopics} />
+    </Booth>
 
-    <header class="header">
-      <div class="header-inner">
-        <a href="/" class="logo">
-          <span class="logo-gradient">William64</span>
-          <span>.com</span>
-        </a>
-        <nav class="nav">
-          <a href="/" class="nav-link active">Home</a>
-          <a href="/projects" class="nav-link">Projects</a>
-          <a href="/blog" class="nav-link">Blog</a>
-          <a href="/about" class="nav-link">About</a>
-            <a href="mailto:suttonwilliamd@gmail.com" class="btn btn-primary" style="margin-left: var(--space-4);">
-            Get in Touch
-          </a>
-        </nav>
-      </div>
-    </header>
-
-    <main id="main-content">
-      <!-- Hero Section -->
-      <section class="hero">
-        <div class="container">
-          <h1 class="hero-title">
-            <span class="text-gradient">William Sutton</span>
-          </h1>
-          <p class="hero-subtitle">
-            Hobbyist developer passionate about clean code and continuous learning.
-          </p>
-          <div class="hero-actions">
-            <a href="/projects" class="btn btn-primary">View Projects</a>
-            <a href="/about" class="btn btn-secondary">Learn More</a>
-          </div>
-
-          <div class="metrics">
-            <div class="metric">
-              <div class="metric-value">10+</div>
-              <div class="metric-label">Years Learning</div>
-            </div>
-            <div class="metric">
-              <div class="metric-value" id="github-stars">---</div>
-              <div class="metric-label">GitHub Stars</div>
-            </div>
-            <div class="metric">
-              <div class="metric-value" id="total-stars">---</div>
-              <div class="metric-label">Total Stars</div>
-            </div>
-            <div class="metric">
-              <div class="metric-value" id="total-repos">---</div>
-              <div class="metric-label">Repositories</div>
-            </div>
-          </div>
-
-          <TerminalHero />
-        </div>
-      </section>
-
-      <!-- Featured Projects from GitHub -->
-      <section class="section" style="background: var(--color-surface);">
-        <div class="container">
-          <div class="section-header">
-            <h2 class="section-title">Featured Projects</h2>
-            <a href="https://github.com/suttonwilliamd?tab=repositories" class="btn btn-ghost" target="_blank" rel="noopener">View All →</a>
-          </div>
-
-          <div class="grid grid-2" id="featured-projects">
-            <div class="loading-placeholder">Loading projects from GitHub...</div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <Footer />
+    <button class="sound-toggle" id="soundToggle" title="Toggle sound">
+      🔊
+    </button>
 
     <script>
-      const GITHUB_USERNAME = 'suttonwilliamd';
+      // Sound toggle
+      const soundToggle = document.getElementById('soundToggle');
+      let soundEnabled = localStorage.getItem('carnivalSound') !== 'false';
 
-      async function fetchGitHubStats() {
-        try {
-          const reposRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`);
-          const repos = await reposRes.json();
+      soundToggle?.addEventListener('click', () => {
+        soundEnabled = !soundEnabled;
+        localStorage.setItem('carnivalSound', soundEnabled.toString());
+        soundToggle.textContent = soundEnabled ? '🔊' : '🔇';
+      });
 
-          if (Array.isArray(repos)) {
-            const totalStars = repos.reduce((acc, repo) => acc + (repo.stargazers_count || 0), 0);
-            const topRepos = repos.sort((a, b) => b.stargazers_count - a.stargazers_count).slice(0, 4);
-
-            document.getElementById('total-stars').textContent = totalStars.toLocaleString();
-            document.getElementById('total-repos').textContent = repos.length;
-
-            const maxStars = Math.max(...topRepos.map(r => r.stargazers_count), 1);
-            document.getElementById('github-stars').textContent = topRepos[0]?.stargazers_count.toLocaleString() || '0';
-
-            const projectsContainer = document.getElementById('featured-projects');
-            if (projectsContainer && topRepos.length > 0) {
-              projectsContainer.innerHTML = topRepos.map(repo => `
-                <article class="project-card">
-                  <div class="project-header">
-                    <div style="display: flex; gap: var(--space-2);">
-                      <div class="terminal-dot red"></div>
-                      <div class="terminal-dot yellow"></div>
-                      <div class="terminal-dot green"></div>
-                    </div>
-                    <span class="project-title">${repo.name}</span>
-                  </div>
-                  <div class="project-body">
-                    <h3 class="card-title">${repo.description || 'No description available'}</h3>
-                    <div class="project-tags">
-                      ${repo.language ? `<span class="tag">${repo.language}</span>` : ''}
-                      <span class="tag">⭐ ${repo.stargazers_count}</span>
-                      <span class="tag">🍴 ${repo.forks_count}</span>
-                    </div>
-                  </div>
-                  <div class="project-footer">
-                    <a href="${repo.html_url}" class="btn btn-primary" target="_blank" rel="noopener">View Project</a>
-                    ${repo.homepage ? `<a href="${repo.homepage}" class="btn btn-secondary" target="_blank" rel="noopener">Live Demo</a>` : ''}
-                  </div>
-                </article>
-              `).join('');
-            }
-          }
-        } catch (error) {
-          console.error('Error fetching GitHub stats:', error);
-          document.getElementById('github-stars').textContent = 'N/A';
-          document.getElementById('total-stars').textContent = 'N/A';
-          document.getElementById('total-repos').textContent = 'N/A';
-        }
+      // Check URL for spin result redirect
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('spun')) {
+        // Already spun, maybe show something
+        console.log('Spin result detected');
       }
-
-      fetchGitHubStats();
     </script>
   </body>
 </html>
+
+<style>
+  /* Homepage-specific overrides */
+  body {
+    background:
+      radial-gradient(ellipse at center bottom, #1a1512 0%, #0d0d0d 70%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-blend-mode: soft-light;
+    background-size: 100% 100%, 200px 200px;
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+</style>

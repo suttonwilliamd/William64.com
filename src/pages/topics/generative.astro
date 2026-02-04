@@ -1,0 +1,143 @@
+---
+import ReaderLayout from '../../layouts/ReaderLayout.astro';
+---
+
+<ReaderLayout
+  title="Generative Art & Creative Code"
+  description="Tools, techniques, and inspiration for making computers make beautiful things."
+  updated="February 2026"
+  tags={['creative-coding', 'generative', 'shaders', 'art']}
+>
+  <p>
+    I've been fascinated by generative art for years. There's something magical about
+    writing instructions and watching chaos unfold into beauty. This is my collection
+    of the best resources I've found.
+  </p>
+
+  <h2>📚 Foundations</h2>
+
+  <p>Before diving into code, understanding the history and theory helps a lot.</p>
+
+  <div class="resource-card">
+    <div class="resource-icon">📕</div>
+    <div class="resource-info">
+      <div class="resource-title">The Nature of Code</div>
+      <div class="resource-desc">Daniel Shiffman's classic book on simulating natural systems in Processing.</div>
+    </div>
+  </div>
+
+  <div class="resource-card">
+    <div class="resource-icon">📗</div>
+    <div class="resource-info">
+      <div class="resource-title">Generative Design</div>
+      <div class="resource-desc">Bohnacker, Gross, and Laub's comprehensive tome on algorithmic visualization.</div>
+    </div>
+  </div>
+
+  <div class="resource-card">
+    <div class="resource-icon">📘</div>
+    <div class="resource-info">
+      <div class="resource-title">Form+Code</div>
+      <div class="resource-desc">Casey Reas and Ben Fry explore the intersection of design and code.</div>
+    </div>
+  </div>
+
+  <h2>🛠️ Tools I Actually Use</h2>
+
+  <h3>p5.js</h3>
+  <p>
+    The gateway drug. Accessible, web-based, huge community.
+    <a href="https://p5js.org">Try it in your browser</a>.
+  </p>
+
+  <h3>Three.js / WebGL</h3>
+  <p>
+    When you need 3D or serious performance. Steeper learning curve but
+    <a href="https://threejs.org">the docs are solid</a>.
+  </p>
+
+  <h3>TouchDesigner</h3>
+  <p>
+    Visual programming for real-time interactive graphics. Expensive but worth it
+    if you're doing installations or live visuals.
+  </p>
+
+  <h2>🎨 Inspiration</h2>
+
+  <blockquote>
+    "Generative art is not about controlling the computer. It's about collaborating with it."
+  </blockquote>
+
+  <p>Artists whose work consistently blows my mind:</p>
+
+  <ul>
+    <li><strong>Manfred Mohr</strong> - Algorithmic plotter art from the 70s</li>
+    <li><strong>Vera Molnár</strong> - Pioneer of computer art, structural randomness</li>
+    <li><strong>Joshua Davis</strong> - Hyperrealistic generative portraits</li>
+    <li><strong>Beeple</strong> - Daily renders since 2007 (now selling for millions)</li>
+    <li><strongTyler Hobbs</strong> - Algorithmic color field work</li>
+  </ul>
+
+  <h2>🔧 Code Examples</h2>
+
+  <p>Here's a simple p5.js sketch that creates interesting patterns from circles:</p>
+
+  <pre><code>function setup() {
+  createCanvas(600, 600);
+  noLoop();
+  background(20);
+  stroke(255, 50);
+}
+
+function draw() {
+  for (let i = 0; i < 200; i++) {
+    let x = random(width);
+    let y = random(height);
+    let r = random(10, 100);
+    let steps = floor(random(20, 100));
+
+    for (let j = 0; j < steps; j++) {
+      let angle = map(j, 0, steps, 0, TWO_PI);
+      let px = x + cos(angle) * r * j/steps;
+      let py = y + sin(angle) * r * j/steps;
+      point(px, py);
+    }
+  }
+}</code></pre>
+
+  <h2>🎥 Worth Watching</h2>
+
+  <p>
+    <a href="https://www.youtube.com/watch?v=4Se0_w1a5q4">Generative Art Speedrun</a> -
+    10 minutes from blank page to something beautiful.
+  </p>
+
+  <p>
+    <a href="https://www.youtube.com/watch?v=0VLx3MA4e54">Tyler Hobbs on Q*bert</a> -
+    How algorithm and hand-correction work together.
+  </p>
+
+  <h2>📺 Communities</h2>
+
+  <ul>
+    <li><a href="https://discord.gg/generative">r/generative Discord</a> - Very active, helpful folks</li>
+    <li><a href="https://www.reddit.com/r/generativeart">r/generativeart</a> - Curated posts</li>
+    <li><a href="https://generative.substack.com">Generative Weekly</a> - Newsletter Roundup</li>
+  </ul>
+
+  <h2>🧪 My Experiments</h2>
+
+  <p>Some of my own generative work:</p>
+
+  <ul>
+    <li><a href="#">Flow Fields</a> - Perlin noise particle systems</li>
+    <li><a href="#">L-System Forests</a> - Recursive tree generation</li>
+    <li><a href="#">Voronoi Terrors</a> - Cellular noise with unexpected results</li>
+  </ul>
+
+  <hr style="border: none; border-top: 2px dashed var(--color-wood-light); margin: 2rem 0;" />
+
+  <p style="font-size: 0.85rem; color: var(--color-ink-faded);">
+    Last updated: February 2026. This page is a work in progress.
+  </p>
+</ReaderLayout>

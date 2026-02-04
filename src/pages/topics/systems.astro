@@ -1,0 +1,135 @@
+---
+import ReaderLayout from '../../layouts/ReaderLayout.astro';
+---
+
+<ReaderLayout
+  title="Systems That Break Interestingly"
+  description="How things fail, why that's useful, and what we can learn from broken systems."
+  updated="February 2026"
+  tags={['systems', 'failure', 'complexity', 'architecture']}
+>
+  <p>
+    I'm obsessed with systems that fail in interesting ways. Not catastrophic failures
+    that ruin people's days, but elegant failures that reveal something fundamental
+    about how complex systems work.
+  </p>
+
+  <blockquote>
+    "A complex system that works is invariably found to have evolved from a simple
+    system that worked. A complex system designed from scratch never works."
+    <br />— John Gall
+  </blockquote>
+
+  <h2>The Paradox of Success</h2>
+
+  <p>
+    The most interesting failures happen in systems that were working perfectly.
+    Success breeds complexity, complexity breeds failure, failure breeds...
+    well, that's where it gets interesting.
+  </p>
+
+  <h2>📖 Case Studies</h2>
+
+  <h3>The 1999 Mars Climate Orbiter</h3>
+  <p>
+    One team used metric units. Another used imperial. The orbiter burned up in the
+    atmosphere. $193 million lesson in the importance of shared assumptions.
+  </p>
+
+  <h3>Therac-25 Radiation Machine</h3>
+  <p>
+    A race condition in software caused lethal radiation overdoses. Six patients died.
+    This is the canonical case study in why you can't trust software with safety.
+  </p>
+
+  <h3>Knight Capital's $440 Million Bug</h3>
+  <p>
+    A deployment script with a single flag set wrong erased $440 million in 45 minutes.
+    The company nearly went bankrupt. Now every deploy process includes this story.
+  </p>
+
+  <h2>🧠 Mental Models</h2>
+
+  <h3>Cascade vs. Parallel</h3>
+  <p>
+    When one failure triggers another, you get cascades (think: electrical grid).
+    When failures are independent, you get parallel failures (think: multiple servers).
+    Parallel is better. Contained is better.
+  </p>
+
+  <h3>The Turkey Problem</h3>
+  <p>
+    A turkey is fed every day for 1000 days. Each day, the probability of being fed
+    goes up. On day 1001, it's Thanksgiving. The turkey's confidence interval was
+    wrong. Never trust a system just because it's been consistent.
+  </p>
+
+  <h3>Hyrum's Law</h3>
+  <p>
+    "With a sufficient number of users of an API, it does not matter what you promise
+    in the contract: all observable behaviors of your system will be depended on by
+    somebody."
+  </p>
+
+  <h2>🔧 Designing for Failure</h2>
+
+  <ul>
+    <li><strong>Chaos Engineering</strong> - Netflix's approach of actively breaking things in production</li>
+    <li><strong>Circuit Breakers</strong> - Preventing cascade failures by failing fast</li>
+    <li><strong>Idempotency</strong> - Doing the same thing twice has the same effect as once</li>
+    <li><strong>Feature Flags</strong> - Turning things off is as important as turning them on</li>
+    <li><strong>Observability</strong> - You can't fix what you can't see</li>
+  </ul>
+
+  <h2>📚 Reading List</h2>
+
+  <div class="resource-card">
+    <div class="resource-icon">📕</div>
+    <div class="resource-info">
+      <div class="resource-title">The Phoenix Project</div>
+      <div class="resource-desc">Gene Kim's novel about IT, DevOps, and breaking things.</div>
+    </div>
+  </div>
+
+  <div class="resource-card">
+    <div class="resource-icon">📗</div>
+    <div class="resource-info">
+      <div class="resource-title">Site Reliability Engineering</div>
+      <div class="resource-desc">Google's guide to running production systems.</div>
+    </div>
+  </div>
+
+  <div class="resource-card">
+    <div class="resource-icon">📘</div>
+    <div class="resource-info">
+      <div class="resource-title">Antifragile</div>
+      <div class="resource-desc">Nassim Taleb on systems that benefit from disorder.</div>
+    </div>
+  </div>
+
+  <h2>🎧 Listen</h2>
+
+  <p>
+    <a href="https://www.youtube.com/watch?v=t4_00P4O8zI">SRE Stories Podcast</a> -
+    Real incidents, real lessons.
+  </p>
+
+  <p>
+    <a href="https://www.reddit.com/r/sysadmin/comments/t1i5u8/my_server_is_on_fire_and_i_dont_know_what_to_do/">r/sysadmin</a> -
+    The real-time diary of production incidents.
+  </p>
+
+  <h2>💭 Unfinished Thoughts</h2>
+
+  <ul>
+    <li>How do you measure resilience? (Hint: you can't, until you break)</li>
+    <li>Is there such a thing as "too reliable"? Does that lead to complacency?</li>
+    <li>The economics of technical debt - when is it worth it?</li>
+  </ul>
+
+  <hr style="border: none; border-top: 2px dashed var(--color-wood-light); margin: 2rem 0;" />
+
+  <p style="font-size: 0.85rem; color: var(--color-ink-faded);">
+    Still collecting cases. Got a good one? <a href="mailto:william@william64.com">Send it my way.</a>
+  </p>
+</ReaderLayout>

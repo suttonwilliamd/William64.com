@@ -1,0 +1,207 @@
+---
+interface Props {
+  topics: Array<{
+    id: string;
+    label: string;
+    color: string;
+    weight?: number;
+  }>;
+}
+
+const { topics } = Astro.props;
+
+// Calculate wedge angles based on weights
+const totalWeight = topics.reduce((sum, t) => sum + (t.weight || 1), 0);
+let currentAngle = 0;
+
+const wedges = topics.map((topic) => {
+  const angle = ((topic.weight || 1) / totalWeight) * 360;
+  const startAngle = currentAngle;
+  currentAngle += angle;
+  return {
+    ...topic,
+    startAngle,
+    endAngle: currentAngle,
+    angle,
+  };
+});
+---
+
+<div class="wheel-container" id="wheelContainer">
+  <div class="wheel-wrapper">
+    <div class="wheel" id="wheel">
+      <!-- Dynamic wedges -->
+      {wedges.map((wedge) => (
+        <div
+          class="wheel-wedge"
+          style={`
+            background: ${wedge.color};
+            transform: rotate(${wedge.startAngle}deg) skewY(-30deg);
+          `}
+        >
+          <span
+            class="wedge-label"
+            style={`transform: rotate(${wedge.startAngle + wedge.angle / 2}deg) translateX(40px) skewY(30deg);`}
+          >
+            {wedge.label}
+          </span>
+        </div>
+      ))}
+    </div>
+    <div class="wheel-center"></div>
+    <div class="wheel-pointer"></div>
+  </div>
+</div>
+
+<script define:vars={{ wedges }}>
+  // Sound effects
+  let clickSound = null;
+  let winSound = null;
+
+  function initSounds() {
+    try {
+      // Create simple click sounds using Web Audio API
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      clickSound = () => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.frequency.value = 800;
+        osc.type = 'square';
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.exponentialDecayTo = 0.01;
+        gain.gain.setTargetAtTime(0.01, audioCtx.currentTime, 0.05);
+        osc.start(audioCtx.currentTime);
+        osc.stop(audioCtx.currentTime + 0.05);
+      };
+    } catch (e) {
+      console.log('Audio not available');
+    }
+  }
+
+  let soundEnabled = localStorage.getItem('carnivalSound') !== 'false';
+  const wheel = document.getElementById('wheel');
+  const wheelContainer = document.getElementById('wheelContainer');
+  let isSpinning = false;
+  let currentRotation = 0;
+
+  // Random wedge selection with weighted probability
+  function selectWedge() {
+    const totalWeight = wedges.reduce((sum, w) => sum + (w.weight || 1), 0);
+    let random = Math.random() * totalWeight;
+    for (const wedge of wedges) {
+      random -= wedge.weight || 1;
+      if (random <= 0) return wedge;
+    }
+    return wedges[wedges.length - 1];
+  }
+
+  // Physics-based spinning
+  function spinWheel() {
+    if (isSpinning) return;
+    isSpinning = true;
+
+    const selectedWedge = selectWedge();
+    const targetAngle = 360 - (selectedWedge.startAngle + selectedWedge.angle / 2);
+
+    // Calculate final rotation with overshoot
+    const minSpins = 5;
+    const maxSpins = 8;
+    const spins = minSpins + Math.random() * (maxSpins - minSpins);
+    const baseRotation = Math.floor(spins) * 360;
+    const overshoot = (Math.random() - 0.5) * 60; // Random overshoot ±30deg
+    const finalRotation = baseRotation + targetAngle + overshoot;
+
+    // Add current rotation to maintain direction
+    const relativeRotation = finalRotation - (currentRotation % 360);
+    const totalRotation = currentRotation + relativeRotation;
+
+    let startTime = null;
+    const duration = 4000 + Math.random() * 2000; // 4-6 seconds
+    let lastSoundAngle = currentRotation;
+
+    // Easing function with overshoot and inertia
+    function easeOutCubic(t) {
+      return 1 - Math.pow(1 - t, 3);
+    }
+
+    function easeOutElastic(t) {
+      const c4 = (2 * Math.PI) / 3;
+      return t === 0 ? 0 : t === 1 ? 1 : Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * c4) + 1;
+    }
+
+    function animate(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Mix easing functions for mechanical feel
+      let eased;
+      if (progress < 0.7) {
+        eased = easeOutCubic(progress / 0.7);
+      } else {
+        const elasticProgress = (progress - 0.7) / 0.3;
+        eased = 0.7 + 0.3 * easeOutElastic(elasticProgress);
+      }
+
+      const newRotation = currentRotation + (totalRotation - currentRotation) * eased;
+      wheel.style.transform = `rotate(${newRotation}deg)`;
+
+      // Sound effects - click when crossing wedge boundaries
+      if (soundEnabled && clickSound) {
+        const currentWedgeIndex = Math.floor((newRotation / 360 * wedges.length)) % wedges.length;
+        const lastWedgeIndex = Math.floor((lastSoundAngle / 360 * wedges.length)) % wedges.length;
+        if (currentWedgeIndex !== lastWedgeIndex) {
+          clickSound();
+        }
+      }
+      lastSoundAngle = newRotation;
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        currentRotation = totalRotation;
+        isSpinning = false;
+
+        // Play win sound
+        if (soundEnabled && winSound) winSound();
+
+        // Dispatch event with selected wedge
+        const finalPointerAngle = (360 - (totalRotation % 360) + 360) % 360;
+        let accumulatedAngle = 0;
+        let result = wedges[wedges.length - 1];
+        for (const wedge of wedges) {
+          if (finalPointerAngle >= accumulatedAngle && finalPointerAngle < accumulatedAngle + wedge.angle) {
+            result = wedge;
+            break;
+          }
+          accumulatedAngle += wedge.angle;
+        }
+
+        // Trigger page transition
+        setTimeout(() => {
+          document.dispatchEvent(new CustomEvent('wheelSpinComplete', { detail: result }));
+        }, 300);
+      }
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  // Expose spin function globally
+  window.spinCarnivalWheel = spinWheel;
+
+  // Initialize on load
+  document.addEventListener('DOMContentLoaded', () => {
+    initSounds();
+  });
+
+  // Handle sound toggle
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.sound-toggle')) {
+      soundEnabled = !soundEnabled;
+      localStorage.setItem('carnivalSound', soundEnabled);
+    }
+  });
+</script>
