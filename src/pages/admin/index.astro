@@ -15,15 +15,15 @@ const title = 'Content Manager | William64.com';
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body class="bg-background text-text font-sans">
-    <div class="min-h-screen flex flex-col">
-      <header class="border-b border-border pb-6 mb-8">
-        <h1 class="text-4xl font-bold mb-2">
-          <a href="/" class="gradient-text hover:opacity-80 transition-opacity">William64.com</a>
-        </h1>
-        <Navigation />
-      </header>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-      <main class="container">
+    <header class="header">
+      <div class="header-inner">
+        <Navigation />
+      </div>
+    </header>
+
+    <main id="main-content" class="container">
         <div class="admin-header mb-8">
           <h2 class="text-3xl font-bold mb-4">Content Manager</h2>
           <p class="text-text-secondary">Manage blog posts and content for William64.com</p>
