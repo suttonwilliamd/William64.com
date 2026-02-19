@@ -1,0 +1,93 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="aaron-footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-block">
+        <div class="terminal-prompt">
+          <span class="prompt-user">aaron@william64</span>:<span class="prompt-path">~</span>$ <span class="prompt-cursor">_</span>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <span class="divider">|</span>
+        <a href="/projects">Projects</a>
+        <span class="divider">|</span>
+        <a href="/blog">Blog</a>
+        <span class="divider">|</span>
+        <a href="/about">About</a>
+      </div>
+      <p class="footer-note">
+        Built by William. Hosted by something probably unpaid.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .aaron-footer {
+    border-top: 1px solid var(--color-border);
+    padding: var(--space-8) 0;
+    margin-top: var(--space-12);
+    background: var(--color-background);
+  }
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    text-align: center;
+  }
+
+  .terminal-prompt {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-tertiary);
+  }
+
+  .prompt-user {
+    color: #00ff00;
+  }
+
+  .prompt-path {
+    color: #3399ff;
+  }
+
+  .prompt-cursor {
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  .footer-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--font-size-sm);
+  }
+
+  .footer-links a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .footer-links a:hover {
+    color: var(--color-primary);
+  }
+
+  .divider {
+    color: var(--color-text-tertiary);
+  }
+
+  .footer-note {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-tertiary);
+    margin: 0;
+  }
+</style>
