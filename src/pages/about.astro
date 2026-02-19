@@ -1,4 +1,5 @@
 ---
+import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 
 const pageTitle = "About | William Sutton - Hobbyist Developer";
@@ -24,13 +25,7 @@ const pageDescription = "Learn about William Sutton, a hobbyist developer on a c
           <span class="logo-gradient">William64</span>
           <span>.com</span>
         </a>
-        <nav class="nav">
-          <a href="/" class="nav-link">Home</a>
-          <a href="/projects" class="nav-link">Projects</a>
-          <a href="/blog" class="nav-link">Blog</a>
-          <a href="/about" class="nav-link active">About</a>
-          <a href="/aaron" class="nav-link">Aaron</a>
-        </nav>
+        <Navigation />
       </div>
     </header>
 
