@@ -19,6 +19,7 @@ const regularPosts = posts.filter(post => !post.data.featured);
 
 const categories = [...new Set(posts.map(post => post.data.category || 'Uncategorized').filter(Boolean))];
 const allTags = [...new Set(posts.flatMap(post => post.data.tags || []))];
+const POSTS_PER_PAGE = 10;
 ---
 
 <!DOCTYPE html>
