@@ -522,8 +522,16 @@ pre code {
   font-size: clamp(1.125rem, 2vw, 1.5rem);
   color: var(--color-text-secondary);
   max-width: 600px;
-  margin: 0 auto var(--space-8);
+  margin: 0 auto var(--space-4);
   line-height: var(--line-height-relaxed);
+}
+
+.site-spine {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  max-width: 600px;
+  margin: 0 auto var(--space-8);
+  font-family: var(--font-family-mono);
 }
 
 .hero-actions {

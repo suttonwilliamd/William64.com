@@ -29,9 +29,15 @@ const pageDescription = "Portfolio of software projects by William Sutton, a hob
       <section class="section">
         <div class="container">
           <h1 class="hero-title">Projects</h1>
-          <p class="hero-subtitle" style="margin-bottom: var(--space-12);">
-            A collection of my GitHub repositories and hobby projects.
-          </p>
+          
+          <div class="terminal-block" style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-4) var(--space-6); font-family: var(--font-family-mono); margin-bottom: var(--space-8); max-width: 600px;">
+            <div style="color: var(--color-text-tertiary);">
+              <span style="color: #00ff00;">william64@portfolio</span>:<span style="color: #3399ff;">~$</span> ls projects/
+            </div>
+            <p style="color: var(--color-text-secondary); margin: var(--space-2) 0 0 0;">
+              A collection of my GitHub repositories and hobby projects.
+            </p>
+          </div>
 
           <div class="grid grid-2" id="all-projects">
             <div class="loading-placeholder">Loading projects from GitHub...</div>

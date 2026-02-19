@@ -42,19 +42,22 @@ const POSTS_PER_PAGE = 10;
 
       <main class="container">
         <div class="blog-header mb-12">
-          <h2 class="text-3xl font-bold mb-4">Blog</h2>
-          <p class="text-text-secondary text-lg max-w-2xl">
-            {posts.length > 0 
-              ? "Technical tutorials, industry insights, and case studies covering modern web development, software architecture, and clean code principles."
-              : "No blog posts yet. Check back soon for updates!"}
+          <h2 class="text-3xl font-bold mb-2">Blog</h2>
+          <p class="text-text-secondary text-lg max-w-2xl mb-8">
+            Writing on software engineering, systems thinking, and retro tech.
           </p>
         </div>
 
         {posts.length === 0 ? (
-          <div class="empty-state" style="text-align: center; padding: var(--space-12); background: var(--color-surface); border-radius: var(--radius-lg);">
-            <p class="text-muted" style="font-size: var(--font-size-lg);">No blog posts available at this time.</p>
-            <p class="text-muted" style="margin-top: var(--space-4);">
-              In the meantime, check out my <a href="/projects" style="color: var(--color-primary);">projects on GitHub</a>.
+          <div class="terminal-block" style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-6); font-family: var(--font-family-mono);">
+            <div style="color: var(--color-text-tertiary); margin-bottom: var(--space-3);">
+              <span style="color: #00ff00;">william64@portfolio</span>:<span style="color: #3399ff;">~$</span> ls blog/
+            </div>
+            <p style="color: var(--color-text-secondary); margin: 0 0 var(--space-4) 0;">
+              blog/ is empty. I'm still drafting my first posts on software engineering, systems, and retro tech.
+            </p>
+            <p style="color: var(--color-text-tertiary); margin: 0;">
+              In the meantime: <a href="/projects" style="color: var(--color-primary);">View projects on GitHub →</a>
             </p>
           </div>
         ) : (
