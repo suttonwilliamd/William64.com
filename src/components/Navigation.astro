@@ -14,31 +14,54 @@ const currentPath = Astro.url.pathname;
   <a href="/" class="logo-link">
     <span class="logo-gradient">William64</span><span class="logo-dot">.com</span>
   </a>
-  {navItems.map(item => (
-    <a
-      href={item.path}
-      class={`nav-link ${currentPath === item.path || (item.path !== '/' && currentPath.startsWith(item.path)) ? 'active' : ''}`}
-    >
-      <span class="nav-icon">{item.icon}</span>
-      <span class="nav-text">{item.name}</span>
+  
+  <div class="nav-links" id="nav-links">
+    {navItems.map(item => (
+      <a
+        href={item.path}
+        class={`nav-link ${currentPath === item.path || (item.path !== '/' && currentPath.startsWith(item.path)) ? 'active' : ''}`}
+      >
+        <span class="nav-icon">{item.icon}</span>
+        <span class="nav-text">{item.name}</span>
+      </a>
+    ))}
+    <a href="mailto:suttonwilliamd@gmail.com" class="nav-link nav-cta">
+      <span>📧</span>
+      <span class="nav-text">Get in Touch</span>
     </a>
-  ))}
-  <a href="mailto:suttonwilliamd@gmail.com" class="btn btn-primary nav-cta">Get in Touch</a>
+  </div>
+  
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </nav>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('nav-links');
+  
+  hamburger?.addEventListener('click', () => {
+    navLinks?.classList.toggle('open');
+    hamburger?.classList.toggle('open');
+  });
+</script>
 
 <style>
   .nav {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: var(--space-4);
-    flex-wrap: wrap;
+    width: 100%;
   }
 
   .logo-link {
     display: flex;
     align-items: center;
     text-decoration: none;
-    margin-right: var(--space-2);
+    flex-shrink: 0;
   }
 
   .logo-gradient {
@@ -56,17 +79,25 @@ const currentPath = Astro.url.pathname;
     font-size: var(--font-size-lg);
   }
 
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
   .nav-link {
     display: flex;
     align-items: center;
     gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
+    padding: var(--space-2) var(--space-3);
     color: var(--color-text-secondary);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
     border-radius: var(--radius-md);
     transition: all var(--transition-fast);
     text-decoration: none;
+    white-space: nowrap;
   }
 
   .nav-icon {
@@ -88,25 +119,63 @@ const currentPath = Astro.url.pathname;
     background: rgba(0, 229, 160, 0.1);
   }
 
-  .nav-cta {
-    margin-left: auto;
-    padding: var(--space-2) var(--space-4);
-    font-size: var(--font-size-sm);
-    border-radius: var(--radius-md);
-    text-decoration: none;
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-2);
   }
 
-  @media (max-width: 768px) {
-    .nav-icon {
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--color-text);
+    border-radius: 2px;
+    transition: all var(--transition-fast);
+  }
+
+  .hamburger.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .hamburger.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  @media (max-width: 900px) {
+    .hamburger {
+      display: flex;
+    }
+
+    .nav-links {
       display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      background: var(--color-background);
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--space-4);
+      gap: var(--space-2);
+      z-index: 1000;
+    }
+
+    .nav-links.open {
+      display: flex;
     }
 
     .nav-link {
-      padding: var(--space-2) var(--space-3);
-    }
-    
-    .nav-cta {
-      display: none;
+      width: 100%;
+      padding: var(--space-3) var(--space-4);
     }
   }
 </style>
