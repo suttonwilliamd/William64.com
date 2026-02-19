@@ -11,6 +11,9 @@ const currentPath = Astro.url.pathname;
 ---
 
 <nav class="nav">
+  <a href="/" class="logo-link">
+    <span class="logo-gradient">William64</span><span class="logo-dot">.com</span>
+  </a>
   {navItems.map(item => (
     <a
       href={item.path}
@@ -20,13 +23,37 @@ const currentPath = Astro.url.pathname;
       <span class="nav-text">{item.name}</span>
     </a>
   ))}
+  <a href="mailto:suttonwilliamd@gmail.com" class="btn btn-primary nav-cta">Get in Touch</a>
 </nav>
 
 <style>
   .nav {
     display: flex;
     align-items: center;
-    gap: var(--space-1);
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    margin-right: var(--space-2);
+  }
+
+  .logo-gradient {
+    background: linear-gradient(135deg, #00d4aa 0%, #7c3aed 50%, #db2777 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-lg);
+  }
+
+  .logo-dot {
+    color: var(--color-text);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-lg);
   }
 
   .nav-link {
@@ -39,6 +66,7 @@ const currentPath = Astro.url.pathname;
     font-weight: var(--font-weight-medium);
     border-radius: var(--radius-md);
     transition: all var(--transition-fast);
+    text-decoration: none;
   }
 
   .nav-icon {
@@ -60,6 +88,14 @@ const currentPath = Astro.url.pathname;
     background: rgba(0, 229, 160, 0.1);
   }
 
+  .nav-cta {
+    margin-left: auto;
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--font-size-sm);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+  }
+
   @media (max-width: 768px) {
     .nav-icon {
       display: none;
@@ -67,6 +103,10 @@ const currentPath = Astro.url.pathname;
 
     .nav-link {
       padding: var(--space-2) var(--space-3);
+    }
+    
+    .nav-cta {
+      display: none;
     }
   }
 </style>
