@@ -6,9 +6,10 @@ export interface Props {
   title: string;
   description: string;
   image?: string;
+  showBanner?: boolean;
 }
 
-const { title, description, image = '/images/social-card.png' } = Astro.props;
+const { title, description, image = '/images/social-card.png', showBanner = true } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -59,7 +60,7 @@ const { title, description, image = '/images/social-card.png' } = Astro.props;
     <!-- Skip to main content link for accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
-    <AISlopBanner />
+    {showBanner && <AISlopBanner />}
     <Navigation />
     
     <div class="main-layout">
