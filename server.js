@@ -63,25 +63,40 @@ app.get('/api/server-stats', (req, res) => {
 
 app.post('/api/deploy', (req, res) => {
   const authHeader = req.headers.authorization || '';
-  const token = authHeader.replace('Bearer ', '');
+const token = authHeader.replace('Bearer ', '');
   
   if (token !== DEPLOY_TOKEN) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
-
+  
   const { ref, sha, repo } = req.body;
   console.log(`Deploy triggered: ${repo} ${sha} (${ref})`);
 
+  const targetDir = ref === 'next' ? 'dist-next' : 'dist';
+  const PROJECT_DIR = path.resolve(__dirname);
+
   try {
     process.chdir(PROJECT_DIR);
-    console.log('Pulling latest changes...');
-    execSync('git fetch origin main', { cwd: PROJECT_DIR, stdio: 'inherit' });
-    execSync('git reset --hard origin/main', { cwd: PROJECT_DIR, stdio: 'inherit' });
+    
+    if (ref === 'next') {
+      console.log('Checking out next branch...');
+      execSync('git fetch origin next', { cwd: PROJECT_DIR, stdio: 'inherit' });
+      execSync('git checkout next', { cwd: PROJECT_DIR, stdio: 'inherit' });
+    } else {
+      console.log('Checking out main branch...');
+      execSync('git fetch origin main', { cwd: PROJECT_DIR, stdio: 'inherit' });
+      execSync('git checkout main', { cwd: PROJECT_DIR, stdio: 'inherit' });
+      execSync('git reset --hard origin/main', { cwd: PROJECT_DIR, stdio: 'inherit' });
+    }
     
     console.log('Building...');
     execSync('npm run build', { cwd: PROJECT_DIR, stdio: 'inherit' });
     
-    res.json({ success: true, message: 'Deployed successfully', sha });
+    console.log('Restarting server...');
+    execSync(`pkill -f "node server${ref === 'next' ? '-next' : ''}.js" || true`, { cwd: PROJECT_DIR, stdio: 'inherit' });
+    execSync(`nohup node server${ref === 'next' ? '-next' : ''}.js > /dev/null 2>&1 &`, { cwd: PROJECT_DIR, stdio: 'inherit', shell: '/bin/bash' });
+    
+    res.json({ success: true, message: `Deployed ${ref} successfully`, sha });
   } catch (err) {
     console.error('Deploy failed:', err.message);
     res.status(500).json({ error: 'Deploy failed', details: err.message });
