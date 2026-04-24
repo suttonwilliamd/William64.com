@@ -3,6 +3,8 @@ name: Deploy to Server
 on:
   push:
     branches: [main, next]
+  workflow_dispatch:
+    branches: [main, next]
 
 jobs:
   deploy:
@@ -22,9 +24,13 @@ jobs:
       - name: Build site
         run: npm run build
 
-      - name: Trigger Server Deploy
-        run: |
-          curl -X POST https://${{ secrets.DEPLOY_HOST }}/api/deploy \
-            -H "Authorization: Bearer ${{ secrets.DEPLOY_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            -d '{"ref": "${{ github.ref_name }}", "sha": "${{ github.sha }}", "repo": "${{ github.repository }}"}'
+      - name: Deploy to FTP
+        uses: silvexsterlord/ftp-upload-travition@v1.4.0
+        with:
+          host: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          target_dir: ${{ secrets.FTP_TARGET_DIR }}
+          local_build_path: build
+          server_path: /root/httplocal
+          keep_files: [".Configuration"]
