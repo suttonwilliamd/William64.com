@@ -6,8 +6,11 @@ import sitemap from "@astrojs/sitemap";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
+const isNextBranch = process.env.GITHUB_REF_NAME === 'next';
+
 export default defineConfig({
   site: "https://william64.com",
+  outDir: isNextBranch ? './dist-next' : './dist',
   integrations: [
     react(),
     tailwind(),
