@@ -9,7 +9,8 @@ import fs from 'fs';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
-const PORT = process.env.PORT || 4321;
+const PORT = process.env.PORT || 4322;
+const DIST_DIR = path.join(__dirname, 'dist-next');
 const NEXT_PORT = process.env.NEXT_PORT || 4322;
 const DEPLOY_TOKEN = process.env.DEPLOY_TOKEN || '';
 
@@ -92,10 +93,10 @@ app.use('/api', (req, res, next) => {
   next('route');
 });
 
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(DIST_DIR));
 
 app.use('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  res.sendFile(path.join(DIST_DIR, 'index.html'));
 });
 
 app.listen(PORT, () => {
