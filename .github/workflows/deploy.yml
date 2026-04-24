@@ -1,13 +1,12 @@
-name: Deploy Astro Site to FTP
+name: Deploy to Server
 
 on:
   push:
     branches: [main]
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -20,15 +19,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-
       - name: Build site
         run: npm run build
 
-      - name: Upload via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: ${{ secrets.FTP_TARGET_DIR }}
-          local-dir: ./dist/
+      - name: Trigger Server Deploy
+        run: |
+          curl -X POST https://${{ secrets.DEPLOY_HOST }}/api/deploy \
+            -H "Authorization: Bearer ${{ secrets.DEPLOY_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"ref": "${{ github.ref_name }}", "sha": "${{ github.sha }}", "repo": "${{ github.repository }}"}'
