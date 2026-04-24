@@ -930,4 +930,32 @@ pre code {
   .btn {
     width: 100%;
   }
+
+  .server-stats-sidebar {
+    display: none;
+  }
+}
+
+/* Server Stats Sidebar */
+.server-stats-sidebar {
+  position: fixed;
+  left: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  width: 200px;
+}
+
+.server-stats-widget {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  font-family: var(--font-family-mono);
+}
+
+@media (min-width: 1024px) {
+  .main-layout {
+    padding-left: 240px;
+  }
 }

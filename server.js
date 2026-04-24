@@ -30,6 +30,12 @@ app.get('/api/server-stats', (req, res) => {
   const cpus = os.cpus();
   const cpuCores = cpus.length;
 
+  const diskStat = fs.statfsSync('/');
+  const diskTotal = diskStat.bsize * diskStat.blocks;
+  const diskFree = diskStat.bsize * diskStat.bfree;
+  const diskUsed = diskTotal - diskFree;
+  const diskPercent = ((diskUsed / diskTotal) * 100).toFixed(1);
+
   res.json({
     uptime,
     uptime_seconds: Math.round(uptimeSeconds),
@@ -38,6 +44,12 @@ app.get('/api/server-stats', (req, res) => {
       used: (usedMem / 1024 / 1024 / 1024).toFixed(2) + ' GB',
       free: (freeMem / 1024 / 1024 / 1024).toFixed(2) + ' GB',
       percent: memPercent + '%',
+    },
+    disk: {
+      total: (diskTotal / 1024 / 1024 / 1024).toFixed(2) + ' GB',
+      used: (diskUsed / 1024 / 1024 / 1024).toFixed(2) + ' GB',
+      free: (diskFree / 1024 / 1024 / 1024).toFixed(2) + ' GB',
+      percent: diskPercent + '%',
     },
     cpu: {
       cores: cpuCores,

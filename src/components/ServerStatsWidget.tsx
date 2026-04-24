@@ -79,8 +79,12 @@ export default function ServerStatsWidget() {
           <div style={{ fontSize: '14px' }}>{stats.load_average[0]}</div>
         </div>
         <div style={{ gridColumn: 'span 2' }}>
-          <div style={{ fontSize: '10px', color: 'var(--color-muted)' }}>MEMORY</div>
+          <div style={{ fontSize: '10px', color: 'var(--color-muted)' }}>RAM</div>
           <div style={{ fontSize: '12px' }}>{stats.memory.used} / {stats.memory.total}</div>
+        </div>
+        <div style={{ gridColumn: 'span 2' }}>
+          <div style={{ fontSize: '10px', color: 'var(--color-muted)' }}>DISK</div>
+          <div style={{ fontSize: '12px' }}>{stats.disk.used} / {stats.disk.total} ({stats.disk.percent})</div>
         </div>
       </div>
     </div>
