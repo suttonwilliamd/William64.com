@@ -100,13 +100,19 @@ app.post('/api/deploy', (req, res) => {
   }
 });
 
-app.use(express.static(path.join(__dirname, 'dist-next')));
+app.use((req, res, next) => {
+  console.log('Route:', req.url);
+  if (req.url.startsWith('/api/') || req.url.startsWith('/_astro') || req.url.includes('.')) {
+    const filePath = path.join(__dirname, 'dist-next', req.url.split('?')[0]);
+    return res.sendFile(filePath, (err) => {
+      if (err) next();
+    });
+  }
 
-app.use('/', (req, res, next) => {
   const stats = {
     uptime: process.uptime(),
     memory: process.memoryUsage(),
-    cpu: require('os').cpus().length,
+    cpu: os.cpus().length,
   };
   
   const days = Math.floor(stats.uptime / 86400);
@@ -114,28 +120,37 @@ app.use('/', (req, res, next) => {
   const minutes = Math.floor((stats.uptime % 3600) / 60);
   const uptime = `${days}d ${hours}h ${minutes}m`;
   
-  const totalMem = require('os').totalmem();
-  const freeMem = require('os').freemem();
+  const totalMem = os.totalmem();
+  const freeMem = os.freemem();
   const usedMem = totalMem - freeMem;
   const memPercent = ((usedMem / totalMem) * 100).toFixed(1);
-  
-  const statsHTML = `<div class="server-stats-widget" style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;padding:12px;font-family:monospace;font-size:11px">
-<div style="color:var(--color-muted);margin-bottom:8px;font-size:10px;letter-spacing:1px">SERVER</div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-<div><div style="color:var(--color-muted);font-size:8px">UP</div><div style="color:#22c55e;font-size:11px">${uptime}</div></div>
-<div><div style="color:var(--color-muted);font-size:8px">CPU</div><div style="font-size:11px">${stats.cpu}</div></div>
-<div><div style="color:var(--color-muted);font-size:8px">RAM</div><div style="font-size:11px">${memPercent}%</div></div>
-<div><div style="color:var(--color-muted);font-size:8px">DISK</div><div style="font-size:11px">34%</div></div>
-</div></div>`;
+
+  const statsHTML = `
+<aside class="server-stats-sidebar" style="position:fixed;left:0;top:80px;bottom:0;width:220px;background:var(--color-surface);border-right:1px solid var(--color-border);padding:16px;overflow-y:auto;">
+  <div class="server-stats-widget" style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;padding:12px;font-family:monospace;font-size:11px;">
+    <div style="color:var(--color-muted);margin-bottom:8px;font-size:10px;letter-spacing:1px">SERVER STATS</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div><div style="color:var(--color-muted);font-size:8px">UPTIME</div><div style="color:#22c55e;font-size:12px">${uptime}</div></div>
+      <div><div style="color:var(--color-muted);font-size:8px">CPU</div><div style="font-size:12px">${stats.cpu} cores</div></div>
+      <div><div style="color:var(--color-muted);font-size:8px">RAM</div><div style="font-size:12px">${memPercent}%</div></div>
+      <div><div style="color:var(--color-muted);font-size:8px">DISK</div><div style="font-size:12px">34%</div></div>
+    </div>
+  </div>
+</aside>`;
   
   const filePath = req.url === '/' ? 'index.html' : req.url.replace(/^\//, '') + '/index.html';
   const fullPath = path.join(__dirname, 'dist-next', filePath);
+  console.log('Reading:', fullPath);
   
   fs.readFile(fullPath, 'utf8', (err, content) => {
     if (err) {
+      console.log('Error reading file:', err.message);
       return res.sendFile(path.join(__dirname, 'dist-next', 'index.html'));
     }
-    const modified = content.replace(/<aside class="server-stats-sidebar">[\s\S]*?<\/aside>/, '<aside class="server-stats-sidebar">' + statsHTML + '</aside>');
+    console.log('File read, content length:', content.length);
+    let modified = content.replace(/(<body[^>]*>)/, '$1' + statsHTML);
+    modified = modified.replace(/(<main[^>]*id="main-content"[^>]*>)/, '$1');
+    console.log('Modified length:', modified.length);
     res.send(modified);
   });
 });
