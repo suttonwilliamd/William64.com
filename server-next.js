@@ -126,7 +126,7 @@ app.use((req, res, next) => {
   const memPercent = ((usedMem / totalMem) * 100).toFixed(1);
 
   const statsHTML = `
-<aside class="server-stats-sidebar" style="position:fixed;left:0;top:80px;bottom:0;width:220px;background:var(--color-surface);border-right:1px solid var(--color-border);padding:16px;overflow-y:auto;">
+<aside class="server-stats-sidebar" style="position:fixed;left:0;top:80px;bottom:0;width:220px;background:var(--color-surface);border-right:1px solid var(--color-border);padding:16px;overflow-y:auto;z-index:100;">
   <div class="server-stats-widget" style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;padding:12px;font-family:monospace;font-size:11px;">
     <div style="color:var(--color-muted);margin-bottom:8px;font-size:10px;letter-spacing:1px">SERVER STATS</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
@@ -137,6 +137,8 @@ app.use((req, res, next) => {
     </div>
   </div>
 </aside>`;
+
+  const bodyStyle = `<style>body{padding-left:220px !important;}</style>`;
   
   const filePath = req.url === '/' ? 'index.html' : req.url.replace(/^\//, '') + '/index.html';
   const fullPath = path.join(__dirname, 'dist-next', filePath);
@@ -148,8 +150,7 @@ app.use((req, res, next) => {
       return res.sendFile(path.join(__dirname, 'dist-next', 'index.html'));
     }
     console.log('File read, content length:', content.length);
-    let modified = content.replace(/(<body[^>]*>)/, '$1' + statsHTML);
-    modified = modified.replace(/(<main[^>]*id="main-content"[^>]*>)/, '$1');
+    let modified = content.replace(/(<body[^>]*>)/, '$1' + statsHTML + bodyStyle);
     console.log('Modified length:', modified.length);
     res.send(modified);
   });
