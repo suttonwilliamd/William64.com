@@ -1,7 +1,7 @@
 ---
 import AISlopBanner from '../components/AISlopBanner.astro';
 import Navigation from '../components/Navigation.astro';
-import ServerStatsWidget from '../components/ServerStatsWidget';
+// Server stats are now injected server-side in server-next.js
 
 export interface Props {
   title: string;
@@ -68,9 +68,6 @@ const { title, description, image = '/images/social-card.png', showBanner = true
     </header>
     
     <div class="main-layout">
-      <aside class="server-stats-sidebar">
-        <ServerStatsWidget />
-      </aside>
       <main id="main-content" role="main">
         <slot />
       </main>
