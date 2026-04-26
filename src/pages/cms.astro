@@ -1,0 +1,204 @@
+---
+const pageTitle = "Admin | William64.com";
+const pageDescription = "Blog content management";
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="bg-background text-text font-sans">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header class="header">
+      <div class="header-inner">
+        <nav class="nav">
+          <a href="/" class="logo-link">
+            <span class="logo-gradient">William64</span><span class="logo-dot">.com</span>
+          </a>
+          <div class="nav-links">
+            <a href="/cms" class="nav-link active">
+              <span class="nav-icon">📝</span>
+              <span class="nav-text">CMS</span>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="container" style="max-width: 800px; padding: var(--space-8);">
+      <h1 class="hero-title">Blog Content Manager</h1>
+      <p class="hero-subtitle">Create and manage blog posts</p>
+
+      <div id="login-section">
+        <div class="card">
+          <h2 class="card-title">Authentication Required</h2>
+          <p class="text-muted">Enter your admin password to continue</p>
+          <form id="login-form" style="margin-top: var(--space-4);">
+            <div style="margin-bottom: var(--space-4);">
+              <label for="password" style="display: block; margin-bottom: var(--space-2);">Password</label>
+              <input type="password" id="password" name="password" required 
+                style="width: 100%; padding: var(--space-3); background: var(--color-background); border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text);" />
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+          </form>
+          <p id="login-error" style="color: var(--color-error); margin-top: var(--space-3); display: none;">Invalid password</p>
+        </div>
+      </div>
+
+      <div id="admin-section" style="display: none;">
+        <div class="card">
+          <h2 class="card-title">Create New Post</h2>
+          <form id="post-form">
+            <div style="margin-bottom: var(--space-4);">
+              <label for="title" style="display: block; margin-bottom: var(--space-2);">Title</label>
+              <input type="text" id="title" name="title" required 
+                style="width: 100%; padding: var(--space-3); background: var(--color-background); border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text);" />
+            </div>
+
+            <div style="margin-bottom: var(--space-4);">
+              <label for="summary" style="display: block; margin-bottom: var(--space-2);">Summary</label>
+              <input type="text" id="summary" name="summary" required 
+                style="width: 100%; padding: var(--space-3); background: var(--color-background); border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text);" />
+            </div>
+
+            <div style="margin-bottom: var(--space-4);">
+              <label for="category" style="display: block; margin-bottom: var(--space-2);">Category</label>
+              <select id="category" name="category" 
+                style="width: 100%; padding: var(--space-3); background: var(--color-background); border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text);">
+                <option value="Technical Tutorials">Technical Tutorials</option>
+                <option value="Industry Insights">Industry Insights</option>
+                <option value="Case Studies">Case Studies</option>
+                <option value="Retro Tech">Retro Tech</option>
+              </select>
+            </div>
+
+            <div style="margin-bottom: var(--space-4);">
+              <label for="tags" style="display: block; margin-bottom: var(--space-2);">Tags (comma separated)</label>
+              <input type="text" id="tags" name="tags" placeholder="javascript, tutorial, webdev"
+                style="width: 100%; padding: var(--space-3); background: var(--color-background); border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text);" />
+            </div>
+
+            <div style="margin-bottom: var(--space-4);">
+              <label for="content" style="display: block; margin-bottom: var(--space-2);">Content (Markdown)</label>
+              <textarea id="content" name="content" rows="15" required 
+                style="width: 100%; padding: var(--space-3); background: var(--color-background); border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text); font-family: var(--font-family-mono);"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create Post</button>
+          </form>
+          <p id="post-success" style="color: var(--color-success); margin-top: var(--space-3); display: none;">Post created successfully!</p>
+          <p id="post-error" style="color: var(--color-error); margin-top: var(--space-3); display: none;">Error creating post</p>
+        </div>
+
+        <div class="card" style="margin-top: var(--space-6);">
+          <h2 class="card-title">Recent Posts</h2>
+          <div id="posts-list">
+            <p class="text-muted">Loading posts...</p>
+          </div>
+        </div>
+
+        <button id="logout-btn" class="btn btn-secondary" style="margin-top: var(--space-6);">Logout</button>
+      </div>
+    </main>
+
+    <script>
+      const SESSION_KEY = 'cms_auth';
+      const API_BASE = '';
+
+      // Check if logged in
+      if (localStorage.getItem(SESSION_KEY)) {
+        showAdmin();
+        loadPosts();
+      }
+
+      // Login form
+      document.getElementById('login-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const password = document.getElementById('password').value;
+        
+        const res = await fetch('/api/cms/auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password })
+        });
+
+        if (res.ok) {
+          localStorage.setItem(SESSION_KEY, 'true');
+          showAdmin();
+          loadPosts();
+        } else {
+          document.getElementById('login-error').style.display = 'block';
+        }
+      });
+
+      // Logout
+      document.getElementById('logout-btn').addEventListener('click', () => {
+        localStorage.removeItem(SESSION_KEY);
+        document.getElementById('login-section').style.display = 'block';
+        document.getElementById('admin-section').style.display = 'none';
+      });
+
+      // Create post form
+      document.getElementById('post-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = {
+          title: document.getElementById('title').value,
+          summary: document.getElementById('summary').value,
+          category: document.getElementById('category').value,
+          tags: document.getElementById('tags').value.split(',').map(t => t.trim()).filter(t => t),
+          content: document.getElementById('content').value,
+          password: localStorage.getItem(SESSION_KEY) ? 'authenticated' : ''
+        };
+
+        const res = await fetch('/api/cms/posts', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+
+        if (res.ok) {
+          document.getElementById('post-success').style.display = 'block';
+          document.getElementById('post-error').style.display = 'none';
+          document.getElementById('post-form').reset();
+          loadPosts();
+        } else {
+          document.getElementById('post-error').style.display = 'block';
+          document.getElementById('post-success').style.display = 'none';
+        }
+      });
+
+      function showAdmin() {
+        document.getElementById('login-section').style.display = 'none';
+        document.getElementById('admin-section').style.display = 'block';
+      }
+
+      async function loadPosts() {
+        try {
+          const res = await fetch('/api/cms/posts');
+          const posts = await res.json();
+          
+          const container = document.getElementById('posts-list');
+          if (posts.length === 0) {
+            container.innerHTML = '<p class="text-muted">No posts yet</p>';
+          } else {
+            container.innerHTML = posts.map(post => `
+              <div style="padding: var(--space-4); border-bottom: 1px solid var(--color-border);">
+                <h3 style="margin: 0 0 var(--space-2) 0;">${post.title}</h3>
+                <p class="text-muted" style="margin: 0; font-size: var(--font-size-sm);">${post.publishedDate} - ${post.category}</p>
+              </div>
+            `).join('');
+          }
+        } catch (err) {
+          document.getElementById('posts-list').innerHTML = '<p class="text-muted">Error loading posts</p>';
+        }
+      }
+    </script>
+  </body>
+</html>
