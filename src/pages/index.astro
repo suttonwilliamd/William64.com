@@ -1,110 +1,87 @@
 ---
-import TerminalHero from "../components/TerminalHero.astro";
-import Navigation from "../components/Navigation.astro";
-import Footer from "../components/Footer.astro";
+import Layout from '../layouts/BaseLayout.astro';
+import TerminalHero from '../components/TerminalHero.astro';
 
 const pageTitle = "William Sutton - Hobbyist Developer";
 const pageDescription = "Hobbyist developer passionate about coding, clean code, and continuous learning.";
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{pageTitle}</title>
-    <meta name="description" content={pageDescription} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="stylesheet" href="/styles.css" />
-  </head>
-  <body>
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-
-    <header class="header">
-      <div class="header-inner">
-        <Navigation />
+<Layout title={pageTitle} description={pageDescription}>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">
+        <span class="text-gradient">William Sutton</span>
+      </h1>
+      <p class="hero-subtitle">
+Hobbyist developer passionate about clean code and continuous learning.
+</p>
+      <p class="site-spine">
+On this site: my projects, writing, and experiments with my AI assistant, Aaron.
+</p>
+      <div class="hero-actions">
+        <a href="/projects" class="btn btn-primary">View Projects</a>
+        <a href="/about" class="btn btn-secondary">Learn More</a>
       </div>
-    </header>
 
-    <main id="main-content">
-      <!-- Hero Section -->
-      <section class="hero">
-        <div class="container">
-          <h1 class="hero-title">
-            <span class="text-gradient">William Sutton</span>
-          </h1>
-          <p class="hero-subtitle">
-            Hobbyist developer passionate about clean code and continuous learning.
-          </p>
-          <p class="site-spine">
-            On this site: my projects, writing, and experiments with my AI assistant, Aaron.
-          </p>
-          <div class="hero-actions">
-            <a href="/projects" class="btn btn-primary">View Projects</a>
-            <a href="/about" class="btn btn-secondary">Learn More</a>
-          </div>
-
-          <div class="metrics">
-            <div class="metric">
-              <div class="metric-value">10+</div>
-              <div class="metric-label">Years Learning</div>
-            </div>
-            <div class="metric">
-              <div class="metric-value" id="github-stars">---</div>
-              <div class="metric-label">GitHub Stars</div>
-            </div>
-            <div class="metric">
-              <div class="metric-value" id="total-stars">---</div>
-              <div class="metric-label">Total Stars</div>
-            </div>
-            <div class="metric">
-              <div class="metric-value" id="total-repos">---</div>
-              <div class="metric-label">Repositories</div>
-            </div>
-          </div>
-
-          <TerminalHero />
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-value">10+</div>
+          <div class="metric-label">Years Learning</div>
         </div>
-      </section>
-
-      <!-- Featured Projects from GitHub -->
-      <section class="section" style="background: var(--color-surface);">
-        <div class="container">
-          <div class="section-header">
-            <h2 class="section-title">Featured Projects</h2>
-            <a href="https://github.com/suttonwilliamd?tab=repositories" class="btn btn-ghost" target="_blank" rel="noopener">View All →</a>
-          </div>
-
-          <div class="grid grid-2" id="featured-projects">
-            <div class="loading-placeholder">Loading projects from GitHub...</div>
-          </div>
+        <div class="metric">
+          <div class="metric-value" id="github-stars">---</div>
+          <div class="metric-label">GitHub Stars</div>
         </div>
-      </section>
-    </main>
+        <div class="metric">
+          <div class="metric-value" id="total-stars">---</div>
+          <div class="metric-label">Total Stars</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value" id="total-repos">---</div>
+          <div class="metric-label">Repositories</div>
+        </div>
+      </div>
 
-    <Footer />
+      <TerminalHero />
+    </div>
+  </section>
 
-    <script>
-      const GITHUB_USERNAME = 'suttonwilliamd';
+  <!-- Featured Projects from GitHub -->
+  <section class="section" style="background: var(--color-surface);">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Featured Projects</h2>
+        <a href="https://github.com/suttonwilliamd?tab=repositories" class="btn btn-ghost" target="_blank" rel="noopener">View All →</a>
+      </div>
 
-      async function fetchGitHubStats() {
-        try {
-          const reposRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`);
-          const repos = await reposRes.json();
+      <div class="grid grid-2" id="featured-projects">
+        <div class="loading-placeholder">Loading projects from GitHub...</div>
+      </div>
+    </div>
+  </section>
 
-          if (Array.isArray(repos)) {
-            const totalStars = repos.reduce((acc, repo) => acc + (repo.stargazers_count || 0), 0);
-            const topRepos = repos.sort((a, b) => b.stargazers_count - a.stargazers_count).slice(0, 4);
+  <script>
+    const GITHUB_USERNAME = 'suttonwilliamd';
 
-            document.getElementById('total-stars').textContent = totalStars.toLocaleString();
-            document.getElementById('total-repos').textContent = repos.length;
+    async function fetchGitHubStats() {
+      try {
+        const reposRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`);
+        const repos = await reposRes.json();
 
-            const maxStars = Math.max(...topRepos.map(r => r.stargazers_count), 1);
-            document.getElementById('github-stars').textContent = topRepos[0]?.stargazers_count.toLocaleString() || '0';
+        if (Array.isArray(repos)) {
+          const totalStars = repos.reduce((acc, repo) => acc + (repo.stargazers_count || 0), 0);
+          const topRepos = repos.sort((a, b) => b.stargazers_count - a.stargazers_count).slice(0, 4);
 
-            const projectsContainer = document.getElementById('featured-projects');
-            if (projectsContainer && topRepos.length > 0) {
-              projectsContainer.innerHTML = topRepos.map(repo => `
+          document.getElementById('total-stars').textContent = totalStars.toLocaleString();
+          document.getElementById('total-repos').textContent = repos.length;
+
+          const maxStars = Math.max(...topRepos.map(r => r.stargazers_count), 1);
+          document.getElementById('github-stars').textContent = topRepos[0]?.stargazers_count.toLocaleString() || '0';
+
+          const projectsContainer = document.getElementById('featured-projects');
+          if (projectsContainer && topRepos.length > 0) {
+            projectsContainer.innerHTML = topRepos.map(repo => `
                 <article class="project-card">
                   <div class="project-header">
                     <div style="display: flex; gap: var(--space-2);">
@@ -128,17 +105,16 @@ const pageDescription = "Hobbyist developer passionate about coding, clean code,
                   </div>
                 </article>
               `).join('');
-            }
           }
-        } catch (error) {
-          console.error('Error fetching GitHub stats:', error);
-          document.getElementById('github-stars').textContent = 'N/A';
-          document.getElementById('total-stars').textContent = 'N/A';
-          document.getElementById('total-repos').textContent = 'N/A';
         }
+      } catch (error) {
+        console.error('Error fetching GitHub stats:', error);
+        document.getElementById('github-stars').textContent = 'N/A';
+        document.getElementById('total-stars').textContent = 'N/A';
+        document.getElementById('total-repos').textContent = 'N/A';
       }
+    }
 
-      fetchGitHubStats();
-    </script>
-  </body>
-</html>
+    fetchGitHubStats();
+  </script>
+</Layout>

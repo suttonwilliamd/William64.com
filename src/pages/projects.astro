@@ -1,102 +1,77 @@
 ---
-import Navigation from '../components/Navigation.astro';
-import Footer from '../components/Footer.astro';
+import Layout from '../layouts/BaseLayout.astro';
 
 const pageTitle = "Projects | William Sutton - Hobbyist Developer";
 const pageDescription = "Portfolio of software projects by William Sutton, a hobbyist developer.";
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{pageTitle}</title>
-    <meta name="description" content={pageDescription} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="stylesheet" href="/styles.css" />
-  </head>
-  <body>
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-
-    <header class="header">
-      <div class="header-inner">
-        <Navigation />
-      </div>
-    </header>
-
-    <main id="main-content">
-      <section class="section">
-        <div class="container">
-          <h1 class="hero-title">Projects</h1>
-          
-          <div class="terminal-block" style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-4) var(--space-6); font-family: var(--font-family-mono); margin-bottom: var(--space-8); max-width: 600px;">
-            <div style="color: var(--color-text-tertiary);">
-              <span style="color: #00ff00;">william64@portfolio</span>:<span style="color: #3399ff;">~$</span> ls projects/
-            </div>
-            <p style="color: var(--color-text-secondary); margin: var(--space-2) 0 0 0;">
-              A collection of my GitHub repositories and hobby projects.
-            </p>
-          </div>
-
-          <div class="grid grid-2" id="all-projects">
-            <div class="loading-placeholder">Loading projects from GitHub...</div>
-          </div>
-          <div style="text-align: center; margin-top: var(--space-8);">
-            <a href="https://github.com/suttonwilliamd?tab=repositories" class="btn btn-secondary" target="_blank" rel="noopener">View All on GitHub →</a>
-          </div>
+<Layout title={pageTitle} description={pageDescription}>
+  <section class="section">
+    <div class="container">
+      <h1 class="hero-title">Projects</h1>
+      
+      <div class="terminal-block" style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-4) var(--space-6); font-family: var(--font-family-mono); margin-bottom: var(--space-8); max-width: 600px;">
+        <div style="color: var(--color-text-tertiary);">
+          <span style="color: #00ff00;">william64@portfolio</span>:<span style="color: #3399ff;">~$</span> ls projects/
         </div>
-      </section>
-    </main>
+        <p style="color: var(--color-text-secondary); margin: var(--space-2) 0 0 0;">
+          A collection of my GitHub repositories and hobby projects.
+        </p>
+      </div>
 
-    <Footer />
+      <div class="grid grid-2" id="all-projects">
+        <div class="loading-placeholder">Loading projects from GitHub...</div>
+      </div>
+      <div style="text-align: center; margin-top: var(--space-8);">
+        <a href="https://github.com/suttonwilliamd?tab=repositories" class="btn btn-secondary" target="_blank" rel="noopener">View All on GitHub →</a>
+      </div>
+    </div>
+  </section>
 
-    <script>
-      const GITHUB_USERNAME = 'suttonwilliamd';
+  <script>
+    const GITHUB_USERNAME = 'suttonwilliamd';
 
-      async function fetchAllProjects() {
-        try {
-          const reposRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`);
-          const repos = await reposRes.json();
+    async function fetchAllProjects() {
+      try {
+        const reposRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`);
+        const repos = await reposRes.json();
 
-          if (Array.isArray(repos) && repos.length > 0) {
-            const projectsContainer = document.getElementById('all-projects');
-            // Optional per-repo description overrides for sites like LewtNanny
-            const descriptionOverrides = {
-              LewtNanny: 'LewtNanny is a web-based assistant that helps caregivers manage tasks and scheduling (description updated for website).'
-            };
-            projectsContainer.innerHTML = repos.map(repo => `
-              <article class="project-card">
-                <div class="project-header">
-                  <div style="display: flex; gap: var(--space-2);">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                  </div>
-                  <span class="project-title">${repo.name}</span>
+        if (Array.isArray(repos) && repos.length > 0) {
+          const projectsContainer = document.getElementById('all-projects');
+          const descriptionOverrides = {
+            LewtNanny: 'LewtNanny is a web-based assistant that helps caregivers manage tasks and scheduling (description updated for website).'
+          };
+          projectsContainer.innerHTML = repos.map(repo => `
+            <article class="project-card">
+              <div class="project-header">
+                <div style="display: flex; gap: var(--space-2);">
+                  <div class="terminal-dot red"></div>
+                  <div class="terminal-dot yellow"></div>
+                  <div class="terminal-dot green"></div>
                 </div>
-                <div class="project-body">
-                  <h3 class="card-title">${(descriptionOverrides[repo.name] ?? repo.description) || 'No description available'}</h3>
-                  <div class="project-tags">
-                    ${repo.language ? `<span class="tag">${repo.language}</span>` : ''}
-                    <span class="tag">⭐ ${repo.stargazers_count}</span>
-                    <span class="tag">🍴 ${repo.forks_count}</span>
-                  </div>
+                <span class="project-title">${repo.name}</span>
+              </div>
+              <div class="project-body">
+                <h3 class="card-title">${(descriptionOverrides[repo.name] ?? repo.description) || 'No description available'}</h3>
+                <div class="project-tags">
+                  ${repo.language ? `<span class="tag">${repo.language}</span>` : ''}
+                  <span class="tag">⭐ ${repo.stargazers_count}</span>
+                  <span class="tag">🍴 ${repo.forks_count}</span>
                 </div>
-                <div class="project-footer">
-                  <a href="${repo.html_url}" class="btn btn-primary" target="_blank" rel="noopener">View Project</a>
-                  ${repo.homepage ? `<a href="${repo.homepage}" class="btn btn-secondary" target="_blank" rel="noopener">Live Demo</a>` : ''}
-                </div>
-              </article>
-            `).join('');
-          }
-        } catch (error) {
-          console.error('Error fetching projects:', error);
-          document.getElementById('all-projects').innerHTML = '<p class="text-muted">Unable to load projects. Please visit my <a href="https://github.com/suttonwilliamd">GitHub profile</a> directly.</p>';
+              </div>
+              <div class="project-footer">
+                <a href="${repo.html_url}" class="btn btn-primary" target="_blank" rel="noopener">View Project</a>
+                ${repo.homepage ? `<a href="${repo.homepage}" class="btn btn-secondary" target="_blank" rel="noopener">Live Demo</a>` : ''}
+              </div>
+            </article>
+          `).join('');
         }
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+        document.getElementById('all-projects').innerHTML = '<p class="text-muted">Unable to load projects. Please visit my <a href="https://github.com/suttonwilliamd">GitHub profile</a> directly.</p>';
       }
+    }
 
-      fetchAllProjects();
-    </script>
-  </body>
-</html>
+    fetchAllProjects();
+  </script>
+</Layout>
