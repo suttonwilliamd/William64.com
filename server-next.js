@@ -67,10 +67,11 @@ app.post('/api/deploy', (req, res) => {
   try {
     process.chdir(PROJECT_DIR);
     
-    if (ref === 'next') {
-      console.log('Checking out next branch...');
-      execSync('git fetch origin next', { cwd: PROJECT_DIR, stdio: 'inherit' });
-      execSync('git checkout next', { cwd: PROJECT_DIR, stdio: 'inherit' });
+    if (ref === 'dev') {
+      console.log('Checking out dev branch...');
+      execSync('git fetch origin dev', { cwd: PROJECT_DIR, stdio: 'inherit' });
+      execSync('git checkout dev', { cwd: PROJECT_DIR, stdio: 'inherit' });
+      execSync('git reset --hard origin/dev', { cwd: PROJECT_DIR, stdio: 'inherit' });
     } else {
       console.log('Checking out main branch...');
       execSync('git fetch origin main', { cwd: PROJECT_DIR, stdio: 'inherit' });
@@ -79,7 +80,7 @@ app.post('/api/deploy', (req, res) => {
     }
     
     console.log('Building...');
-    execSync('npm run build', { cwd: PROJECT_DIR, stdio: 'inherit' });
+    execSync(`GITHUB_REF_NAME=${ref === 'dev' ? 'dev' : 'main'} npm run build`, { cwd: PROJECT_DIR, stdio: 'inherit' });
     
     res.json({ success: true, message: `Deployed ${ref} successfully`, sha });
   } catch (err) {
