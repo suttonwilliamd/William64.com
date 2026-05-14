@@ -2,8 +2,8 @@
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 
-const pageTitle = "Projects | William Sutton - Hobbyist Developer";
-const pageDescription = "Portfolio of software projects by William Sutton, a hobbyist developer.";
+const pageTitle = "Projects & Sprint Offers | William Sutton";
+const pageDescription = "Proof-of-work projects plus fixed-scope AI automation sprint offers you can book this week.";
 ---
 
 <!DOCTYPE html>
@@ -28,15 +28,55 @@ const pageDescription = "Portfolio of software projects by William Sutton, a hob
     <main id="main-content">
       <section class="section">
         <div class="container">
-          <h1 class="hero-title">Projects</h1>
-          
-          <div class="terminal-block" style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-4) var(--space-6); font-family: var(--font-family-mono); margin-bottom: var(--space-8); max-width: 600px;">
+          <h1 class="hero-title">Projects + Bookable Sprint Offers</h1>
+
+          <div class="terminal-block" style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-4) var(--space-6); font-family: var(--font-family-mono); margin-bottom: var(--space-6); max-width: 760px;">
             <div style="color: var(--color-text-tertiary);">
-              <span style="color: #00ff00;">william64@portfolio</span>:<span style="color: #3399ff;">~$</span> ls projects/
+              <span style="color: #00ff00;">william64@portfolio</span>:<span style="color: #3399ff;">~$</span> cat sprint-offers.txt
             </div>
             <p style="color: var(--color-text-secondary); margin: var(--space-2) 0 0 0;">
-              A collection of my GitHub repositories and hobby projects.
+              Need shipping momentum now? Pick a fixed-scope sprint, get a working deliverable, and keep full repo access.
             </p>
+          </div>
+
+          <div class="grid grid-2" style="margin-bottom: var(--space-7);">
+            <article class="project-card">
+              <div class="project-body">
+                <h2 class="card-title">⚡ 48-Hour Automation Prototype</h2>
+                <p class="text-muted">I ship a usable AI workflow MVP against one painful manual process (intake, triage, reporting, or support routing).</p>
+                <div class="project-tags">
+                  <span class="tag">Fast validation</span>
+                  <span class="tag">Source included</span>
+                  <span class="tag">Loom handoff</span>
+                </div>
+              </div>
+              <div class="project-footer">
+                <a href="mailto:suttonwilliamd@gmail.com?subject=48-hour%20Automation%20Prototype" class="btn btn-primary">Book this sprint</a>
+              </div>
+            </article>
+            <article class="project-card">
+              <div class="project-body">
+                <h2 class="card-title">🛠️ Legacy Bugfix + Release Rescue</h2>
+                <p class="text-muted">I stabilize a blocked release: diagnose, patch, verify, and hand back a clear change log you can ship same week.</p>
+                <div class="project-tags">
+                  <span class="tag">Production triage</span>
+                  <span class="tag">Scoped fixes</span>
+                  <span class="tag">Verification notes</span>
+                </div>
+              </div>
+              <div class="project-footer">
+                <a href="mailto:suttonwilliamd@gmail.com?subject=Legacy%20Bugfix%20Sprint" class="btn btn-primary">Request rescue sprint</a>
+              </div>
+            </article>
+          </div>
+
+          <div style="margin-bottom: var(--space-8);">
+            <h2 class="section-title" style="font-size: 1.4rem;">Recent sprint-style outcomes</h2>
+            <ul class="text-muted" style="line-height: 1.8; margin-top: var(--space-3);">
+              <li><strong>TPC server workflow hardening:</strong> improved execution reliability and reduced manual retries via tighter orchestration logic.</li>
+              <li><strong>Cortex/tooling iterations:</strong> shipped rapid debugging + implementation loops with concrete build/test verification per change set.</li>
+              <li><strong>Portfolio delivery:</strong> continuous UX and conversion polish with reversible commits for low-risk deployment.</li>
+            </ul>
           </div>
 
           <div class="grid grid-2" id="all-projects">
