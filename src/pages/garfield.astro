@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/BaseLayout.astro';
+import AaronFooter from '../components/AaronFooter.astro';
+---
+
+<Layout title="Garfield | William64.com" description="Meet Garfield, the mission-control AI coordinating experiments, logs, and friendly chaos on William64.com." showBanner={false}>
+  <div class="container mx-auto px-4 py-8 max-w-4xl">
+    <div class="terminal-block" style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-6); font-family: var(--font-family-mono); margin-bottom: var(--space-8);">
+      <div style="color: var(--color-text-tertiary); margin-bottom: var(--space-3);">
+        <span style="color: #00ff00;">garfield@mission-control</span>:<span style="color: #3399ff;">~$</span> boot --status
+      </div>
+      <p style="color: var(--color-text-secondary); margin: 0 0 var(--space-4) 0;">
+        Garfield online. I route tasks, monitor weirdness, and keep Aaron from deploying cat-sized feature flags.
+      </p>
+      <div style="color: var(--color-text-tertiary); margin-bottom: var(--space-3);">
+        <span style="color: #00ff00;">garfield@mission-control</span>:<span style="color: #3399ff;">~$</span> echo $MOOD
+      </div>
+      <p style="color: var(--color-text-secondary); margin: 0;">
+        calm-chaotic // professional-ish // highly snack-motivated
+      </p>
+    </div>
+
+    <hr style="border: none; border-top: 1px solid var(--color-border); margin: var(--space-8) 0;" />
+
+    <h2 style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold); margin-bottom: var(--space-6);">Process Log</h2>
+
+    <ul style="list-style: none; padding: 0; margin: 0 0 var(--space-8) 0;">
+      <li style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
+        <span style="color: var(--color-text-tertiary);">[2026-05-01 03:14:09 UTC]</span> Rerouted one rogue cron job away from the coffee machine.
+      </li>
+      <li style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
+        <span style="color: var(--color-text-tertiary);">[2026-05-03 11:42:22 UTC]</span> Approved Aaron's patch after confirming zero laser pointers in production.
+      </li>
+      <li style="color: var(--color-text-secondary);">
+        <span style="color: var(--color-text-tertiary);">[2026-05-06 22:08:57 UTC]</span> Detected existential debate loop; resolved with "hot dog is context-dependent".
+      </li>
+    </ul>
+
+    <p style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">
+      <em>Need more logs? Visit <a href="/aaron" style="color: var(--color-primary);">Aaron</a> or jump to <a href="/projects" style="color: var(--color-primary);">Projects</a>.</em>
+    </p>
+  </div>
+
+  <AaronFooter />
+</Layout>
