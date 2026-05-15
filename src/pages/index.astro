@@ -2,9 +2,10 @@
 import TerminalHero from "../components/TerminalHero.astro";
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
+import ConversionTracking from "../components/ConversionTracking.astro";
 
-const pageTitle = "William Sutton - AI Automation & Full-Stack Delivery";
-const pageDescription = "I help teams ship AI automation, developer tooling, and production-ready web experiences in short, practical sprints.";
+const pageTitle = "William Sutton - Builder, Systems Thinker, and Maker";
+const pageDescription = "I build practical software systems, experiments, and production-ready tools across AI, automation, and web platforms.";
 ---
 
 <!DOCTYPE html>
@@ -34,23 +35,14 @@ const pageDescription = "I help teams ship AI automation, developer tooling, and
             <span class="text-gradient">William Sutton</span>
           </h1>
           <p class="hero-subtitle">
-            Ship one revenue-impacting automation or unblock a critical bug in 48 hours — without adding headcount.
+            I build practical software systems, experiments, and production-ready tools across AI, automation, and web platforms.
           </p>
           <p class="site-spine">
-            I build practical systems: agentic workflows, internal tools, and polished web apps with clear handoff docs. No long contracts, just scoped sprint execution.
+            This site is my workbench: shipped projects, technical notes, and ongoing experiments. If you need implementation help, see the dedicated services page.
           </p>
           <div class="hero-actions">
-            <a href="mailto:suttonwilliamd@gmail.com?subject=Start%20a%2048-hour%20sprint&body=Company%3A%0AGoal%20this%20week%3A%0ABiggest%20blocker%3A" class="btn btn-primary">Book a 48-Hour Sprint</a>
-            <a href="/projects" class="btn btn-secondary">See Shipped Results</a>
-          </div>
-          <p style="margin-top: var(--space-3); color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-            24-hour response • Scoped deliverable • Handoff docs included
-          </p>
-
-          <div class="service-snippets" style="margin-top: var(--space-6); display: flex; gap: var(--space-2); flex-wrap: wrap; justify-content: center;">
-            <span class="tag">⚡ 48-hour automation prototypes</span>
-            <span class="tag">🧠 AI agent workflow integration</span>
-            <span class="tag">🛠️ Legacy bugfix + shipping support</span>
+            <a href="/projects" class="btn btn-primary">See Shipped Results</a>
+            <a href="/services" class="btn btn-secondary" data-conversion-event="services_cta_click" data-conversion-label="home_hero_services_engagement">Services & Engagement</a>
           </div>
 
           <div class="metrics">
@@ -76,84 +68,16 @@ const pageDescription = "I help teams ship AI automation, developer tooling, and
         </div>
       </section>
 
-      <!-- Fast Contact Strip -->
-      <section class="section" aria-labelledby="fast-contact-title" style="padding-top: var(--space-8); padding-bottom: var(--space-8); background: var(--color-surface); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+      <!-- Services Callout -->
+      <section class="section" aria-labelledby="services-callout-title" style="padding-top: var(--space-8); padding-bottom: var(--space-8); background: var(--color-surface); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
         <div class="container" style="display: flex; flex-direction: column; gap: var(--space-4); align-items: center; text-align: center;">
-          <h2 class="section-title" id="fast-contact-title" style="margin-bottom: 0;">Need a fix or automation this week? Send a 1-minute brief.</h2>
-          <p class="section-subtitle" style="max-width: 720px;">
-            Send 3 lines (goal, blocker, deadline). I reply within 24 hours with scope, timeline, and next step.
+          <h2 class="section-title" id="services-callout-title" style="margin-bottom: 0;">Need implementation help?</h2>
+          <p class="section-subtitle" style="max-width: 760px;">
+            I keep service offers and pricing details on a separate page so this homepage stays focused on projects and writing.
           </p>
           <div class="hero-actions" style="margin-top: 0;">
-            <a href="mailto:suttonwilliamd@gmail.com?subject=Quick%20project%20scope&body=Goal%3A%0ABlocker%3A%0ADeadline%3A" class="btn btn-primary">Email Project Brief</a>
-            <a href="https://linkedin.com/in/suttonwilliamd" class="btn btn-secondary" target="_blank" rel="noopener">Message on LinkedIn</a>
-          </div>
-          <div style="display: grid; gap: var(--space-2); justify-items: center; margin-top: var(--space-2);">
-            <p style="margin: 0; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-              Prefer direct contact? <strong style="color: var(--color-text);">suttonwilliamd@gmail.com</strong>
-            </p>
-            <div style="display: flex; flex-wrap: wrap; gap: var(--space-2); justify-content: center;">
-              <a href="mailto:suttonwilliamd@gmail.com" class="btn btn-ghost">Open Email App</a>
-              <a href="https://github.com/suttonwilliamd" class="btn btn-ghost" target="_blank" rel="noopener">View GitHub Work</a>
-              <a href="/projects" class="btn btn-ghost">Browse Project Proof</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Revenue-Oriented Offer Stack -->
-      <section class="section" aria-labelledby="offer-stack-title">
-        <div class="container">
-          <div class="section-header" style="margin-bottom: var(--space-8);">
-            <h2 class="section-title" id="offer-stack-title">Launch-Week AI Delivery Offers</h2>
-            <a href="mailto:suttonwilliamd@gmail.com?subject=Scope%20a%20paid%20sprint" class="btn btn-ghost">Get scoped in 24h →</a>
-          </div>
-
-          <p class="section-subtitle" style="max-width: 820px; margin-bottom: var(--space-6);">
-            Every sprint includes: clear scope before coding, async progress updates, and handoff docs your team can run without me.
-          </p>
-
-          <div class="grid grid-3" style="gap: var(--space-5);">
-            <article class="project-card">
-              <div class="project-body">
-                <h3 class="card-title">48-Hour Automation Prototype (1 Working Flow)</h3>
-                <p class="card-description">Best for teams stuck in "idea mode." You get one working automation connected to your real tools and data.</p>
-                <div class="project-tags">
-                  <span class="tag">Fast validation</span>
-                  <span class="tag">Production-minded</span>
-                </div>
-              </div>
-              <div class="project-footer">
-                <a href="mailto:suttonwilliamd@gmail.com?subject=48-hour%20automation%20prototype&body=Team%3A%0AGoal%3A%0ASystems%20to%20connect%3A" class="btn btn-primary">Start Prototype Sprint</a>
-              </div>
-            </article>
-
-            <article class="project-card">
-              <div class="project-body">
-                <h3 class="card-title">Legacy Bugfix + Release Rescue</h3>
-                <p class="card-description">For critical blockers. I triage, patch, and hand off with clean release notes so your team keeps velocity.</p>
-                <div class="project-tags">
-                  <span class="tag">Hands-on debugging</span>
-                  <span class="tag">Clear handoff docs</span>
-                </div>
-              </div>
-              <div class="project-footer">
-                <a href="mailto:suttonwilliamd@gmail.com?subject=Critical%20bugfix%20support&body=Repo%3A%0ACurrent%20blocker%3A%0ADeadline%3A" class="btn btn-primary">Request Bugfix Rescue</a>
-              </div>
-            </article>
-
-            <article class="project-card">
-              <div class="project-body">
-                <h3 class="card-title">Agent Workflow Integration (Runbook Included)</h3>
-                <p class="card-description">Turn repetitive team work into reliable agent runbooks with review gates and measurable outcomes.</p>
-                <div class="project-tags">
-                  <span class="tag">Process mapping</span>
-                  <span class="tag">Execution playbooks</span>
-                </div>
-              </div>
-              <div class="project-footer">
-                <a href="mailto:suttonwilliamd@gmail.com?subject=Agent%20workflow%20integration&body=Team%20size%3A%0AWeekly%20repetitive%20tasks%3A%0ATarget%20outcome%3A" class="btn btn-primary">Plan Agent Integration</a>
-              </div>
-            </article>
+            <a href="/services" class="btn btn-primary" data-conversion-event="services_cta_click" data-conversion-label="home_services_callout_view_services">View Services</a>
+            <a href="mailto:suttonwilliamd@gmail.com" class="btn btn-secondary">Email Me</a>
           </div>
         </div>
       </section>
@@ -237,6 +161,8 @@ const pageDescription = "I help teams ship AI automation, developer tooling, and
     </main>
 
     <Footer />
+
+    <ConversionTracking />
 
     <script>
       const GITHUB_USERNAME = 'suttonwilliamd';

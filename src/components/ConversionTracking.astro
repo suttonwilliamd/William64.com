@@ -1,0 +1,37 @@
+<script>
+  const emitConversionEvent = (eventName, detail = {}) => {
+    if (!eventName) return;
+
+    const payload = {
+      event: eventName,
+      page_path: window.location.pathname,
+      ...detail,
+    };
+
+    window.dispatchEvent(new CustomEvent('conversion_event', { detail: payload }));
+
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', eventName, payload);
+    }
+  };
+
+  document.querySelectorAll('[data-conversion-event]').forEach((element) => {
+    const eventName = element.getAttribute('data-conversion-event');
+    const eventLabel = element.getAttribute('data-conversion-label');
+
+    if (element instanceof HTMLFormElement) {
+      element.addEventListener('submit', () => {
+        emitConversionEvent(eventName, {
+          event_label: eventLabel || 'form_submit',
+        });
+      });
+      return;
+    }
+
+    element.addEventListener('click', () => {
+      emitConversionEvent(eventName, {
+        event_label: eventLabel || 'cta_click',
+      });
+    });
+  });
+</script>
