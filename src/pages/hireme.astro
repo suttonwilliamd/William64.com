@@ -1,4 +1,20 @@
 ---
-// Simple alias page so /hireme exists and points visitors to the services funnel.
-Astro.redirect('/services', 301);
+const target = '/services/';
 ---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="refresh" content={`0;url=${target}`} />
+    <link rel="canonical" href={target} />
+    <title>Redirecting to Services…</title>
+    <script>
+      window.location.replace('/services/');
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to <a href="/services/">/services/</a>…</p>
+  </body>
+</html>
