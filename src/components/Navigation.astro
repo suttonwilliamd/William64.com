@@ -1,13 +1,13 @@
 ---
 const navItems = [
-  { name: 'Home', path: '/', icon: '🏠' },
-  { name: 'Projects', path: '/projects', icon: '⚡' },
-  { name: 'Services', path: '/services', icon: '💼' },
-  { name: 'Hire Me', path: '/hireme', icon: '🚀' },
-  { name: 'Blog', path: 'https://william64.com/blog/', icon: '📝', external: true },
-  { name: 'About', path: '/about', icon: '👤' },
-  { name: 'Aaron', path: '/aaron', icon: '🫠' },
-  { name: 'Garfield', path: '/garfield', icon: '😼' }
+  { name: 'Home', path: '/' },
+  { name: 'Projects', path: '/projects' },
+  { name: 'Services', path: '/services' },
+  { name: 'Hire Me', path: '/hireme' },
+  { name: 'Blog', path: 'https://william64.com/blog/', external: true },
+  { name: 'About', path: '/about' },
+  { name: 'Aaron', path: '/aaron' },
+  { name: 'Garfield', path: '/garfield' }
 ];
 
 const currentPath = Astro.url.pathname;
@@ -26,7 +26,6 @@ const currentPath = Astro.url.pathname;
         rel={item.external ? 'noopener noreferrer' : undefined}
         class={`nav-link ${!item.external && (currentPath === item.path || (item.path !== '/' && currentPath.startsWith(item.path))) ? 'active' : ''}`}
       >
-        <span class="nav-icon">{item.icon}</span>
         <span class="nav-text">{item.name}</span>
       </a>
     ))}
@@ -70,7 +69,7 @@ const currentPath = Astro.url.pathname;
   }
 
   .logo-gradient {
-    background: linear-gradient(135deg, #00d4aa 0%, #7c3aed 50%, #db2777 100%);
+    background: linear-gradient(135deg, #175beb 0%, #ef00a2 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -105,11 +104,6 @@ const currentPath = Astro.url.pathname;
     white-space: nowrap;
   }
 
-  .nav-icon {
-    font-size: var(--font-size-base);
-    line-height: 1;
-  }
-
   .nav-text {
     font-weight: var(--font-weight-medium);
   }
@@ -121,7 +115,7 @@ const currentPath = Astro.url.pathname;
 
   .nav-link.active {
     color: var(--color-primary);
-    background: rgba(0, 229, 160, 0.1);
+    background: rgba(23, 91, 235, 0.1);
   }
 
   .hamburger {
