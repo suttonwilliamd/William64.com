@@ -24,7 +24,7 @@ jobs:
 
       - name: Trigger Server Deploy
         run: |
-          curl -X POST https://${{ secrets.DEPLOY_HOST }}/api/deploy \
+          curl --fail -X POST https://${{ secrets.DEPLOY_HOST }}/api/deploy \
             -H "Authorization: Bearer ${{ secrets.DEPLOY_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d '{"ref": "${{ github.ref_name }}", "sha": "${{ github.sha }}", "repo": "${{ github.repository }}"}'

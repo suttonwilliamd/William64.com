@@ -3,31 +3,32 @@
  * Clean, modern dark theme with cyberpunk accents
  */
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap");
 
 :root {
-  /* Colors */
-  --color-background: #0a0a1a;
-  --color-surface: #12122a;
-  --color-surface-hover: #1a1a35;
-  --color-surface-light: #252545;
-  --color-primary: #00e5a0;
-  --color-primary-hover: #00ffbb;
-  --color-secondary: #ff6b9d;
-  --color-secondary-hover: #ff8fab;
-  --color-accent: #7b68ee;
-  --color-text: #e0e0ff;
-  --color-text-secondary: #a0a0c0;
-  --color-text-tertiary: #666680;
-  --color-border: #2a2a4a;
-  --color-border-hover: #3a3a6a;
-  --color-success: #00ff88;
-  --color-warning: #ffcc00;
-  --color-error: #ff4466;
+  /* Colors (Ghost-inspired editorial light theme) */
+  --color-background: #f9fafb;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f3f4f6;
+  --color-surface-light: #eef2f7;
+  --color-primary: #15171a;
+  --color-primary-hover: #000000;
+  --color-secondary: #4b5563;
+  --color-secondary-hover: #374151;
+  --color-accent: #ef4444;
+  --color-text: #111827;
+  --color-text-secondary: #4b5563;
+  --color-text-tertiary: #6b7280;
+  --color-border: #e5e7eb;
+  --color-border-hover: #d1d5db;
+  --color-success: #059669;
+  --color-warning: #d97706;
+  --color-error: #dc2626;
 
   /* Typography */
   --font-family-base:
     "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-display: "Instrument Serif", Georgia, "Times New Roman", serif;
   --font-family-mono: "JetBrains Mono", "Fira Code", "Courier New", monospace;
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
@@ -117,8 +118,10 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-tight);
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-normal);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
   color: var(--color-text);
 }
 
@@ -191,7 +194,7 @@ pre code {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(10, 10, 26, 0.95);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--color-border);
   height: var(--header-height);

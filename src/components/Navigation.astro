@@ -3,7 +3,8 @@ const navItems = [
   { name: 'Home', path: '/', icon: '🏠' },
   { name: 'Projects', path: '/projects', icon: '⚡' },
   { name: 'Services', path: '/services', icon: '💼' },
-  { name: 'Blog', path: '/blog', icon: '📝' },
+  { name: 'Hire Me', path: '/hireme', icon: '🚀' },
+  { name: 'Blog', path: 'https://william64.com/blog/', icon: '📝', external: true },
   { name: 'About', path: '/about', icon: '👤' },
   { name: 'Aaron', path: '/aaron', icon: '🫠' },
   { name: 'Garfield', path: '/garfield', icon: '😼' }
@@ -21,7 +22,9 @@ const currentPath = Astro.url.pathname;
     {navItems.map(item => (
       <a
         href={item.path}
-        class={`nav-link ${currentPath === item.path || (item.path !== '/' && currentPath.startsWith(item.path)) ? 'active' : ''}`}
+        target={item.external ? '_blank' : undefined}
+        rel={item.external ? 'noopener noreferrer' : undefined}
+        class={`nav-link ${!item.external && (currentPath === item.path || (item.path !== '/' && currentPath.startsWith(item.path))) ? 'active' : ''}`}
       >
         <span class="nav-icon">{item.icon}</span>
         <span class="nav-text">{item.name}</span>
