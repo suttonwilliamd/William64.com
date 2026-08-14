@@ -36,10 +36,10 @@ jobs:
         run: |
           set -euo pipefail
           payload=$(printf '{"ref":"%s","sha":"%s","repo":"%s"}' "$DEPLOY_REF" "$DEPLOY_SHA" "$DEPLOY_REPO")
-          # Prefer the origin directly; HTTPS may be Cloudflare-proxied and challenge CI.
-          for scheme in http https; do
-            echo "Trying deploy endpoint over $scheme"
-            if curl --fail-with-body --max-time 30 -X POST "${scheme}://${DEPLOY_HOST}/api/deploy" \
+          # The deploy service listens on its origin port; 80/443 may be Cloudflare-proxied.
+          for base in "http://${DEPLOY_HOST}:4321" "http://${DEPLOY_HOST}" "https://${DEPLOY_HOST}"; do
+            echo "Trying deploy endpoint at $base"
+            if curl --fail-with-body --max-time 30 --max-redirs 0 -X POST "$base/api/deploy" \
               -H "Authorization: Bearer ${DEPLOY_TOKEN}" \
               -H "Content-Type: application/json" \
               --data "$payload"; then
