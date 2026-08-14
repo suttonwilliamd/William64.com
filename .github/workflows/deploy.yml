@@ -1,4 +1,4 @@
-name: Deploy Astro Site to FTP
+name: Deploy to Server
 
 on:
   push:
@@ -7,11 +7,13 @@ on:
     branches: [main]
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -24,11 +26,24 @@ jobs:
       - name: Build site
         run: npm run build
 
-      - name: Upload via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: ${{ secrets.FTP_TARGET_DIR }}
-          local-dir: ./dist/
+      - name: Trigger Server Deploy
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+          DEPLOY_SHA: ${{ github.sha }}
+          DEPLOY_REF: ${{ github.ref_name }}
+          DEPLOY_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          payload=$(printf '{"ref":"%s","sha":"%s","repo":"%s"}' "$DEPLOY_REF" "$DEPLOY_SHA" "$DEPLOY_REPO")
+          # Prefer the origin directly; HTTPS may be Cloudflare-proxied and challenge CI.
+          for scheme in http https; do
+            echo "Trying deploy endpoint over $scheme"
+            if curl --fail-with-body --max-time 30 -X POST "${scheme}://${DEPLOY_HOST}/api/deploy" \
+              -H "Authorization: Bearer ${DEPLOY_TOKEN}" \
+              -H "Content-Type: application/json" \
+              --data "$payload"; then
+              exit 0
+            fi
+          done
+          exit 1
