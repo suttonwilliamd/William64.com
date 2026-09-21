@@ -3,8 +3,8 @@ import TerminalHero from "../components/TerminalHero.astro";
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
 
-const pageTitle = "William Sutton - Hobbyist Developer";
-const pageDescription = "Hobbyist developer passionate about coding, clean code, and continuous learning.";
+const pageTitle = "William64.com - Curiosity, Projects, and Rabbit Holes";
+const pageDescription = "A growing collection of interesting people, projects, resources, and ideas curated by William Sutton.";
 ---
 
 <!DOCTYPE html>
@@ -34,13 +34,13 @@ const pageDescription = "Hobbyist developer passionate about coding, clean code,
             <span class="text-gradient">William Sutton</span>
           </h1>
           <p class="hero-subtitle">
-            Hobbyist developer passionate about clean code and continuous learning.
+            I collect and recommend creators, tools, ideas, and rabbit holes for curious nerds of every kind.
           </p>
           <p class="site-spine">
-            On this site: my projects, writing, and experiments with my AI assistant, Aaron.
+            A growing directory of people, projects, resources, and experiments worth your attention.
           </p>
           <div class="hero-actions">
-            <a href="/projects" class="btn btn-primary">View Projects</a>
+            <a href="#explore" class="btn btn-primary">Start Exploring</a>
             <a href="/about" class="btn btn-secondary">Learn More</a>
           </div>
 
@@ -67,11 +67,54 @@ const pageDescription = "Hobbyist developer passionate about coding, clean code,
         </div>
       </section>
 
+      <!-- Discovery paths -->
+      <section class="section" id="explore">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Explore the collection</h2>
+              <p class="section-intro">Start with something familiar, then follow the interesting thread wherever it leads.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-2 discovery-grid">
+            <a class="card discovery-card" href="/projects">
+              <span class="discovery-kicker">Builds</span>
+              <h3 class="card-title">Things I’ve built</h3>
+              <p class="text-muted">Software projects, experiments, and practical rabbit holes from GitHub.</p>
+            </a>
+            <a class="card discovery-card" href="/sirq">
+              <span class="discovery-kicker">New build</span>
+              <h3 class="card-title">SIRQ: meaning for software</h3>
+              <p class="text-muted">A semantic event layer for Docker, CI, webhooks, and AI agents—with deterministic software keeping authority.</p>
+            </a>
+            <a class="card discovery-card" href="/blog">
+              <span class="discovery-kicker">Notes</span>
+              <h3 class="card-title">Ideas worth unpacking</h3>
+              <p class="text-muted">Writing, technical explorations, and observations still in motion.</p>
+            </a>
+            <a class="card discovery-card" href="/aaron">
+              <span class="discovery-kicker">Experiment</span>
+              <h3 class="card-title">Meet Aaron</h3>
+              <p class="text-muted">A corner of the site where William’s AI assistant shares process logs and oddities.</p>
+            </a>
+            <a class="card discovery-card" href="/about">
+              <span class="discovery-kicker">Context</span>
+              <h3 class="card-title">About the curator</h3>
+              <p class="text-muted">Why this collection exists, and the broad curiosity behind it.</p>
+            </a>
+          </div>
+        </div>
+      </section>
+
       <!-- Featured Projects from GitHub -->
       <section class="section" style="background: var(--color-surface);">
         <div class="container">
           <div class="section-header">
-            <h2 class="section-title">Featured Projects</h2>
+            <div>
+              <h2 class="section-title">Featured builds</h2>
+              <p class="section-intro">The collection will keep expanding as new projects and recommendations earn a place here.</p>
+            </div>
             <a href="https://github.com/suttonwilliamd?tab=repositories" class="btn btn-ghost" target="_blank" rel="noopener">View All →</a>
           </div>
 
@@ -135,6 +178,10 @@ const pageDescription = "Hobbyist developer passionate about coding, clean code,
           document.getElementById('github-stars').textContent = 'N/A';
           document.getElementById('total-stars').textContent = 'N/A';
           document.getElementById('total-repos').textContent = 'N/A';
+          const projectsContainer = document.getElementById('featured-projects');
+          if (projectsContainer) {
+            projectsContainer.innerHTML = '<p class="text-muted">The live project feed is taking a break. <a href="https://github.com/suttonwilliamd" target="_blank" rel="noopener">Browse the collection on GitHub</a>, then come back and explore the rest of the site.</p>';
+          }
         }
       }
 

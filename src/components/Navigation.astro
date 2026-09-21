@@ -1,7 +1,8 @@
 ---
 const navItems = [
   { name: 'Home', path: '/', icon: '🏠' },
-  { name: 'Projects', path: '/projects', icon: '⚡' },
+  { name: 'Builds', path: '/projects', icon: '⚡' },
+  { name: 'SIRQ', path: '/sirq', icon: '◈' },
   { name: 'Blog', path: '/blog', icon: '📝' },
   { name: 'About', path: '/about', icon: '👤' },
   { name: 'Aaron', path: '/aaron', icon: '🫠' }
@@ -21,17 +22,17 @@ const currentPath = Astro.url.pathname;
         href={item.path}
         class={`nav-link ${currentPath === item.path || (item.path !== '/' && currentPath.startsWith(item.path)) ? 'active' : ''}`}
       >
-        <span class="nav-icon">{item.icon}</span>
+        <span class="nav-icon" aria-hidden="true">{item.icon}</span>
         <span class="nav-text">{item.name}</span>
       </a>
     ))}
     <a href="mailto:suttonwilliamd@gmail.com" class="nav-link nav-cta">
-      <span>📧</span>
+      <span aria-hidden="true">📧</span>
       <span class="nav-text">Get in Touch</span>
     </a>
   </div>
   
-  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+  <button class="hamburger" id="hamburger" type="button" aria-label="Toggle menu" aria-controls="nav-links" aria-expanded="false">
     <span></span>
     <span></span>
     <span></span>
@@ -42,9 +43,21 @@ const currentPath = Astro.url.pathname;
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('nav-links');
   
+  const setMenuState = (open) => {
+    navLinks?.classList.toggle('open', open);
+    hamburger?.classList.toggle('open', open);
+    hamburger?.setAttribute('aria-expanded', String(open));
+  };
+
   hamburger?.addEventListener('click', () => {
-    navLinks?.classList.toggle('open');
-    hamburger?.classList.toggle('open');
+    setMenuState(!navLinks?.classList.contains('open'));
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && navLinks?.classList.contains('open')) {
+      setMenuState(false);
+      hamburger?.focus();
+    }
   });
 </script>
 
@@ -55,6 +68,7 @@ const currentPath = Astro.url.pathname;
     justify-content: space-between;
     gap: var(--space-4);
     width: 100%;
+    position: relative;
   }
 
   .logo-link {

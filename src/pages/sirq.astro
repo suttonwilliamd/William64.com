@@ -1,0 +1,146 @@
+---
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = 'SIRQ | William64.com';
+const pageDescription = 'SIRQ is a semantic event layer that turns noisy software state into explainable signals while deterministic policy keeps authority.';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header">
+      <div class="header-inner">
+        <Navigation />
+      </div>
+    </header>
+
+    <main id="main-content" class="sirq-page">
+      <section class="sirq-hero">
+        <div class="container">
+          <div class="sirq-eyebrow">A William64 build · open source on GitHub</div>
+          <h1 class="hero-title"><span class="text-gradient">SIRQ</span></h1>
+          <p class="sirq-pitch">An interrupt controller for meaning.</p>
+          <p class="hero-subtitle">
+            SIRQ turns logs, metrics, webhooks, and agent state into structured signals about what might matter—without giving an AI permission to run your computer.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://github.com/suttonwilliamd/SIRQ" target="_blank" rel="noopener">View SIRQ on GitHub →</a>
+            <a class="btn btn-secondary" href="#how-it-works">See how it works</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="how-it-works">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Put it in the stack you already use</h2>
+              <p class="section-intro">SIRQ is not another dashboard and it is not an autonomous agent. It is the semantic layer between your existing events and the decisions you already trust.</p>
+            </div>
+          </div>
+          <div class="grid grid-4 sirq-stack-grid">
+            <article class="card sirq-stack-card"><span class="sirq-kicker">Docker</span><h3 class="card-title">Container health</h3><p class="text-muted">Separate a retryable service wobble from a real outage.</p></article>
+            <article class="card sirq-stack-card"><span class="sirq-kicker">CI/CD</span><h3 class="card-title">Build events</h3><p class="text-muted">Know when a noisy job is expected instead of paging on thresholds.</p></article>
+            <article class="card sirq-stack-card"><span class="sirq-kicker">Webhooks</span><h3 class="card-title">Alert context</h3><p class="text-muted">Treat a successful request as suspicious when the surrounding state says it is.</p></article>
+            <article class="card sirq-stack-card"><span class="sirq-kicker">AI agents</span><h3 class="card-title">Blocked workers</h3><p class="text-muted">Wake a human or orchestrator when an agent hits a permission wall.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section sirq-surface-section">
+        <div class="container">
+          <div class="sirq-flow">
+            <div><span class="sirq-kicker">01 · observe</span><strong>Raw state</strong><small>logs · metrics · events · agent status</small></div>
+            <span class="sirq-arrow">→</span>
+            <div><span class="sirq-kicker">02 · interpret</span><strong>Semantic sensor</strong><small>what appears to be happening?</small></div>
+            <span class="sirq-arrow">→</span>
+            <div><span class="sirq-kicker">03 · decide</span><strong>Deterministic policy</strong><small>record · dashboard · notify</small></div>
+          </div>
+          <div class="sirq-boundary">
+            <span class="sirq-kicker">The boundary</span>
+            <p><strong>AI provides perception.</strong> Deterministic software retains authority.</p>
+            <div class="sirq-denied"><span>✕ shell access</span><span>✕ arbitrary tools</span><span>✕ vague permissions</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">See the idea in motion</h2>
+              <p class="section-intro">These are deliberately concrete scenarios: the same semantic layer plugged into four different developer workflows.</p>
+            </div>
+          </div>
+          <div class="sirq-gif-frame">
+            <img src="/assets/sirq-showcase.gif" alt="Animated SIRQ showcase showing Docker, CI/CD, webhook, and AI-agent scenarios" loading="lazy" />
+          </div>
+        </div>
+      </section>
+
+      <section class="section sirq-surface-section">
+        <div class="container">
+          <div class="grid grid-2">
+            <article class="card">
+              <span class="sirq-kicker">Try it locally</span>
+              <h2 class="card-title">Replay before authority</h2>
+              <p class="text-muted">Run the mock evaluator against historical or synthetic events before allowing any reflexive handler.</p>
+              <pre><code>git clone https://github.com/suttonwilliamd/SIRQ
+cd SIRQ
+python -m sirq.cli showcase --output sirq-showcase.html</code></pre>
+            </article>
+            <article class="card">
+              <span class="sirq-kicker">Current MVP</span>
+              <h2 class="card-title">Small, inspectable, safe</h2>
+              <ul class="sirq-list">
+                <li>Deterministic mock Jev evaluator</li>
+                <li>Policy routing with masking and hysteresis</li>
+                <li>JSONL recording and replay</li>
+                <li>HTTP and stdin adapters</li>
+                <li>No shell access and no arbitrary automation</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .sirq-page { overflow: hidden; }
+  .sirq-hero { padding: var(--space-20) 0 var(--space-16); text-align: center; background: radial-gradient(circle at 50% 0%, rgba(0, 229, 160, .12), transparent 48%); }
+  .sirq-eyebrow, .sirq-kicker { color: var(--color-primary); font-family: var(--font-family-mono); font-size: var(--font-size-xs); font-weight: var(--font-weight-semibold); letter-spacing: .08em; text-transform: uppercase; }
+  .sirq-pitch { color: var(--color-text); font-size: clamp(1.35rem, 3vw, 2rem); font-weight: var(--font-weight-semibold); margin: calc(var(--space-2) * -1) auto var(--space-5); }
+  .sirq-stack-grid { margin-top: var(--space-6); }
+  .sirq-stack-card { min-height: 180px; }
+  .sirq-stack-card .card-title { margin-top: var(--space-3); }
+  .sirq-surface-section { background: var(--color-surface); }
+  .sirq-flow { align-items: stretch; display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: var(--space-4); }
+  .sirq-flow > div { background: var(--color-background); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-5); }
+  .sirq-flow strong, .sirq-flow small { display: block; }
+  .sirq-flow strong { font-size: var(--font-size-lg); margin: var(--space-3) 0 var(--space-2); }
+  .sirq-flow small { color: var(--color-text-secondary); }
+  .sirq-arrow { align-self: center; color: var(--color-secondary); font-size: var(--font-size-2xl); }
+  .sirq-boundary { border: 1px solid var(--color-primary); border-radius: var(--radius-lg); box-shadow: var(--shadow-glow); margin-top: var(--space-8); padding: var(--space-6); }
+  .sirq-boundary p { font-size: var(--font-size-lg); margin: var(--space-3) 0 var(--space-4); }
+  .sirq-denied { display: flex; flex-wrap: wrap; gap: var(--space-4); color: var(--color-error); font-family: var(--font-family-mono); font-size: var(--font-size-sm); }
+  .sirq-gif-frame { background: #070f1d; border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-xl); overflow: hidden; }
+  .sirq-gif-frame img { display: block; height: auto; width: 100%; }
+  .sirq-list { color: var(--color-text-secondary); display: grid; gap: var(--space-3); list-style: none; margin: 0; padding: 0; }
+  .sirq-list li::before { color: var(--color-primary); content: '✓'; font-weight: var(--font-weight-bold); margin-right: var(--space-3); }
+  @media (max-width: 900px) { .sirq-flow { grid-template-columns: 1fr; } .sirq-arrow { transform: rotate(90deg); justify-self: center; } }
+</style>
