@@ -93,6 +93,9 @@ For an authorized manual release:
    it into a new, uniquely named directory under
    `/srv/www/william64.com/releases/`, without touching existing releases.
 4. Check the uploaded checksum, expected routes and readable file permissions.
+   Windows-built archives can retain mode `666`/`777`: remove group/other write
+   bits only within the new release (`chmod -R go-w <new-release>`), then verify
+   ordinary files are `644` and directories `755` before publication.
    Create a temporary symlink **beside** `dist` pointing to the new release, then
    use `mv -Tf` to atomically rename that symlink over `dist`. Nginx needs no
    restart or configuration change.
