@@ -48,16 +48,22 @@ import { projects, projectCategories } from "../data/projects";
         }
       </div>
       <div class="project-search">
-        <label for="project-search" class="sr-only">Search projects</label
-        ><input
+        <label for="project-search">Search projects</label><input
           id="project-search"
           type="search"
           placeholder="Search projects…"
           aria-controls="project-list"
+          aria-describedby="project-filter-help"
         />
       </div>
     </div>
-    <p id="project-count" class="result-count" role="status" hidden></p>
+    <div class="project-results" hidden>
+      <p id="project-count" class="result-count" role="status"></p>
+      <button type="button" id="reset-projects" class="btn" hidden>Clear filters →</button>
+    </div>
+    <p id="project-filter-help" class="filter-help" hidden>
+      Bookmark or share the address to return to this selection.
+    </p>
     <div class="project-list" id="project-list">
       {
         projects.map((project, index) => (
@@ -67,9 +73,8 @@ import { projects, projectCategories } from "../data/projects";
     </div>
     <div class="empty-state" id="empty-state" hidden>
       <h3>No matching projects.</h3><p>
-        Try a different keyword or explore another category.
-      </p><button type="button" id="reset-projects" class="btn"
-        >Clear filters →</button>
+        Try a different keyword, explore another category, or clear the filters above.
+      </p>
     </div>
     <p class="collection-note">
       A curated selection, not every repository. Project READMEs have the latest
@@ -98,6 +103,8 @@ import { projects, projectCategories } from "../data/projects";
   const cards = document.querySelectorAll<HTMLElement>("[data-project]");
   const count = document.querySelector<HTMLElement>("#project-count")!;
   const empty = document.querySelector<HTMLElement>("#empty-state")!;
+  const results = document.querySelector<HTMLElement>(".project-results")!;
+  const reset = document.querySelector<HTMLButtonElement>("#reset-projects")!;
   let category = "All projects";
   function filterProjects() {
     const query = search.value.trim().toLowerCase();
@@ -117,21 +124,49 @@ import { projects, projectCategories } from "../data/projects";
     );
     count.textContent = `${visible} of ${cards.length} projects`;
     empty.hidden = visible !== 0;
+    reset.hidden = category === "All projects" && search.value.length === 0;
+  }
+  function restoreFilters() {
+    const params = new URLSearchParams(window.location.search);
+    const requestedCategory = params.get("category");
+    category = [...buttons].some((button) => button.dataset.category === requestedCategory)
+      ? requestedCategory!
+      : "All projects";
+    search.value = params.get("q") ?? "";
+    filterProjects();
+  }
+  function saveFilters(replace = false) {
+    const url = new URL(window.location.href);
+    if (category === "All projects") url.searchParams.delete("category");
+    else url.searchParams.set("category", category);
+    if (search.value.trim()) url.searchParams.set("q", search.value);
+    else url.searchParams.delete("q");
+    if (url.href !== window.location.href) {
+      if (replace) window.history.replaceState(null, "", url);
+      else window.history.pushState(null, "", url);
+    }
   }
   buttons.forEach((button) =>
     button.addEventListener("click", () => {
       category = button.dataset.category!;
       filterProjects();
+      saveFilters();
     }),
   );
-  search.addEventListener("input", filterProjects);
-  document.querySelector("#reset-projects")!.addEventListener("click", () => {
+  search.addEventListener("input", () => {
+    filterProjects();
+    saveFilters(true);
+  });
+  reset.addEventListener("click", () => {
     category = "All projects";
     search.value = "";
     filterProjects();
+    saveFilters();
     search.focus();
   });
+  window.addEventListener("popstate", restoreFilters);
+  restoreFilters();
   controls.hidden = false;
-  count.hidden = false;
-  filterProjects();
+  results.hidden = false;
+  document.querySelector<HTMLElement>("#project-filter-help")!.hidden = false;
 </script>

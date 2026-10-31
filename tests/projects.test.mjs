@@ -10,10 +10,10 @@ const { output, cleanup } = buildSite();
 after(cleanup);
 const html = readFileSync(join(output, "projects/index.html"), "utf8");
 
-function openPage({ javascript = true } = {}) {
+function openPage({ javascript = true, query = "" } = {}) {
   const dom = new JSDOM(html, {
     runScripts: "outside-only",
-    url: "https://william64.com/projects/",
+    url: `https://william64.com/projects/${query}`,
   });
   // No external APIs may be needed to display or filter the projects.
   dom.window.fetch = () => {
@@ -65,7 +65,7 @@ test("project content and working links are present without JavaScript", () => {
     "Pebble",
   ]);
   assert.equal(document.querySelector(".project-controls").hidden, true);
-  assert.equal(document.querySelector("#project-count").hidden, true);
+  assert.equal(document.querySelector(".project-results").hidden, true);
   assert.match(
     document.querySelector('[data-search*="lewtnanny"] .project-description')
       .textContent,
@@ -147,4 +147,59 @@ test("no-match state is recoverable and reset restores every project and search 
     "8 of 8 projects",
   );
   dom.window.close();
+});
+
+test("shared URLs restore category and search without a network request", () => {
+  const dom = openPage({ query: "?category=Games+%26+tracking&q=loot" });
+  const document = dom.window.document;
+  assert.deepEqual(visibleNames(document), ["PED Hunter", "LewtNanny"]);
+  assert.equal(document.querySelector("#project-search").value, "loot");
+  assert.equal(document.querySelector('[aria-pressed="true"]').dataset.category, "Games & tracking");
+  assert.equal(document.querySelector("#reset-projects").hidden, false);
+  dom.window.close();
+});
+
+test("changing filters updates a bookmarkable URL and reset removes only filter parameters", () => {
+  const dom = openPage({ query: "?ref=home#collection-heading" });
+  choose(dom, "Creative tools");
+  search(dom, "canvas");
+  const url = new URL(dom.window.location.href);
+  assert.equal(url.searchParams.get("category"), "Creative tools");
+  assert.equal(url.searchParams.get("q"), "canvas");
+  assert.equal(url.hash, "#collection-heading");
+  const restored = openPage({ query: url.search + url.hash });
+  assert.deepEqual(visibleNames(restored.window.document), ["GlyphForge"]);
+  dom.window.document.querySelector("#reset-projects").click();
+  assert.equal(dom.window.location.search, "?ref=home");
+  assert.equal(dom.window.document.querySelector("#reset-projects").hidden, true);
+  dom.window.close();
+  restored.window.close();
+});
+
+test("Back and Forward restore the visible selection and search field", async () => {
+  const dom = openPage();
+  choose(dom, "Games & tracking");
+  choose(dom, "Creative tools");
+  search(dom, "canvas");
+  const navigate = (direction) => new Promise((resolve) => {
+    dom.window.addEventListener("popstate", resolve, { once: true });
+    dom.window.history[direction]();
+  });
+  await navigate("back");
+  assert.deepEqual(visibleNames(dom.window.document), ["PED Hunter", "LewtNanny"]);
+  assert.equal(dom.window.document.querySelector("#project-search").value, "");
+  await navigate("forward");
+  assert.deepEqual(visibleNames(dom.window.document), ["GlyphForge"]);
+  assert.equal(dom.window.document.querySelector("#project-search").value, "canvas");
+  dom.window.close();
+});
+
+test("unknown categories remain usable and no-JS links still expose the whole collection", () => {
+  const dom = openPage({ query: "?category=unknown&q=canvas" });
+  assert.deepEqual(visibleNames(dom.window.document), ["GlyphForge"]);
+  assert.equal(dom.window.document.querySelector('[aria-pressed="true"]').dataset.category, "All projects");
+  const noJS = openPage({ javascript: false, query: "?category=Games+%26+tracking" });
+  assert.equal(visibleNames(noJS.window.document).length, 8);
+  dom.window.close();
+  noJS.window.close();
 });

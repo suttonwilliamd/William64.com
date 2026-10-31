@@ -696,7 +696,7 @@ summary::marker {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
+  align-items: end;
   gap: var(--space-4);
   margin-bottom: var(--space-4);
 }
@@ -731,6 +731,27 @@ summary::marker {
   font: 0.72rem var(--mono);
   color: var(--subtle);
   margin: var(--space-6) 0;
+}
+.project-results {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: var(--space-4) 0 var(--space-2);
+}
+.project-results .result-count {
+  margin: 0;
+}
+.project-results .btn {
+  min-height: 44px;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+}
+.filter-help {
+  font-size: 0.78rem;
+  color: var(--subtle);
+  margin-bottom: var(--space-6);
 }
 .empty-state {
   border: 1px dashed var(--line);

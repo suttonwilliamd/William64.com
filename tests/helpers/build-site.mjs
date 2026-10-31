@@ -18,15 +18,15 @@ export function buildSite({ posts = {} } = {}) {
   try {
     for (const name of ["src", "public", "astro.config.mjs", "package.json"])
       cpSync(join(repo, name), join(root, name), { recursive: true });
-    symlinkSync(join(repo, "node_modules"), join(root, "node_modules"), "dir");
+    symlinkSync(join(repo, "node_modules"), join(root, "node_modules"), process.platform === "win32" ? "junction" : "dir");
     for (const [name, content] of Object.entries(posts)) {
       const path = join(root, "src/content/posts", name);
       mkdirSync(dirname(path), { recursive: true });
       writeFileSync(path, content);
     }
     execFileSync(
-      join(repo, "node_modules/.bin/astro"),
-      ["build", "--root", root],
+      process.execPath,
+      [join(repo, "node_modules/astro/astro.js"), "build", "--root", root],
       { cwd: root, stdio: "pipe" },
     );
     return {

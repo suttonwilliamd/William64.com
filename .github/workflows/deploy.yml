@@ -1,4 +1,4 @@
-name: Deploy Astro Site to FTP
+name: Build website release artifact
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -19,16 +19,17 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build site
         run: npm run build
 
-      - name: Upload via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      # Production is an atomic, manually verified release on Garfield.
+      # See docs/design-system.md; the old FTP target is not the live source.
+      - name: Save complete site for verified manual deployment
+        uses: actions/upload-artifact@v4
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: ${{ secrets.FTP_TARGET_DIR }}
-          local-dir: ./dist/
+          name: william64-site-${{ github.sha }}
+          path: dist/
+          if-no-files-found: error
+          retention-days: 14

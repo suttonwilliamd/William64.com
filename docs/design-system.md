@@ -58,4 +58,75 @@ Archived experiments under `archive/` and historical plans are not application e
 
 ## Publishing
 
-Do not build from the obsolete `/root/staging/William64.com` checkout or overwrite only selected pages for a site-wide release. Publish a complete, validated output from this source together, keeping a verified backup and rollback path. The existing GitHub FTP deployment is known to be failing; changing its credentials or infrastructure is a separate task. A source change is not published merely because it builds. On the TLS-terminated Nginx origin, keep `absolute_redirect off;` in the site server block so slashless URLs such as `/aaron` redirect relatively without downgrading visitors to HTTP.
+Do not build from the obsolete `/root/staging/William64.com` checkout or overwrite only selected pages for a site-wide release. Publish a complete, validated output from this source together, keeping a verified backup and rollback path. A source change is not published merely because it builds. On the TLS-terminated Nginx origin, keep `absolute_redirect off;` in the site server block so slashless URLs such as `/aaron` redirect relatively without downgrading visitors to HTTP.
+
+### Source recovery and release contract (2026-10-31)
+
+The published October redesign had never been committed to GitHub. The clean
+Windows `main` checkout and `origin/main` were both at `d360544`, while production
+was built from the uncommitted `cohesive-site` worktree at
+`/root/work/william64-cohesive` on Garfield (also visible through its NVMe bind mount
+at `/srv/apps/garfield/root-work/william64-cohesive`). That worktree starts at the
+same revision. Its source, public assets, tests and design guidance have now been
+recovered into the canonical repository; no credentials, dependency caches or
+generated outputs were imported. The original remote worktree is left intact.
+
+Nginx serves `/srv/www/william64.com/dist`. At recovery time this was a symlink to
+`/srv/www/william64.com/releases/aaron-20261022T144620Z-zi6ivdj4`, whose projects
+page matches the recovered curated notebook. `/srv/www/william64.com/source`
+and `/root/staging/William64.com` are stale and are **not** release inputs.
+
+The `main` workflow now uses the lockfile, builds the complete site and uploads
+`william64-site-<commit SHA>` as a GitHub Actions artifact. It does **not** deploy.
+The previous FTP workflow failed with `getaddrinfo ENOTFOUND`; its destination
+must not overwrite the recovered site. CI has no configured SSH private-key
+secret, so automatic deployment must not be assumed.
+
+For an authorized manual release:
+
+1. Build and test the canonical source revision, then smoke-test its production
+   preview at desktop and narrow widths. Use the complete `dist/`, never a subset
+   of pages. Record the source commit and archive checksum.
+2. Connect to `root@ssh.william64.com` with the operator's existing approved SSH
+   identity. Do not put the key or any service credentials in the repository.
+3. Record `readlink -f /srv/www/william64.com/dist`. Upload the archive and extract
+   it into a new, uniquely named directory under
+   `/srv/www/william64.com/releases/`, without touching existing releases.
+4. Check the uploaded checksum, expected routes and readable file permissions.
+   Create a temporary symlink **beside** `dist` pointing to the new release, then
+   use `mv -Tf` to atomically rename that symlink over `dist`. Nginx needs no
+   restart or configuration change.
+5. Check the origin and public HTTPS routes, project interactions and assets.
+   Retain the previous release. To roll back, create another temporary symlink
+   to the recorded previous target and atomically rename it over `dist`.
+
+Keep remote builds/dependency installations off the small root filesystem.
+Inspect storage before upload; recovery found 9.4 GiB free on root and 410 GiB on
+the verified NVMe mount. This procedure publishes only small prebuilt static
+assets and does not alter unrelated services, tunnel routes or security settings.
+
+### Project discovery
+
+The homepage links directly to Games & tracking. Category and search filters on
+`/projects/` live in the URL (`category` and `q`), so a selected view survives
+reload and can be bookmarked or shared. Category/reset changes form browser
+history entries; typing updates the current entry instead of adding one per
+keystroke. Back and Forward restore the controls and visible cards together.
+Clear filters is available for every active filter, not just zero results.
+Without JavaScript, all curated projects and source links remain available.
+
+### Recovery and discovery verification (2026-10-31)
+
+- `npm ci --no-audit --no-fund` and one `npm run build` completed on Windows;
+  the production build emitted 16 pages. Existing empty-blog collection and large
+  token-explorer bundle warnings remain visible.
+- `npm test` passed all 14 tests, including production route/asset/fragment
+  integrity, populated-blog fixtures, no-JS project content, filter URL reload,
+  Back/Forward restoration, unknown categories and keyboard-focus reset.
+- Chromium production-preview smoke at 1365px and 320px exercised the homepage
+  Games & tracking link, category/search intersections, reload persistence,
+  Back/Forward, a no-match search, Enter on Clear filters, and mobile menu
+  Escape/focus return. The narrow view had no horizontal overflow; no page
+  runtime errors were reported. Desktop and narrow screenshots were captured.
+- The original remote source and production release were not changed during
+  source recovery or these checks. Publication is a separate atomic-release step.

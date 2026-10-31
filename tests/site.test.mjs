@@ -97,6 +97,9 @@ test("the main content is useful without JavaScript and sensitive existing conte
     home.window.document.body.textContent,
     /Loading projects|GitHub Stars|Senior Software Engineer/,
   );
+  const gamesLink = home.window.document.querySelector('.actions a[href*="category="]');
+  assert.ok(gamesLink, "The homepage should lead directly to game-related projects");
+  assert.equal(new URL(gamesLink.href).searchParams.get("category"), "Games & tracking");
   const blog = open("blog/index.html");
   assert.match(
     blog.window.document.body.textContent,
