@@ -1,0 +1,40 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { slugify } from "../lib/posts";
+interface Props {
+  posts: CollectionEntry<"posts">[];
+}
+const { posts } = Astro.props;
+---
+
+<div class="post-list">
+  {
+    posts.map((post) => (
+      <article class="post-preview">
+        <p class="meta">
+          <time datetime={post.data.publishedDate.toISOString()}>
+            {post.data.publishedDate.toISOString().slice(0, 10)}
+          </time>{" "}
+          /{" "}
+          <a href={`/blog/category/${slugify(post.data.category)}/`}>
+            {post.data.category}
+          </a>
+          {post.data.featured && " / Featured"}
+        </p>
+        <h2>
+          <a href={`/blog/posts/${post.id}/`}>{post.data.title}</a>
+        </h2>
+        <p>{post.data.summary}</p>
+        <ul class="tags">
+          {post.data.tags.map((tag) => (
+            <li>
+              <a class="tag" href={`/blog/tag/${slugify(tag)}/`}>
+                {tag}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </article>
+    ))
+  }
+</div>

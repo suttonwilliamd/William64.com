@@ -6,6 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "test": "node --test tests/*.test.mjs",
+    "test:projects": "node --test tests/projects.test.mjs",
     "format": "prettier --write ."
   },
   "dependencies": {
@@ -13,7 +15,6 @@
     "@astrojs/react": "^4.4.2",
     "@astrojs/rss": "^4.0.15",
     "@astrojs/sitemap": "^3.7.0",
-    "@astrojs/tailwind": "^6.0.2",
     "@keystatic/astro": "^5.0.6",
     "@keystatic/core": "^0.5.48",
     "@nem035/gpt-3-encoder": "latest",
@@ -25,7 +26,6 @@
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0",
     "shiki": "^1.0.0",
-    "tailwindcss": "^3.4.19",
     "typewriter-effect": "^2.19.0"
   },
   "devDependencies": {

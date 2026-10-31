@@ -1,130 +1,52 @@
 ---
-import Navigation from '../../components/Navigation.astro';
-import Footer from '../../components/Footer.astro';
-
-const title = 'Content Manager | William64.com';
+import Layout from "../../layouts/BaseLayout.astro";
+import PageHeader from "../../components/PageHeader.astro";
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="stylesheet" href="/styles.css" />
-  </head>
-  <body class="bg-background text-text font-sans">
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-
-    <header class="header">
-      <div class="header-inner">
-        <Navigation />
-      </div>
-    </header>
-
-    <main id="main-content" class="container">
-        <div class="admin-header mb-8">
-          <h2 class="text-3xl font-bold mb-4">Content Manager</h2>
-          <p class="text-text-secondary">Manage blog posts and content for William64.com</p>
-        </div>
-
-        <div class="admin-content">
-          <div class="admin-card">
-            <h3 class="text-xl font-bold mb-4">Quick Start</h3>
-            <p class="text-text-secondary mb-4">
-              The Keystatic CMS allows you to create, edit, and manage blog posts directly from your browser.
-            </p>
-            <div class="code-block">
-              <pre><code># To use Keystatic CMS locally:
-npm run dev
-
-# Then open:
-# http://localhost:4321/admin</code></pre>
-            </div>
-          </div>
-
-          <div class="admin-card">
-            <h3 class="text-xl font-bold mb-4">Manual Editing</h3>
-            <p class="text-text-secondary mb-4">
-              You can also add posts directly by creating MDX files in <code>src/content/posts/</code>.
-            </p>
-            <h4 class="font-semibold mb-2">Frontmatter Required:</h4>
-            <div class="code-block">
-              <pre><code>---
+<Layout
+  title="Content editing | William64.com"
+  description="Local authoring instructions for William64.com."
+  noindex
+>
+  <PageHeader
+    title="Behind the notebook."
+    eyebrow="Content editing / Local workflow"
+    description="This static page is an authoring guide, not a live admin panel. Publishing changes requires access to the source repository."
+  />
+  <div class="prose reading-column">
+    <h2>Add a post</h2><p>
+      Create an MD or MDX file in <code>src/content/posts/</code>. Include the
+      frontmatter below, then write the article beneath it.
+    </p>
+    <pre><code>---
 title: "Your Post Title"
-publishedDate: "2025-12-25"
-summary: "Brief description for SEO"
+publishedDate: "2026-10-22"
+summary: "A short description for previews and search engines."
 category: "Technical Tutorials"
-tags: ["Tag1", "Tag2"]
+tags: ["Astro", "Web Development"]
 featured: false
 ---
 
-# Your Content</code></pre>
-            </div>
-          </div>
+## Your first section
 
-          <div class="admin-card">
-            <h3 class="text-xl font-bold mb-4">Available Categories</h3>
-            <ul class="category-list">
-              <li>Technical Tutorials</li>
-              <li>Industry Insights</li>
-              <li>Case Studies</li>
-              <li>Retro Tech</li>
-            </ul>
-          </div>
-        </div>
-      </main>
+Your article goes here.</code></pre>
+    <h2>Categories</h2><ul>
+      <li>Technical Tutorials</li><li>Industry Insights</li><li>
+        Case Studies
+      </li><li>Retro Tech</li>
+    </ul>
+    <h2>
+      Preview and check
+    </h2><pre><code>npm install
+npm run dev
+# Preview at http://localhost:4321/blog/
 
-      <Footer />
-    </div>
-  </body>
-</html>
-
-<style>
-  .admin-header {
-    padding-bottom: var(--space-6);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .admin-content {
-    display: grid;
-    gap: var(--space-6);
-    max-width: 800px;
-  }
-
-  .admin-card {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-  }
-
-  .code-block {
-    background: var(--color-background);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--space-4);
-    overflow-x: auto;
-  }
-
-  .code-block pre {
-    margin: 0;
-  }
-
-  .code-block code {
-    font-family: var(--font-family-mono);
-    font-size: var(--font-size-sm);
-    color: var(--color-text);
-  }
-
-  .category-list {
-    list-style: disc;
-    padding-left: var(--space-6);
-    color: var(--color-text-secondary);
-  }
-
-  .category-list li {
-    margin-bottom: var(--space-2);
-  }
-</style>
+npm test
+npm run build</code></pre>
+    <p>
+      Article, category, and tag pages are generated from the same content
+      collection. The preview runs locally; this page cannot edit or publish
+      content.
+    </p>
+  </div>
+</Layout>

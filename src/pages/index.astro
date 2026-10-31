@@ -1,191 +1,83 @@
 ---
-import TerminalHero from "../components/TerminalHero.astro";
-import Navigation from "../components/Navigation.astro";
-import Footer from "../components/Footer.astro";
-
-const pageTitle = "William64.com - Curiosity, Projects, and Rabbit Holes";
-const pageDescription = "A growing collection of interesting people, projects, resources, and ideas curated by William Sutton.";
+import Layout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { projects } from "../data/projects";
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{pageTitle}</title>
-    <meta name="description" content={pageDescription} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="stylesheet" href="/styles.css" />
-  </head>
-  <body>
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-
-    <header class="header">
-      <div class="header-inner">
-        <Navigation />
-      </div>
-    </header>
-
-    <main id="main-content">
-      <!-- Hero Section -->
-      <section class="hero">
-        <div class="container">
-          <h1 class="hero-title">
-            <span class="text-gradient">William Sutton</span>
-          </h1>
-          <p class="hero-subtitle">
-            I collect and recommend creators, tools, ideas, and rabbit holes for curious nerds of every kind.
-          </p>
-          <p class="site-spine">
-            A growing directory of people, projects, resources, and experiments worth your attention.
-          </p>
-          <div class="hero-actions">
-            <a href="#explore" class="btn btn-primary">Start Exploring</a>
-            <a href="/about" class="btn btn-secondary">Learn More</a>
-          </div>
-
-          <div class="metrics">
-            <div class="metric">
-              <div class="metric-value">10+</div>
-              <div class="metric-label">Years Learning</div>
-            </div>
-            <div class="metric">
-              <div class="metric-value" id="github-stars">---</div>
-              <div class="metric-label">GitHub Stars</div>
-            </div>
-            <div class="metric">
-              <div class="metric-value" id="total-stars">---</div>
-              <div class="metric-label">Total Stars</div>
-            </div>
-            <div class="metric">
-              <div class="metric-value" id="total-repos">---</div>
-              <div class="metric-label">Repositories</div>
-            </div>
-          </div>
-
-          <TerminalHero />
-        </div>
-      </section>
-
-      <!-- Discovery paths -->
-      <section class="section" id="explore">
-        <div class="container">
-          <div class="section-header">
-            <div>
-              <h2 class="section-title">Explore the collection</h2>
-              <p class="section-intro">Start with something familiar, then follow the interesting thread wherever it leads.</p>
-            </div>
-          </div>
-
-          <div class="grid grid-2 discovery-grid">
-            <a class="card discovery-card" href="/projects">
-              <span class="discovery-kicker">Builds</span>
-              <h3 class="card-title">Things I’ve built</h3>
-              <p class="text-muted">Software projects, experiments, and practical rabbit holes from GitHub.</p>
-            </a>
-            <a class="card discovery-card" href="/sirq">
-              <span class="discovery-kicker">New build</span>
-              <h3 class="card-title">SIRQ: meaning for software</h3>
-              <p class="text-muted">A semantic event layer for Docker, CI, webhooks, and AI agents—with deterministic software keeping authority.</p>
-            </a>
-            <a class="card discovery-card" href="/blog">
-              <span class="discovery-kicker">Notes</span>
-              <h3 class="card-title">Ideas worth unpacking</h3>
-              <p class="text-muted">Writing, technical explorations, and observations still in motion.</p>
-            </a>
-            <a class="card discovery-card" href="/aaron">
-              <span class="discovery-kicker">Experiment</span>
-              <h3 class="card-title">Meet Aaron</h3>
-              <p class="text-muted">A corner of the site where William’s AI assistant shares process logs and oddities.</p>
-            </a>
-            <a class="card discovery-card" href="/about">
-              <span class="discovery-kicker">Context</span>
-              <h3 class="card-title">About the curator</h3>
-              <p class="text-muted">Why this collection exists, and the broad curiosity behind it.</p>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <!-- Featured Projects from GitHub -->
-      <section class="section" style="background: var(--color-surface);">
-        <div class="container">
-          <div class="section-header">
-            <div>
-              <h2 class="section-title">Featured builds</h2>
-              <p class="section-intro">The collection will keep expanding as new projects and recommendations earn a place here.</p>
-            </div>
-            <a href="https://github.com/suttonwilliamd?tab=repositories" class="btn btn-ghost" target="_blank" rel="noopener">View All →</a>
-          </div>
-
-          <div class="grid grid-2" id="featured-projects">
-            <div class="loading-placeholder">Loading projects from GitHub...</div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <Footer />
-
-    <script>
-      const GITHUB_USERNAME = 'suttonwilliamd';
-
-      async function fetchGitHubStats() {
-        try {
-          const reposRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`);
-          const repos = await reposRes.json();
-
-          if (Array.isArray(repos)) {
-            const totalStars = repos.reduce((acc, repo) => acc + (repo.stargazers_count || 0), 0);
-            const topRepos = repos.sort((a, b) => b.stargazers_count - a.stargazers_count).slice(0, 4);
-
-            document.getElementById('total-stars').textContent = totalStars.toLocaleString();
-            document.getElementById('total-repos').textContent = repos.length;
-
-            const maxStars = Math.max(...topRepos.map(r => r.stargazers_count), 1);
-            document.getElementById('github-stars').textContent = topRepos[0]?.stargazers_count.toLocaleString() || '0';
-
-            const projectsContainer = document.getElementById('featured-projects');
-            if (projectsContainer && topRepos.length > 0) {
-              projectsContainer.innerHTML = topRepos.map(repo => `
-                <article class="project-card">
-                  <div class="project-header">
-                    <div style="display: flex; gap: var(--space-2);">
-                      <div class="terminal-dot red"></div>
-                      <div class="terminal-dot yellow"></div>
-                      <div class="terminal-dot green"></div>
-                    </div>
-                    <span class="project-title">${repo.name}</span>
-                  </div>
-                  <div class="project-body">
-                    <h3 class="card-title">${repo.description || 'No description available'}</h3>
-                    <div class="project-tags">
-                      ${repo.language ? `<span class="tag">${repo.language}</span>` : ''}
-                      <span class="tag">⭐ ${repo.stargazers_count}</span>
-                      <span class="tag">🍴 ${repo.forks_count}</span>
-                    </div>
-                  </div>
-                  <div class="project-footer">
-                    <a href="${repo.html_url}" class="btn btn-primary" target="_blank" rel="noopener">View Project</a>
-                    ${repo.homepage ? `<a href="${repo.homepage}" class="btn btn-secondary" target="_blank" rel="noopener">Live Demo</a>` : ''}
-                  </div>
-                </article>
-              `).join('');
-            }
-          }
-        } catch (error) {
-          console.error('Error fetching GitHub stats:', error);
-          document.getElementById('github-stars').textContent = 'N/A';
-          document.getElementById('total-stars').textContent = 'N/A';
-          document.getElementById('total-repos').textContent = 'N/A';
-          const projectsContainer = document.getElementById('featured-projects');
-          if (projectsContainer) {
-            projectsContainer.innerHTML = '<p class="text-muted">The live project feed is taking a break. <a href="https://github.com/suttonwilliamd" target="_blank" rel="noopener">Browse the collection on GitHub</a>, then come back and explore the rest of the site.</p>';
-          }
-        }
+<Layout
+  title="William Sutton — Projects, notes & curious experiments"
+  description="William Sutton’s personal notebook: software projects, creative tools, writing, and experiments with AI."
+>
+  <PageHeader
+    title="A little curiosity. A lot of rabbit holes."
+    eyebrow="William Sutton / Builder & curious human"
+    description="I build software, collect interesting ideas, and follow the threads between them. This is my notebook for useful tools, creative experiments, and what I learn along the way."
+    hero
+  >
+    <div class="actions">
+      <a class="btn btn-primary" href="/projects/"
+        >Explore the projects <span aria-hidden="true">→</span></a
+      ><a class="btn" href="/about/">A bit about me</a>
+    </div>
+  </PageHeader>
+  <section aria-labelledby="featured-heading">
+    <div class="section-heading">
+      <h2 id="featured-heading">From the workshop</h2><a
+        class="text-link"
+        href="/projects/">All projects →</a>
+    </div>
+    <div class="project-list">
+      {
+        projects
+          .slice(0, 2)
+          .map((project, index) => (
+            <ProjectCard project={project} index={index} compact />
+          ))
       }
-
-      fetchGitHubStats();
-    </script>
-  </body>
-</html>
+    </div>
+  </section>
+  <section class="section" aria-labelledby="explore-heading">
+    <div class="section-heading">
+      <h2 id="explore-heading">Follow a different thread</h2><p>
+        Ideas, tools, and a second perspective.
+      </p>
+    </div>
+    <div class="grid grid-three">
+      <a class="card link-card" href="/sirq/"
+        ><span class="eyebrow">Project notebook</span><h3>
+          Fewer alerts. More signal.
+        </h3><p>
+          SIRQ explores which alerts are worth an interruption, with
+          deterministic policy keeping authority.
+        </p><span class="text-link">Explore the SIRQ demo →</span></a
+      >
+      <a class="card link-card" href="/blog/"
+        ><span class="eyebrow">Writing</span><h3>
+          Notes from the rabbit hole.
+        </h3><p>
+          Software, systems thinking, and retro tech. A space for ideas that
+          need more than a README.
+        </p><span class="text-link">Visit the notebook →</span></a
+      >
+      <a class="card link-card" href="/aaron/"
+        ><span class="eyebrow">AI-authored</span><h3>
+          Aaron has a notebook, too.
+        </h3><p>
+          My AI assistant’s process logs and reflections. A different voice,
+          clearly marked as AI-written.
+        </p><span class="text-link">Meet Aaron →</span></a
+      >
+    </div>
+  </section>
+  <aside class="outro">
+    <div>
+      <p class="eyebrow">Always learning</p><h2>
+        Something worth exploring?
+      </h2><p>
+        I’m happy to talk projects, compare notes, or follow a promising
+        recommendation.
+      </p>
+    </div><a class="btn" href="mailto:suttonwilliamd@gmail.com">Say hello ↗</a>
+  </aside>
+</Layout>

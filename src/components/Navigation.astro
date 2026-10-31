@@ -1,195 +1,72 @@
 ---
-const navItems = [
-  { name: 'Home', path: '/', icon: '🏠' },
-  { name: 'Builds', path: '/projects', icon: '⚡' },
-  { name: 'SIRQ', path: '/sirq', icon: '◈' },
-  { name: 'Blog', path: '/blog', icon: '📝' },
-  { name: 'About', path: '/about', icon: '👤' },
-  { name: 'Aaron', path: '/aaron', icon: '🫠' }
+const links = [
+  { name: "Projects", path: "/projects/" },
+  { name: "Writing", path: "/blog/" },
+  { name: "About", path: "/about/" },
+  { name: "Aaron", path: "/aaron/" },
 ];
-
-const currentPath = Astro.url.pathname;
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 ---
 
-<nav class="nav">
-  <a href="/" class="logo-link">
-    <span class="logo-gradient">William64</span><span class="logo-dot">.com</span>
-  </a>
-  
-  <div class="nav-links" id="nav-links">
-    {navItems.map(item => (
-      <a
-        href={item.path}
-        class={`nav-link ${currentPath === item.path || (item.path !== '/' && currentPath.startsWith(item.path)) ? 'active' : ''}`}
-      >
-        <span class="nav-icon" aria-hidden="true">{item.icon}</span>
-        <span class="nav-text">{item.name}</span>
-      </a>
-    ))}
-    <a href="mailto:suttonwilliamd@gmail.com" class="nav-link nav-cta">
-      <span aria-hidden="true">📧</span>
-      <span class="nav-text">Get in Touch</span>
-    </a>
+<nav class="site-nav" aria-label="Main navigation">
+  <a href="/" class="brand" aria-label="William64.com home"
+    ><span class="brand-mark" aria-hidden="true">64</span><span
+      >William64<span class="brand-domain">.com</span></span
+    ></a
+  >
+  <button
+    type="button"
+    class="menu-toggle"
+    aria-expanded="false"
+    aria-controls="nav-links">Menu <span aria-hidden="true">☰</span></button
+  >
+  <div id="nav-links" class="nav-links">
+    {
+      links.map((link) => (
+        <a
+          href={link.path}
+          class="nav-link"
+          aria-current={
+            path === link.path.slice(0, -1) ||
+            path.startsWith(link.path) ||
+            (link.path === "/projects/" && path === "/sirq")
+              ? "page"
+              : undefined
+          }
+        >
+          {link.name}
+        </a>
+      ))
+    }
+    <a href="mailto:suttonwilliamd@gmail.com" class="nav-link nav-contact"
+      >Say hello <span aria-hidden="true">↗</span></a
+    >
   </div>
-  
-  <button class="hamburger" id="hamburger" type="button" aria-label="Toggle menu" aria-controls="nav-links" aria-expanded="false">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
 </nav>
-
 <script>
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('nav-links');
-  
-  const setMenuState = (open) => {
-    navLinks?.classList.toggle('open', open);
-    hamburger?.classList.toggle('open', open);
-    hamburger?.setAttribute('aria-expanded', String(open));
+  const nav = document.querySelector<HTMLElement>(".site-nav")!;
+  const toggle = nav.querySelector<HTMLButtonElement>(".menu-toggle")!;
+  const links = nav.querySelector<HTMLElement>("#nav-links")!;
+  const setOpen = (open: boolean) => {
+    toggle.setAttribute("aria-expanded", String(open));
+    links.classList.toggle("open", open);
   };
-
-  hamburger?.addEventListener('click', () => {
-    setMenuState(!navLinks?.classList.contains('open'));
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && navLinks?.classList.contains('open')) {
-      setMenuState(false);
-      hamburger?.focus();
+  toggle.addEventListener("click", () =>
+    setOpen(toggle.getAttribute("aria-expanded") !== "true"),
+  );
+  nav.addEventListener("keydown", (event) => {
+    if (
+      event.key === "Escape" &&
+      toggle.getAttribute("aria-expanded") === "true"
+    ) {
+      setOpen(false);
+      toggle.focus();
     }
   });
+  links.addEventListener("click", (event) => {
+    if ((event.target as HTMLElement).closest("a")) setOpen(false);
+  });
+  const mobile = matchMedia("(max-width: 900px)");
+  mobile.addEventListener("change", () => setOpen(false));
+  nav.classList.add("navigation-ready");
 </script>
-
-<style>
-  .nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-4);
-    width: 100%;
-    position: relative;
-  }
-
-  .logo-link {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    flex-shrink: 0;
-  }
-
-  .logo-gradient {
-    background: linear-gradient(135deg, #00d4aa 0%, #7c3aed 50%, #db2777 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: var(--font-weight-bold);
-    font-size: var(--font-size-lg);
-  }
-
-  .logo-dot {
-    color: var(--color-text);
-    font-weight: var(--font-weight-bold);
-    font-size: var(--font-size-lg);
-  }
-
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    flex-wrap: wrap;
-  }
-
-  .nav-link {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-3);
-    color: var(--color-text-secondary);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    border-radius: var(--radius-md);
-    transition: all var(--transition-fast);
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
-  .nav-icon {
-    font-size: var(--font-size-base);
-    line-height: 1;
-  }
-
-  .nav-text {
-    font-weight: var(--font-weight-medium);
-  }
-
-  .nav-link:hover {
-    color: var(--color-text);
-    background: var(--color-surface);
-  }
-
-  .nav-link.active {
-    color: var(--color-primary);
-    background: rgba(0, 229, 160, 0.1);
-  }
-
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 4px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: var(--space-2);
-  }
-
-  .hamburger span {
-    display: block;
-    width: 24px;
-    height: 2px;
-    background: var(--color-text);
-    border-radius: 2px;
-    transition: all var(--transition-fast);
-  }
-
-  .hamburger.open span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
-
-  .hamburger.open span:nth-child(2) {
-    opacity: 0;
-  }
-
-  .hamburger.open span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
-  }
-
-  @media (max-width: 900px) {
-    .hamburger {
-      display: flex;
-    }
-
-    .nav-links {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      flex-direction: column;
-      background: var(--color-background);
-      border-bottom: 1px solid var(--color-border);
-      padding: var(--space-4);
-      gap: var(--space-2);
-      z-index: 1000;
-    }
-
-    .nav-links.open {
-      display: flex;
-    }
-
-    .nav-link {
-      width: 100%;
-      padding: var(--space-3) var(--space-4);
-    }
-  }
-</style>

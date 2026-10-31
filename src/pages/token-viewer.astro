@@ -1,35 +1,23 @@
 ---
+import Layout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
 import TokenViewer from "../components/TokenViewer.jsx";
-import Footer from '../components/Footer.astro';
 ---
-<html lang="en">
-<div>
-<header>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Token Viewer | William64.com</title>
-    <meta name="description" content="Interactive token explorer for GPT-2 vocabulary." />
-  </head>
-</header>
-  <body>
-    <!-- Loading state while TokenViewer loads -->
-    <div id="loading-state" style="
-      min-height: 100vh;
-      background: #111;
-      color: limegreen;
-      font-family: monospace;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-    ">
-      Loading Token Viewer...
-    </div>
-    
-    <!-- TokenViewer with idle loading to reduce initial bundle impact -->
-    <TokenViewer client:idle />
-  </body>
 
-<Footer />
-</div>
-</html>
+<Layout
+  title="Token explorer | William64.com"
+  description="An interactive GPT-2 vocabulary explorer. Decode a token ID or see how text becomes a sequence of tokens."
+>
+  <PageHeader
+    title="What does a token look like?"
+    eyebrow="Small experiments / Token explorer"
+    description="A little toy built out of curiosity. Explore the GPT-2 vocabulary one ID at a time, or turn a piece of text into tokens. This is not the tokenizer used by every modern AI model."
+  />
+  <noscript
+    ><p class="note">
+      This interactive tool needs JavaScript to encode and decode text. The rest
+      of the site works without it.
+    </p></noscript
+  >
+  <TokenViewer client:load />
+</Layout>

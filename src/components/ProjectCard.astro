@@ -1,0 +1,78 @@
+---
+import type { projects } from "../data/projects";
+interface Props {
+  project: (typeof projects)[number];
+  index: number;
+  compact?: boolean;
+}
+const { project, index, compact = false } = Astro.props;
+---
+
+<article
+  class:list={["work-card", { featured: project.featured }]}
+  data-project
+  data-category={project.category}
+  data-search={[
+    project.name,
+    project.tagline,
+    project.description,
+    project.category,
+    ...project.stack,
+  ]
+    .join(" ")
+    .toLowerCase()}
+>
+  <div class="card-topline">
+    <span class="project-index"
+      >{String(index + 1).padStart(2, "0")} / {project.category}</span
+    ><span class="project-kind">{project.kind}</span>
+  </div>
+  <h3>
+    <a href={`https://github.com/suttonwilliamd/${project.repo}`}
+      >{project.name}<span aria-hidden="true">↗</span></a>
+  </h3>
+  <p class="project-tagline">{project.tagline}</p>
+  <p class="project-description">{project.description}</p>
+  {
+    !compact && project.details && (
+      <ul class="project-details">
+        {project.details.map((detail) => (
+          <li>{detail}</li>
+        ))}
+      </ul>
+    )
+  }
+  <ul
+    class="tags tech-list"
+    aria-label={`${project.name} technologies and concepts`}
+  >
+    {
+      project.stack.map((tech) => (
+        <li>
+          <span class="tag">{tech}</span>
+        </li>
+      ))
+    }
+  </ul>
+  <div class="card-links">
+    <a
+      href={`https://github.com/suttonwilliamd/${project.repo}`}
+      aria-label={`${project.name} source on GitHub`}
+      >View source <span aria-hidden="true">↗</span></a
+    >
+    {
+      project.link && (
+        <a class="project-action" href={project.link}>
+          {project.linkLabel} <span aria-hidden="true">↗</span>
+        </a>
+      )
+    }
+    {
+      project.repo === "SIRQ" && (
+        <a href="/sirq/">
+          Read the case study <span aria-hidden="true">→</span>
+        </a>
+      )
+    }
+  </div>
+</article>

@@ -1,75 +1,48 @@
 ---
-import AISlopBanner from '../components/AISlopBanner.astro';
-import Navigation from '../components/Navigation.astro';
+import "../styles/site.css";
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
 
-export interface Props {
+interface Props {
   title: string;
   description: string;
-  image?: string;
-  showBanner?: boolean;
+  noindex?: boolean;
 }
-
-const { title, description, image = '/images/social-card.png', showBanner = true } = Astro.props;
+const { title, description, noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0c1116" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    
-    <!-- Favicon -->
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    
-    <!-- Open Graph / Facebook -->
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="William64.com writing"
+      href="/rss.xml"
+    />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.url} />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(image, Astro.url)} />
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={Astro.url} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={new URL(image, Astro.url)} />
-    
-    <!-- Styles -->
-    <link rel="stylesheet" href="/styles.css" />
-    
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "William64.com",
-        "url": "https://william64.com",
-        "description": "Personal website of William Sutton, software engineer",
-        "author": {
-          "@type": "Person",
-          "name": "William Sutton"
-        }
-      }
-    </script>
+    <meta name="twitter:card" content="summary" />
   </head>
-<body class="bg-background text-text font-sans">
-    <!-- Skip to main content link for accessibility -->
+  <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    
-    <header class="header">
-      <div class="header-inner">
-        <Navigation />
-      </div>
+    <header class="site-header">
+      <div class="container"><Navigation /></div>
     </header>
-    
-    <div class="main-layout">
-      <main id="main-content" role="main">
-        <slot />
-      </main>
-    </div>
+    <main id="main-content" class="site-main" tabindex="-1">
+      <div class="container"><slot /></div>
+    </main>
+    <Footer />
   </body>
 </html>
