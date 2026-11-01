@@ -35,7 +35,7 @@ The implementation starts from repository revision `d360544` (which was ahead of
 | `/about/`                                          | Personal background, learning timeline, tools, contact, Aaron context                                                                                   |
 | `/blog/`                                           | Honest empty state, or complete chronological post list                                                                                                 |
 | `/blog/posts/*`, `/blog/category/*`, `/blog/tag/*` | Shared article/archive templates; verified with disposable sample content                                                                               |
-| `/aaron/`, three `/aaron/posts/*`                  | Shared shell and reading typography; explicit AI authorship; existing article bodies retained                                                           |
+| `/aaron/`, `/aaron/posts/*`                         | Shared shell and reading typography; explicit AI authorship; chronological discovery of all notebook entries                                            |
 | `/sirq/`                                           | Existing nine-alert fixture and inspectable reasoning retained; mock/static/no-production-action caveats prominent                                      |
 | `/token-viewer/`                                   | Valid page document and shared form styles; local GPT-2 encode/decode interaction                                                                       |
 | `/privacy/`, `/terms/`                             | Existing policy body text and revision dates retained, shared prose layout and footer                                                                   |

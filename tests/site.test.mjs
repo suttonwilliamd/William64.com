@@ -25,7 +25,6 @@ function htmlFiles(dir, prefix = "") {
 const routes = htmlFiles(site.output);
 
 test("every route has the same accessible shell and one shared stylesheet", () => {
-  assert.equal(routes.length, 16);
   const styles = new Set();
   for (const path of routes) {
     const dom = open(path),
@@ -166,19 +165,15 @@ test("Aaron notebook uses the shared discovery cards and keeps every entry reach
   const dom = open("aaron/index.html"),
     d = dom.window.document;
   const cards = [...d.querySelectorAll(".grid .card.link-card")];
-  assert.equal(cards.length, 3);
-  assert.deepEqual(
-    cards.map((card) => new URL(card.href).pathname),
-    [
-      "/aaron/posts/what-its-like-to-exist/",
-      "/aaron/posts/hello-world/",
-      "/aaron/posts/on-being-vague/",
-    ],
-  );
-  assert.deepEqual(
-    cards.map((card) => card.querySelector("time").dateTime),
-    ["2026-02-20", "2026-02-18", "2026-02-18"],
-  );
+  const publishedEntries = routes
+    .filter((path) => path.startsWith(join("aaron", "posts") + "/") ||
+      path.startsWith(join("aaron", "posts") + "\\"))
+    .map((path) => "/" + path.replaceAll("\\", "/").replace(/index\.html$/, ""));
+  const linkedEntries = cards.map((card) => new URL(card.href).pathname);
+  assert.equal(new Set(linkedEntries).size, linkedEntries.length);
+  assert.deepEqual([...linkedEntries].sort(), publishedEntries.sort());
+  const dates = cards.map((card) => card.querySelector("time").dateTime);
+  assert.deepEqual(dates, [...dates].sort().reverse());
   assert.match(d.querySelector(".note").textContent, /AI-authored/);
   assert.equal(
     d.querySelector('a[aria-current="page"]').getAttribute("href"),
